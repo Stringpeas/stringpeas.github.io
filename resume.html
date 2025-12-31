@@ -9,7 +9,7 @@
     <script src="js/component/toolbar.js"></script>
     <script src="js/site-util.js"></script>
 
-    <title>▷ [ RESUME ]</title>
+    <title>[ RESUME ]</title>
 
     <style>
         :root {
@@ -49,6 +49,19 @@
             height: 100dvh;
             background-image: url("img/asset/grid-icons.png");
             background-size: 250px;
+            z-index:0;
+        }
+
+        .static-background {
+            position: fixed;
+            inset: 0;
+            background-image: url("img/texture/resumebg1.png");
+            background-size: 500px 400px;
+            background-repeat: repeat;
+            z-index: 1;
+            image-rendering: pixelated;
+            opacity: 0.8;
+            pointer-events: none;
         }
 
         #grid-primary {
@@ -77,6 +90,7 @@
             border-color: dodgerblue;
             border-width: 3px;
             animation: animated-default-bg 60s linear infinite;
+            z-index:3;
         }
 
         .world-header {
@@ -155,7 +169,9 @@
 </head>
 
 <body class="rm-pause">
+
     <div class="grid-background rm-pause" id="grid-primary"></div>
+    <div class="static-background rm-pause"></div>
     <tool-bar altlinks="/sitemap.html"></tool-bar>
 
     <div id="container">
@@ -173,7 +189,7 @@
 
                 <div class="resume-download">
                     <a href="Resume.pdf" target="_blank">
-                        Download Resume (PDF)
+                        Open Resume (PDF)
                     </a>
                 </div>
             </div>

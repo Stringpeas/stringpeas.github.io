@@ -11,12 +11,10 @@
     <script src="js/site-util.js"></script>
     <script src="js/component/toolbar.js"></script>
 
-    <title>▷ [ ART ]</title>
+    <title>[ ART ]</title>
 
     <style>
-        /* ===============================
-           BACKGROUND (Resume-style)
-        =============================== */
+
 
         @keyframes animated-grid {
             from {
@@ -30,7 +28,7 @@
 
         body {
             margin: 0;
-            padding-top: 60px; /* visual offset only */
+            padding-top: 60px; 
             background: black;
         }
 
@@ -42,6 +40,19 @@
             z-index: 0;
         }
 
+        .static-background {
+            position: fixed;
+            inset: 0;
+            background-image: url("img/texture/artbg1.png");
+            background-size: 450px 450px;
+            background-repeat: repeat;
+            z-index: 1;
+            image-rendering: pixelated;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+
         #grid-primary {
             animation: animated-grid 40s linear infinite;
         }
@@ -52,19 +63,15 @@
             z-index: 2;
         }
 
-        /* ===============================
-           LAYOUT
-        =============================== */
+
 
         #art-container {
             max-width: 1100px;
-            margin: 0 auto; /* no vertical margin */
+            margin: 0 auto; 
             padding: 0 20px;
         }
 
-        /* ===============================
-           TABS
-        =============================== */
+ 
 
         #art-tabs {
             display: flex;
@@ -97,9 +104,6 @@
                 border-color: deepskyblue;
             }
 
-        /* ===============================
-           ART WINDOW
-        =============================== */
 
         #art-window {
             border: 1px solid deepskyblue;
@@ -110,9 +114,6 @@
             padding: 30px;
         }
 
-        /* ===============================
-           GALLERY GRID
-        =============================== */
 
         .art-panel {
             display: none;
@@ -149,9 +150,7 @@
         }
 
 
-        /* ===============================
-           RESPONSIVE
-        =============================== */
+
 
         @media screen and (max-width: 900px) {
             .art-panel.active {
@@ -165,10 +164,7 @@
             }
         }
 
-        /* ===============================
-           IMAGE MODAL
-        =============================== */
-
+ 
         #image-modal {
             overflow: hidden;
             position: fixed;
@@ -211,6 +207,8 @@
 
     <!-- Animated background -->
     <div class="grid-background rm-pause" id="grid-primary"></div>
+
+    <div class="static-background rm-pause"></div>
 
     <tool-bar altlinks="/sitemap.html"></tool-bar>
 
@@ -268,7 +266,6 @@
     </div>
     <br />
 
-    <!-- IMAGE MODAL -->
     <div id="image-modal">
         <img id="image-modal-img" />
     </div>
@@ -276,7 +273,6 @@
     <script src="js/reduced-motion.js"></script>
 
     <script>
-        /* TAB SWITCHING */
         const tabs = document.querySelectorAll(".art-tab");
         const panels = document.querySelectorAll(".art-panel");
 

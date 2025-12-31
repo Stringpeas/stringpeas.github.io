@@ -209,10 +209,13 @@ a:link {
 		display: flex;
 	}
 
-	body.rainbow-machine {
+	body.rainbow-bg {
 		background: url("img/texture/machine-dark.png");
 		background-size: 300px;
+		background-repeat: repeat;
+		background-position: top left;
 	}
+
 }
 
 /* VERTICAL TITLE */

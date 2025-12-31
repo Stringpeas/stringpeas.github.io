@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	
+<head>
+		<script src="js/site-util.js" type="text/javascript"></script>
+		<meta
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=contain"
+			name="viewport"
+		/>
+		<link href="favicon.ico" rel="icon" type="image/x-icon" />
+		<meta charset="utf-8" />
+		<title>[ ABOUT ME ]</title>
+		<link href="style.css" media="all" rel="stylesheet" type="text/css" />
+		<script src="js/component/toolbar.js" type="text/javascript"></script>
+		<style>
+
+			@keyframes animated-collage {
+				from {
+					background-position: 0 0;
+				}
+				to {
+					background-position: -2666px 0px;
+				}
+			}
+
+			@keyframes wobbly-bg {
+				from {
+					background-position: 0 -5px;
+				}
+				to {
+					background-position: -20px 0px;
+				}
+			}
+
+
+			#aboutme-container * {
+				scrollbar-color: rgb(0, 114, 187) #000000 !important;
+			}
+
+			body {
+				image-rendering: pixelated;
+				background-image: url("img/texture/wiggly.gif");
+				background-size: 500px 500px;
+			}
+			#aboutme-container {
+				width: calc(100% - 20px);
+				height: 100%;
+				display: flex;
+				gap: 1em;
+				max-height: 90dvh;
+				justify-content: safe center;
+				padding-top: 50px;
+				margin: auto;
+			}
+
+			#aboutme-primary {
+				display: flex;
+				flex-direction: column;
+				gap: 1em;
+				flex: 1;
+				max-width: 430px;
+				justify-content: center;
+				height: 90dvh;
+			}
+			#portrait {
+				width: 100%;
+				border-color: rgb(31, 65, 255);
+				border-style: double;
+				border-width: 3px;
+				border-radius: 10px;
+				image-rendering: auto;
+				box-sizing: border-box;
+				object-fit: cover;
+				object-position: top;
+				height: 100%;
+				aspect-ratio: 546 / 772;
+			}
+			#statistics {
+				position: relative;
+			}
+			#statistics-background {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background:linear-gradient(to left, rgb(14, 53, 90), rgb(0, 0, 0));
+				z-index: 0;
+				background-blend-mode: difference;
+				opacity: 0.8;
+			}
+            #statistics-content {
+                height: 100%;
+                position: relative;
+                color: deepskyblue;
+                text-align: left;
+                display: flex;
+
+                border-style: solid;
+                border-width: 1px;
+                color: dodgerblue;
+                z-index: 10;
+            }
+            .stat {
+                font-size: 1.3rem;
+                font-family: "Consolas";
+            }
+			.stat-label {
+				color: deepskyblue;
+				font-family: "Silkscreen";
+			}
+			#statistics-content p {
+				margin: 0;
+			}
+			#macro-stats {
+				padding: 15px;
+				display: flex;
+				flex-direction: column;
+				flex-grow: 1;
+			}
+			#micro-stats {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				background-color: rgb(0, 0, 0);
+				gap: 10px;
+				padding: 10px;
+				border-left-style: solid;
+				border-width: 1px;
+				border-top-left-radius: 40px;
+				border-bottom-left-radius: 40px;
+			}
+			#micro-stats img {
+				height: fit-content;
+			}
+			#dragon,
+			#mbti {
+				transform: rotate(90deg);
+				padding: 10px 0px;
+			}
+
+			#aboutme-secondary {
+				flex: 2;
+				display: flex;
+				flex-direction: column;
+				width: 50%;
+				max-width: 1000px;
+				height: 90dvh;
+			}
+			#tabs {
+				flex: 1;
+				display: flex;
+				width: 100%;
+				align-items: flex-end;
+			}
+			.tab {
+				flex-grow: 1;
+				background-color: black;
+				padding: 10px;
+				height: calc(100% - 6px);
+
+				color: rgb(97, 97, 97);
+				text-transform: uppercase;
+				font-family: "Silkscreen";
+				font-size: 1em;
+
+				border-style: solid;
+				border-bottom-style: none;
+				border-width: 1px;
+				border-color: rgb(97, 97, 97);
+				border-radius: 100px 100px 0px 0px;
+				transition: 0.2s !important;
+			}
+			.tab:hover {
+				background-color: rgb(1, 23, 68);
+				color: deepskyblue;
+				height: 100%;
+				transition: 0s !important;
+			}
+            .tab:disabled {
+                background-color: rgb(12, 130, 226);
+                border-color: rgb(12, 130, 226);
+                color: black;
+                height: 100%;
+            }
+            #content-container-wrapper {
+                flex: 19;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 1);
+                border-style: solid;
+                border-width: 1px;
+                border-color: rgb(12, 130, 226);
+                border-radius: 0px 0px 10px 10px;
+                position: relative;
+            }
+			#content-container {
+				display: flex;
+				flex-direction: column;
+				justify-content: safe center;
+				align-items: center;
+				overflow: auto;
+				height: 100%;
+				box-sizing: border-box;
+			}
+
+			#about {
+				max-width: 800px;
+				color: rgb(255, 255, 255);
+				position: relative;
+				height: 100%;
+				width: 100%;
+			}
+			#about-background {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				z-index: 0;
+				height: 100%;
+				width: 100%;
+				image-rendering: pixelated;
+				object-fit: contain;
+				opacity: 1;
+				filter: brightness(0.8);
+			}
+			#about-content {
+				display: flex;
+				flex-direction: column;
+				justify-content: safe center;
+				height: fit-content;
+				min-height: calc(100% - 40px);
+				width: calc(100% - 40px);
+				padding: 20px 20px;
+			}
+			#about-content p {
+				position: relative;
+				z-index: 10;
+				margin: 6px;
+				text-shadow: 1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black,
+					-1px 1px 0 black, -2px 2px 0 black;
+			}
+			#about b {
+				color: rgb(97, 174, 255);
+			}
+
+			.quote-content {
+				position: relative;
+				padding: 20px;
+				color: rgb(255, 255, 255);
+				z-index: 10;
+				font-family: "Inconsolata";
+				line-height: 1.3em;
+
+				border-style: solid;
+				border-width: 1px;
+				border-color: rgb(255, 58, 229);
+			}
+			.quote-wrapper p {
+				text-shadow: 1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black,
+					-1px 1px 0 black, -2px 2px 0 black;
+			}
+			.quote-wrapper {
+				margin-top: 1em;
+				mix-blend-mode: difference;
+			}
+
+			#qna {
+				width: 100%;
+				padding: 0px;
+				background-image: url("img/asset/question.gif");
+				background-size: 100px;
+				background-attachment: fixed;
+			}
+			#qna h3 {
+				font-family: "Silkscreen";
+				background-clip: text;
+				color: deepskyblue;
+			}
+			#qna p {
+				color: rgb(255, 255, 255);
+			}
+			#qna-content {
+				display: flex;
+				flex-direction: column;
+				gap: 10px;
+				padding: 20px;
+				margin: auto;
+				width: fit-content;
+				max-width: 100%;
+			}
+			#qna img {
+				max-width: 100%;
+			}
+			.question {
+				max-width: 800px;
+			}
+			.question a {
+				text-decoration: underline;
+				color: aqua;
+			}
+			.question a:hover {
+				color: white;
+			}
+
+			#interests {
+				color: deepskyblue;
+				font-family: "Inconsolata";
+				height: 100%;
+				width: 100%;
+			}
+			#interests hr {
+				border-color: rgb(0, 106, 153);
+				border-bottom-style: none;
+				margin: 20px 0px;
+			}
+			#interests-title {
+				font-family: "Silkscreen";
+				font-size: 1.5em;
+				color: deepskyblue;
+				margin-top: 10px;
+				z-index: 1;
+			}
+			#interests-title s {
+				color: rgb(51, 115, 141);
+			}
+			#interests-content::before {
+				position: absolute;
+				content: "";
+				height: 100%;
+				width: 100%;
+				background: linear-gradient(
+						180deg,
+						rgba(0, 0, 0, 0) 0%,
+						rgba(0, 0, 0, 1) 400px
+					),
+					url("img/asset/interests-bg.png");
+				transform: scaleY(-1);
+				background-repeat: repeat-x;
+				z-index: 0;
+			}
+			#interests-content {
+				display: flex;
+				flex-direction: column;
+				justify-content: safe center;
+				align-items: center;
+				gap: 1em;
+				padding: 20px;
+				position: relative;
+			}
+			#interests a {
+				text-decoration: underline;
+			}
+			#interests a:hover {
+				color: white;
+			}
+			#interests-more {
+				z-index: 1;
+				text-transform: uppercase;
+				font-weight: bold;
+				letter-spacing: 4px;
+			}
+
+			#games {
+				background-image: url("ext/img/games.png");
+				background-position: right;
+				height: 270px;
+				width: 800px;
+				position: relative;
+				max-width: 100%;
+			}
+			#games p {
+				position: absolute;
+				width: 500px;
+				top: 30%;
+				max-width: calc(100% - 20px);
+				padding: 0px 10px;
+				text-shadow: 1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black,
+					-1px 1px 0 black, -2px 2px 0 black, 1px 1px 10px black,
+					1px 1px 10px black;
+			}
+
+			#movies {
+				min-height: 360px;
+				width: 100%;
+				max-width: 1000px;
+				position: relative;
+				image-rendering: auto;
+				border-style: double;
+				border-color: rgb(221, 0, 0);
+				background-image: url("ext/img/movies.png");
+				margin: auto;
+				box-sizing: border-box;
+				animation: wobbly-bg 3s ease-in-out infinite alternate;
+
+			}
+			#movies .title {
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, calc(-50% - 1.4em));
+
+				width: fit-content;
+				margin: 0;
+				padding: 10px;
+
+				color: deepskyblue;
+				background-color: rgb(0, 0, 0);
+			}
+			#movies .description {
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, calc(-50% + 1.4em));
+			}
+            #books {
+                min-height: 360px;
+                width: 100%;
+                max-width: 1000px;
+                position: relative;
+                image-rendering: auto;
+                border-style: double;
+                border-color: rgb(221, 0, 0);
+                background-image: url("ext/img/books.png");
+                margin: auto;
+                box-sizing: border-box;
+                animation: wobbly-bg 3s ease-in-out infinite alternate;
+            }
+
+            #books .title {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, calc(-50% - 1.4em));
+                width: fit-content;
+                margin: 0;
+                padding: 10px;
+                color: deepskyblue;
+                background-color: rgb(0, 0, 0);
+            }
+
+            #books .description {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, calc(-50% + 1.4em));
+            }
+
+            #music {
+                min-height: 360px;
+                width: 100%;
+                max-width: 1000px;
+                position: relative;
+                image-rendering: auto;
+                border-style: double;
+                border-color: rgb(221, 0, 0);
+                background-image: url("ext/img/musics.png");
+                margin: auto;
+                box-sizing: border-box;
+                animation: wobbly-bg 3s ease-in-out infinite alternate;
+            }
+
+            #music .title {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, calc(-50% - 1.4em));
+                width: fit-content;
+                margin: 0;
+                padding: 10px;
+                color: deepskyblue;
+                background-color: rgb(0, 0, 0);
+            }
+
+            #music .description {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, calc(-50% + 1.4em));
+            }
+			.character-node {
+				display: flex;
+				gap: 1em;
+				margin: 20px;
+				align-items: center;
+				justify-content: center;
+				width: 100%;
+				max-width: 1000px;
+			}
+			.character-node img {
+				width: 50%;
+				border-style: ridge;
+			}
+			.character-info {
+				width: 50%;
+			}
+			#hypnos img {
+				border-color: gray;
+			}
+			#ginko img {
+				border-color: rgb(136, 132, 82);
+			}
+			#naomi img {
+				border-color: rgb(172, 172, 172);
+			}
+
+			.interest-node {
+				position: relative;
+				border-style: double;
+				text-shadow: 1px 1px 5px black;
+				width: 100%;
+				max-width: 700px;
+				min-height: 300px;
+				background-position: center;
+				z-index: 1;
+			}
+			.interest-node .title,
+			.interest-node .description {
+				position: absolute;
+				background-color: black;
+				padding: 10px;
+				margin: 0;
+			}
+			.interest-node .title {
+				font-weight: bold;
+			}
+			.interest-node .description {
+				background: radial-gradient(
+					circle,
+					rgb(0, 0, 0) 50%,
+					rgba(0, 0, 0, 0.575) 100%
+				);
+			}
+			.character-node {
+				z-index: 1;
+			}
+
+			#hylics {
+				background-image: url("ext/img/hylics.png");
+				background-position: center;
+			}
+			#hylics .title {
+				right: 10px;
+				top: 0%;
+			}
+			#isaac {
+				background-size: 680px;
+				background-position: center;
+				background-image: url("ext/img/tboi.png");
+			}
+			#isaac .title {
+				bottom: 0%;
+				right: 10px;
+			}
+			#yakuza {
+				background-size: 1000px;
+				background-image: url("ext/img/yakuza.png");
+				background-position: center;
+			}
+			#yakuza .title {
+				top: 10px;
+				right: 10px;
+			}
+			#yakuza .description {
+				bottom: 0%;
+			}
+			#octo-expansion {
+				background-size: auto 420px;
+				background-position: center;
+				background-image: url("ext/img/octo-expansion.png");
+			}
+			#octo-expansion .title {
+				top: 50%;
+				left: 60%;
+				transform: translate(-50%, -50%);
+			}
+			#mob {
+				background-image: url("ext/img/mob-psycho-100.gif");
+				background-size: 700px;
+			}
+			#mob .title {
+				top: 0%;
+				right: 0%;
+			}
+			#mob .description {
+				bottom: 0%;
+				left: 0%;
+			}
+			#madoka-magica {
+				background-image: url("ext/img/madoka.png");
+				background-size: 700px;
+			}
+			#madoka-magica .title {
+				top: 10px;
+				right: 10px;
+			}
+
+			/* FUN */
+			#fun {
+				width: 100%;
+				background: url("img/asset/yugioh-friendship-bg.png");
+				background-attachment: fixed;
+			}
+			#fun-content {
+				display: flex;
+				flex-direction: column;
+				margin: 20px;
+				gap: 1em;
+				justify-content: center;
+				align-items: center;
+			}
+			#fun img {
+				min-width: 50%;
+				max-width: 100%;
+				object-fit: contain;
+				box-shadow: 0px 0px 20px rgba(0, 0, 0, 1);
+			}
+
+			/* SMALL SCREEN */
+			.small-screen-only {
+				display: none;
+				border-style: none;
+			}
+
+			@media screen and (max-width: 900px) {
+				#aboutme-container {
+					flex-direction: column;
+				}
+				#aboutme-primary {
+					flex-direction: row;
+					align-items: center;
+					max-width: 100%;
+					max-height: 430px;
+				}
+				#portrait {
+					height: 430px;
+					width: fit-content;
+				}
+				#statistics {
+					height: 100%;
+				}
+				#aboutme-secondary {
+					width: 100%;
+					height: auto;
+					padding-bottom: 20px;
+				}
+				#content-container-wrapper,
+				#content-container {
+					height: fit-content;
+				}
+			}
+
+			@media screen and (max-width: 600px) {
+				#aboutme-wrapper {
+					height: 100dvh;
+					display: flex;
+					justify-content: safe center;
+				}
+				#aboutme-container {
+					padding: 0;
+					margin: auto auto;
+					height: fit-content;
+				}
+				#aboutme-primary {
+					height: fit-content;
+					position: relative;
+					max-height: none;
+					flex-direction: row;
+					align-items: stretch;
+					flex-wrap: wrap;
+				}
+				#aboutme-secondary {
+					padding: 0;
+				}
+				#portrait {
+					display: none;
+				}
+				#portrait-small {
+					border: 3px double blue;
+					border-radius: 10px;
+					width: 160px;
+					object-fit: cover;
+					image-rendering: pixelated;
+				}
+				#statistics {
+					width: 250px;
+					margin: auto;
+					flex-grow: 1;
+				}
+				#statistics-content {
+					flex-direction: column;
+				}
+				#macro-stats {
+					padding: 10px;
+					gap: 10px;
+				}
+				.stat {
+					font-size: 0.8rem;
+					font-family: "Consolas";
+					text-transform: uppercase;
+				}
+				#micro-stats {
+					flex-direction: row;
+					padding: 0;
+					border-radius: 0;
+					border-top: 1px solid blue;
+					border-left: none;
+				}
+				#micro-stats img {
+					transform: none;
+				}
+				#tabs {
+					flex-direction: row;
+					align-items: center;
+					gap: 10px;
+					flex-wrap: wrap;
+					flex-grow: unset;
+				}
+				.tab {
+					border-radius: 5px;
+					border-style: solid;
+					width: calc(50% - 10px);
+					background-color: rgb(0, 193, 255, 0.69);
+					color: black;
+				}
+				#content-container-wrapper {
+					position: absolute;
+					width: 100%;
+					top: 0%;
+					left: 0%;
+					z-index: 20;
+					border-radius: 0;
+					box-sizing: border-box;
+				}
+				#content-container {
+					min-height: calc(100dvh - 2px);
+				}
+				.small-screen-only {
+					display: block;
+				}
+				#fun-content {
+					margin-top: 40px;
+					margin-left: 0px;
+					margin-right: 0px;
+				}
+				#fun-content img {
+					width: 100%;
+				}
+				#interests-content {
+					margin-top: 20px;
+				}
+				#qna-content {
+					margin: 20px auto;
+					margin-top: 30px;
+					padding: 0;
+					max-width: calc(100% - 40px);
+					overflow-x: hidden;
+				}
+				.question h3 {
+					max-width: 100%;
+				}
+				#about-content {
+					min-height: calc(100% - 60px);
+					padding: 30px 20px;
+					padding-top: 50px;
+				}
+				#games p {
+					background-color: rgba(0, 0, 0, 0.432);
+					padding-top: 5px;
+					padding-bottom: 5px;
+				}
+			}
+		</style>
+	</head>
+	<body class="rm-freeze">
+		<tool-bar id="backlink" altlinks="/sitemap.html"></tool-bar>
+		<div id="aboutme-wrapper">
+			<div id="aboutme-container">
+				<div id="aboutme-primary">
+					<img
+						class="small-screen-only"
+						id="portrait-small"
+						src="img/asset/minus-small.png"
+					/>
+					<img id="portrait" src="img/asset/minus.png" />
+					<div id="statistics">
+						<div id="statistics-background"></div>
+						<div id="statistics-content">
+							<div id="macro-stats">
+								<p class="stat">
+									<span class="stat-label">NAME</span> :: Miguel D
+								</p>
+								<p class="stat">
+									<span class="stat-label">ALIAS</span> :: Stringpeas
+								</p>
+								<p class="stat">
+									<span class="stat-label">PRNS</span> :: He / Him
+								</p>
+								<p class="stat">
+									<span class="stat-label">ROLE</span> :: Developer
+								</p>
+								<p class="stat">
+									<span class="stat-label">LOCA</span> :: Canada
+								</p>
+								<p class="stat">
+									<span class="stat-label">MOOD</span> :: Debugging
+								</p>
+							</div>
+							<div id="micro-stats">
+								<span>👾</span>
+								<img id="dragon" src="img/asset/dragon.png"/>
+								<img id="mbti" src="img/asset/grass.png" /><span>👾</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="aboutme-secondary">
+					<div id="tabs">
+						<button class="tab" id="about-tab"><span>ABOUT</span></button>
+						<button class="tab" id="qna-tab"><span>WHAT I DO</span></button>
+						<button class="tab" id="interests-tab">
+							<span>INTERESTS</span>
+						</button>
+						<button class="tab" id="fun-tab"><span>FUN</span></button>
+					</div>
+					<div id="content-container-wrapper">
+						<div id="content-container">
+							<div id="about">
+								<img id="about-background" src="img/asset/wobble.gif" />
+								<div id="about-content">
+
+									<p>Hello! My name is <b>Miguel</b>! I am a Canadian game developer / designer!</p>
+
+									<p>I’m constantly prototyping, learning, and exploring game design fundamentals. I care deeply
+									about <b>why games work</b>, including player psychology, feedback loops, pacing, and how small
+									mechanical decisions shape the overall experience.</p>
+
+									<p>I’m drawn to games that feel personal, where the developer’s voice comes through
+									in the design. I especially enjoy <b>expressive, strategy, cozy, and multiplayer games.</b></p>
+
+									<p>I am also a firm believer that small, thoughtful, personal games are just as amazing
+									<b>(often more so)</b> than big polished ones!</p>
+
+									<p>With that said, I hope you enjoy looking around and learning a little more about me
+									and what I’m working on!</p>
+									<br />
+
+									<div class="quote-wrapper">
+										<div class="quote-content">
+											<p>
+												"To influence a person is to give him one’s own soul. He does not think his natural thoughts, or burn with his natural passions.
+												His virtues are not real to him. His sins, if there are such things as sins, are borrowed. He becomes an echo of someone else’s music,
+												an actor of a part that has not been written for him. The aim of life is self-development. To realize one’s nature perfectly—that is
+												what each of us is here for. People are afraid of themselves, nowadays. They have forgotten the highest of all duties,
+												the duty that one owes to oneself.
+											</p>
+											<p>
+												<i
+													>Oscar Wilde, The Picture of Dorian Gray
+													(1890)</i
+												>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="rm-freeze" id="qna">
+								<div id="qna-content">
+									<div class="question">
+										<h3>Languages</h3>
+										<p>
+											Right now I'm most comfortable with C++ and Java! They were the languages I was taught how to code in.
+											But If you program you know it's quite easy to pick up new languages so C# is on the way. Also English & a bit of Portuguese.
+										</p>
+									</div>
+									<div class="question">
+										<h3>Game Engines</h3>
+										<p>
+											Most of the games I've made so far have been built using Unity, but I'm actively learning Unreal Engine. I hope
+											to update this in the future when im 100% confident in both!
+										</p>
+									</div>
+									<div class="question">
+										<h3>Systems & Architecture</h3>
+										<p>
+											Nothing compares to the joy of watching systems respond to each other and click together like
+											a never-ending puzzle. I prefer having code that doesn't fight me as it grows because it will most likely win.
+											Modularity and efficiency is the golden key.
+										</p>
+									</div>
+									<div class="question">
+										<h3>Games!</h3>
+										<p>
+											Most importantly... I make games! I like taking ideas from a rough concept to something playable. Even
+											If I have to use paper and felt to cut up sad little game pieces my friends can experiment with. I like being
+											able to take the 5% of ideas that work and turn them into something more fleshed out.
+										</p>
+									</div>
+									<div class="question">
+										<img id="annoying-fool"
+											 src="embed/img/sb1.png" />
+									</div>
+									<div class="question">
+										<h3>"What To Make A Game About?"</h3>
+										<p>
+											"Your dog, your cat, your child, your boyfriend, your girlfriend,
+											your mother, your father, your grandmother, your friends, your imaginary friends, your summer
+											vacation, your winter in the mountains, your childhood home, your current home, your future home,
+											your first job, your worst job, the job you wish you had. Your first date, your first kiss,
+											your first true love, your second true love, your relationship, your deepest secrets, your fantasies,
+											your guilty pleasures, your guiltless pleasures, your break-up, your make-up, your undying love,
+											your dying love. Your hopes, your dreams, your fears, your secrets, the dream you had last night,
+											the thing you were afraid of when you were little, the thing you’re afraid of now, the secret you
+											think will come back and bite you, the secret you were planning to take to your grave, your hope
+											for a better world, your hope for a better you, your hope for a better day. The passage of time,
+											the passage of memory, the experience of forgetting, the experience of remembering, the experience
+											of meeting a close friend from long ago on the street and not recognizing her face,
+											the experience of meeting a close friend from long ago and not being recognized, the experience
+											of aging, the experience of becoming more dependent on the people who love you, the experience
+											of becoming less dependent on the people you hate. The experience of opening a business, the
+											experience of opening the garage, the experience of opening your heart, the experience of opening
+											someone else’s heart via risky surgery, the experience of opening the window, the experience of
+											opening your mind, the experience of taking drugs, the experience of your worst trip,
+											the experience of meditation, the experience of learning a language, the experience of writing a book.
+											A silent moment at a pond, a noisy moment in the heart of a city, a moment that caught you unprepared,
+											a moment you spent a long time preparing for, a moment of revelation, a moment of realization,
+											a moment when you realized the universe was not out to get you, a moment when you realized the
+											universe was out to get you, a moment when you were totally unaware of what was going on, a moment of
+											action, a moment of inaction, a moment of regret, a moment of victory, a slow moment, a long moment,
+											a moment you spent in the branches of a tree. The cruelty of children, the brashness of youth,
+											the wisdom of age, the stupidity of age, a fairy tale you heard as a child, a fairy tale you heard
+											as an adult, the lifestyle of an imaginary creature, the lifestyle of yourself, the subtle ways
+											in which we admit authority into our lives, the subtle ways in which we overcome authority,
+											the subtle ways in which we become a little stronger or a little weaker each day. A trip on a boat,
+											a trip on a plane, a trip down a vanishing path through a forest, waking up in a darkened room,
+											waking up in a friend’s room and not knowing how you got there, waking up in a friend’s bed and
+											not knowing how you got there, waking up after twenty years of sleep, a sunset, a sunrise, a lingering
+											smile, a heartfelt greeting, a bittersweet goodbye. Your past lives, your future lives, lies that you’ve
+											told, lies you plan to tell, lies, truths, grim visions, prophecy, wishes, wants, loves, hates,
+											premonitions, warnings, fables, adages, myths, legends, stories, diary entries. Jumping over a pit,
+											jumping into a pool, jumping into the sky and never coming down. Anything. Everything.” - Anna Anthropy
+										</p>
+									</div>
+								</div>
+							</div>
+							<div id="interests">
+								<div id="interests-content">
+									<p id="interests-title">
+										THINGS THAT I LOVE
+									</p>
+									<div id="games">
+										<p>
+											Below are lists of some of my favourite media!
+										</p>
+									</div>
+
+									<div class="interest-node rm-pause" id="movies">
+										<p class="title">
+											<b>Movies</b>
+										</p>
+										<p class="description">I love horror films</p>
+									</div>
+									<div class="character-node" id="hypnos">
+										<img src="ext/img/bloodotc.png" />
+										<div class="character-info" id="hypnos-info">
+											<h3>Blood On The Clocktower</h3>
+											<p>
+												BOTC was a game I instantly fell in love with. I have such a huge appreciation for how intentionally it's designed.
+												Every role, rule, and piece of information exists for a reason and work together so well. A personal ten outta ten
+												board game that virtually requires no pieces.
+											</p>
+										</div>
+									</div>
+									<div class="interest-node rm-pause" id="books">
+										<p class="title">
+											<b>Books</b>
+										</p>
+										<p class="description">and horror stories!</p>
+									</div>
+									<div class="character-node" id="ginko">
+										<div class="character-info" id="ginko-info">
+											<h3>Mario X Pokémon</h3>
+											<p>
+												Like most kids growing up in the 2000s, my introduction to video games started with Mario and Pokémon.
+												Pokémon in particular still holds a special place in my heart.
+											</p>
+										</div>
+										<img src="ext/img/marpok.jpg" />
+									</div>
+									<div class="interest-node rm-pause" id="music">
+										<p class="title">
+											<b>Music</b>
+										</p>
+										<p class="description">Delicious Tunes</p>
+									</div>
+									<div class="character-node" id="naomi">
+										<img src="ext/img/logolist.png" />
+										<div class="character-info" id="naomi-info">
+											<h3>Video Games</h3>
+											<p>There is absolutely no way I can list all the games I know and love.
+											These companies however have had a continuous chokehold on me and I find myself playing their
+											games most often.</p>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							<div id="fun">
+								<div id="fun-content">
+									<img src="embed/img/1pic.jpg" />
+									<img src="embed/img/2pic.jpg" />
+									<img src="embed/img/3pic.jpg" />
+									<img src="embed/img/4pic.jpg" />
+									<img src="embed/img/5pic.jpg" />
+									<img src="embed/img/6pic.jpg" />
+									<img src="embed/img/7pic.jpg" />
+									<img src="embed/img/8pic.jpg" />
+									<img src="embed/img/9pic.jpg" />
+									<img src="embed/img/10pic.jpg" />
+									<img src="embed/img/11pic.jpg" />
+									<img src="embed/img/12pic.jpg" />
+									<img src="embed/img/13pic.jpg" />
+									<img src="embed/img/14pic.jpg" />
+									<img src="embed/img/15pic.jpg" />
+									<img src="embed/img/16pic.jpg" />
+									<img src="embed/img/17pic.jpg" />
+									<img src="embed/img/18pic.jpg" />
+									<img src="embed/img/19pic.jpg" />
+									<img src="embed/img/20pic.jpg" />
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/reduced-motion.js"></script>
+		<script>
+			var aboutTabEl = document.getElementById("about-tab");
+			var qnaTabEl = document.getElementById("qna-tab");
+			var interestsTabEl = document.getElementById("interests-tab");
+			var funTabEl = document.getElementById("fun-tab");
+
+
+			const DEFAULT_TAB = "about";
+			class tab {
+				constructor(button, content) {
+					this.button = button;
+					this.content = content;
+				}
+			}
+
+			const aboutmePrimary = document.getElementById("aboutme-primary");
+			const contentContainer = document.getElementById(
+				"content-container-wrapper"
+			);
+			const backlink = document.getElementById("backlink");
+
+			// Initialize tabs
+			const tabs = {};
+			tabs["about"] = new tab(aboutTabEl, document.getElementById("about"));
+			tabs["qna"] = new tab(qnaTabEl, document.getElementById("qna"));
+			tabs["interests"] = new tab(
+				interestsTabEl,
+				document.getElementById("interests")
+			);
+			tabs["fun"] = new tab(funTabEl, document.getElementById("fun"));
+
+			for (const [name, tab] of Object.entries(tabs)) {
+				tab.button.addEventListener("click", () => {
+					switchTab(name, tab, name != DEFAULT_TAB || isSmallScreen(), true);
+					if (isSmallScreen()) window.scrollTo(0, 0);
+				});
+                tab.button.addEventListener("pointerenter", () => {
+                    if (tab.button.disabled) return;
+                });
+
+			}
+
+			// Set tab
+			let tabAnchor = getAnchor();
+			if (isSmallScreen()) {
+				if (!tabAnchor) closeWindow();
+				else switchTab(tabAnchor, tabs[tabAnchor]);
+			} else {
+				tabAnchor = tabAnchor ?? DEFAULT_TAB;
+				switchTab(tabAnchor, tabs[tabAnchor], tabAnchor != DEFAULT_TAB);
+			}
+
+			// Resizing
+			addEventListener("smallScreenUpdate", (e) => {
+				if (isSmallScreen()) {
+					let anchor = getAnchor();
+					if (!anchor) closeWindow();
+					else openWindow();
+				} else if (!isSmallScreen()) {
+					aboutmePrimary.style.display = "flex";
+					contentContainer.style.display = "block";
+					backlink.setAttribute("href", "home.html");
+					backlink.setAttribute("target", "_self");
+
+					let anchor = getAnchor() ?? DEFAULT_TAB;
+					tabs[anchor].button.disabled = true;
+				}
+			});
+
+			// Functions
+			function closeWindow() {
+				if (!isSmallScreen()) return;
+				clearAddress();
+				contentContainer.style.display = "none";
+				aboutmePrimary.style.display = "flex";
+				backlink.setAttribute("href", "home.html");
+				backlink.setAttribute("target", "_self");
+
+				for (const [name, tab] of Object.entries(tabs)) {
+					tab.button.disabled = false;
+				}
+			}
+
+			function openWindow() {
+				if (!isSmallScreen()) return;
+				contentContainer.style.display = "block";
+				aboutmePrimary.style.display = "none";
+				backlink.setAttribute(
+					"href",
+					"javascript: closeWindow(); window.scrollTo(0, document.body.scrollHeight);"
+				);
+				backlink.setAttribute("target", "_parent");
+			}
+
+			function switchTab(
+				name,
+				tab,
+				shouldSetAnchor = true
+			) {
+				openWindow();
+				tab.button.disabled = true;
+				tab.content.style.display = "block";
+				for (const [key, value] of Object.entries(tabs)) {
+					if (key != name) {
+						value.button.disabled = false;
+						value.content.style.display = "none";
+					}
+				}
+
+				if (shouldSetAnchor) setAnchor(name);
+				else clearAddress();
+			}
+		</script>
+	</body>
+
+</html>

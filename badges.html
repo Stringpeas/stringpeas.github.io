@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	
+<head>
+		<meta
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=contain"
+			name="viewport"/>
+		<link href="favicon.ico" rel="icon" type="image/x-icon" />
+		<meta charset="utf-8" />
+		<title>[ badges ]</title>
+		<link href="style.css" media="all" rel="stylesheet" type="text/css" />
+		<link
+			href="style/badges.css"
+			media="all"
+			rel="stylesheet"
+			type="text/css"
+		/>
+		<script
+			src="js/component/badges-display.js"
+			type="text/javascript"
+		></script>
+		<script src="js/site-util.js"></script>
+		<script src="js/component/toolbar.js" type="text/javascript"></script>
+		<style>
+			.container {
+				max-width: 700px;
+				margin: auto;
+				border-style: double;
+				border-color: blue;
+				padding: 20px;
+				margin-top: 20px;
+				background-color: rgba(0, 0, 0, 0.911);
+			}
+
+			.title {
+				margin-top: 0;
+				text-align: left;
+				color: cornflowerblue;
+				font-family: "Silkscreen";
+			}
+
+            hr {
+                color: dodgerblue;
+                border-color: dodgerblue;
+            }
+			#badges {
+				max-width: calc(100% - 20px);
+				margin: 20px auto;
+			}
+
+			@media screen and (max-width: 600px) {
+				body {
+					background: url("img/texture/machine-dark.png");
+					background-size: 300px;
+					margin: 0px;
+				}
+				.container {
+					padding: 15px;
+				}
+
+				#badges {
+					max-width: 100%;
+				}
+			}
+		</style>
+	</head>
+	<body class="rainbow-bg">
+		<tool-bar altlinks="/sitemap.html"></tool-bar>
+		<br />
+		<div class="container">
+			<h2 class="title">BLINKIES</h2>
+			<hr />
+			<badges-display type="main"></badges-display>
+			<hr />
+			<h2 class="title">STAMPS</h2>
+			<badges-display type="extra"></badges-display>
+			<div id="badges-note">
+				<p>
+					Some fun blinkies!<br />
+
+				</p>
+			</div>
+		</div>
+		<br />
+	</body>
+
+</html>

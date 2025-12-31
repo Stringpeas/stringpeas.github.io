@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	
+<head>
+	<meta charset="utf-8" />
+	<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=contain" name="viewport" />
+
+	<title>[ LEARN ]</title>
+	<link href="favicon.ico" rel="icon" type="image/x-icon" />
+	<link href="style.css" media="all" rel="stylesheet" type="text/css" />
+
+	<script src="js/component/learn-display.js" type="text/javascript"></script>
+	<script src="js/site-util.js"></script>
+	<script src="js/component/toolbar.js" type="text/javascript"></script>
+
+	<style>
+
+		.container {
+			position: relative;
+			max-width: 700px;
+			padding: 0px 20px;
+			padding-bottom: 10px;
+			margin: 0px auto;
+			margin-top: 20px;
+			background-color: rgba(0, 0, 0, 0.581);
+			z-index: 10;
+			border-style: double;
+			border-color: var(--dark-green);
+		}
+
+		hr {
+			color: dodgerblue;
+			border-color: dodgerblue;
+		}
+
+		p {
+			width: fit-content;
+			color: gray;
+			font-family: "Consolas";
+			font-size: 1em;
+		}
+
+		h3 {
+			font-family: "Silkscreen";
+			color: cornflowerblue;
+			width: fit-content;
+			margin-top: 20px;
+		}
+
+		ul {
+			list-style: square;
+			text-align: left;
+			margin-bottom: 25px;
+			color: yellow;
+		}
+
+		li {
+			color: rgb(72, 236, 255);
+			margin: 8px 0px;
+			margin-bottom: 7px;
+			line-height: 1.3em;
+		}
+
+			li::marker {
+				color: yellow; /* bullet */
+			}
+
+		.qquote {
+			color: gray;
+			font-family: "Consolas";
+			font-size: 0.8em;
+		}
+
+
+		@media screen and (max-width: 600px) {
+			body {
+				background: url("img/texture/machine-dark.png");
+				background-size: 300px;
+				margin: 0px;
+			}
+		}
+	</style>
+
+</head>
+	<body class="rainbow-bg">
+		<tool-bar reducedmotion="hide" altlinks="/sitemap.html"></tool-bar>
+		<br />
+		<div class="container">
+			<h3>Want To Learn</h3>
+			<learn-display type="updates"></learn-display>
+			<hr />
+			<h3>Notes</h3>
+			<learn-display type="issues"></learn-display>
+			<hr />
+			<p class="qquote">"If you are a dreamer, a wisher, a liar, a hope-er, a magic bean buyer... come in!"</p>
+		</div>
+		<br />
+	</body>
+
+</html>

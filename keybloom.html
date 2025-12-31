@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+    <title>[ KEYBLOOM ]</title>
+
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="style.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="js/component/toolbar.js" type="text/javascript"></script>
+    <script src="js/site-util.js" type="text/javascript"></script>
+
+
+    <style>
+
+        @keyframes animated-grid-primary {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 250px 250px;
+            }
+        }
+      
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        .grid-background {
+            position: fixed;
+            left: 0%;
+            top: 0%;
+            width: 100%;
+            height: 100dvh;
+            background-size: 200px;
+            background-image: url("img/projects/keybloombg.png");
+        }
+        #grid-primary {
+            animation: animated-grid-primary 40s linear infinite;
+            background-size: 250px;
+        }
+
+  
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+
+
+        .project-hero {
+            display: flex;
+            gap: 30px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 4px double dodgerblue;
+            padding: 20px;
+        }
+
+        .project-image {
+            width: 360px;
+            height: 360px;
+            background: black;
+            border: 4px double dodgerblue;
+            border-radius:12px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+            .project-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                image-rendering: pixelated;
+            }
+
+        .project-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            flex: 1;
+        }
+
+        .project-title {
+            font-family: "Silkscreen";
+            font-size: 2.25em;
+            color: deepskyblue;
+            margin: 12px 0 0;
+        }
+
+        .project-tagline {
+            color: white;
+            font-style: italic;
+            font-size:1.15em;
+        }
+
+
+        .project-description {
+            background: rgba(0, 0, 0, 0.8);
+            border: 4px double rgba(0, 191, 255, 0.8);
+            padding: 30px;
+            line-height: 1.6;
+            color:white;
+        }
+
+        .project-description h2 {
+            font-family: "Silkscreen";
+            color: deepskyblue;
+            margin-top: 0;
+            font-size: 2em;
+        }
+
+
+
+        .project-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .project-links a {
+            color: deepskyblue;
+            border: 1px solid deepskyblue;
+            padding: 8px 14px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-family: "Silkscreen";
+            font-size: 0.9em;
+        }
+
+        .project-links a:hover {
+            background: deepskyblue;
+            color: black;
+        }
+
+        .project-divider {
+            margin-top: auto;
+            margin-bottom: 14px;
+            height: 1px;
+            width: 100%;
+            background: linear-gradient( to right, transparent, deepskyblue, transparent );
+            opacity: 0.8;
+        }
+        .project-hero-divider {
+            height: 1px;
+            width: 60%;
+            margin: 10px auto 6px;
+            background: linear-gradient( to right, transparent, rgba(0, 191, 255, 0.9), transparent );
+            opacity: 0.9;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 6px;
+            justify-content: center;
+        }
+
+        .project-tags .tag {
+            font-family: "Silkscreen";
+            font-size: 1.5em;
+            padding: 4px 8px;
+            border: 1px solid rgba(0, 191, 255, 0.6);
+            color: deepskyblue;
+            border-radius: 6px;
+            background: rgba(0, 191, 255, 0.08);
+        }
+        .project-role {
+            margin-top: 6px;
+            font-family: "Silkscreen";
+            font-size: 1.25em;
+            color: #9dff9d;
+            letter-spacing: 0.5px;
+        }
+        .project-middle {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* horizontal centering */
+            justify-content: center; /* vertical centering */
+            flex: 1; /* 👈 takes up space between dividers */
+            gap: 6px;
+        }
+
+     /* ===============================
+       GALLERY
+    =============================== */
+
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 4px double dodgerblue;
+            padding: 20px;
+        }
+        .gallery-item {
+            background: black;
+            border: 4px double dodgerblue;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 1 / 1; /* keeps squares */
+        }
+
+            .gallery-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                image-rendering: pixelated;
+            }
+
+
+
+
+
+        /* ===============================
+           RESPONSIVE
+        =============================== */
+
+        @media (max-width: 800px) {
+            .project-hero {
+                flex-direction: column;
+            }
+
+            .project-image {
+                width: 100%;
+                height: 320px;
+            }
+            .project-middle{
+                margin-top:10px;
+                margin-bottom:10px;
+            }
+            .project-gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="project-page rm-pause">
+
+    <tool-bar href="projects.html"></tool-bar>
+
+    <div class="grid-background rm-pause" id="grid-primary"></div>
+
+    <main class="page">
+
+        <!-- HERO -->
+        <section class="project-hero">
+            <div class="project-image">
+                <img src="img/projects/keybloomprofile.png"
+                     alt="Keybloom screenshot" />
+            </div>
+
+            <div class="project-meta">
+
+
+                <h1 class="project-title">Keybloom</h1>
+
+                <div class="project-hero-divider"></div>
+
+                <div class="project-middle">
+
+                    <div class="project-tags">
+                        <span class="tag">Unity</span>
+                        <span class="tag">PC</span>
+                        <span class="tag">Web</span>
+                        <span class="tag">Solo</span>
+                    </div>
+
+                    <div class="project-role">
+                        Programmer & Designer
+                    </div>
+                </div>
+
+                <div class="project-divider"></div>
+
+                <div class="project-links">
+                    <a href="#">itch.io</a>
+                    <a href="#">GitHub</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- DESCRIPTION -->
+        <section class="project-description">
+            <h2>About the Project</h2>
+
+            <p>
+                Keybloom is a farming game where every interaction is driven by typing.
+                Players plant, water, harvest, and fulfill orders by entering words
+                and symbols instead of traditional controls.
+            </p>
+
+            <p>
+                The goal is to blend cozy farming mechanics with fast-paced typing,
+                encouraging accuracy, rhythm, and planning while maintaining a calm,
+                satisfying atmosphere.
+            </p>
+        </section>
+
+        <section class="project-gallery">
+            <div class="gallery-item">
+                <img src="img/projects/keybloom1.png" alt="Keybloom gameplay screenshot 1">
+            </div>
+
+            <div class="gallery-item">
+                <img src="img/projects/keybloom2.png" alt="Keybloom gameplay screenshot 2">
+            </div>
+
+            <div class="gallery-item">
+                <img src="img/projects/keybloom3.png" alt="Keybloom gameplay screenshot 3">
+            </div>
+        </section>
+
+    </main>
+    <script src="js/reduced-motion.js"></script>
+
+</body>
+</html>

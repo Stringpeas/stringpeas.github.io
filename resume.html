@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=contain"
+          name="viewport" />
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="js/component/toolbar.js"></script>
+    <script src="js/site-util.js"></script>
+
+    <title>▷ [ RESUME ]</title>
+
+    <style>
+        :root {
+            --cell-border-radius: 10px;
+        }
+
+        @keyframes animated-default-bg {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 300px 300px;
+            }
+        }
+
+        @keyframes animated-grid-primary {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 250px 250px;
+            }
+        }
+
+        body {
+            margin: 0;
+        }
+
+     
+        .grid-background {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100dvh;
+            background-image: url("img/asset/grid-icons.png");
+            background-size: 250px;
+        }
+
+        #grid-primary {
+            animation: animated-grid-primary 40s linear infinite;
+        }
+
+  
+        #container {
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+            padding: 0 20px;
+        }
+
+        .world-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 900px;
+            background: black;
+            background-image: url("img/asset/2026bg.png");
+            background-size: 300px;
+            border-style: double;
+            border-color: dodgerblue;
+            border-width: 3px;
+            animation: animated-default-bg 60s linear infinite;
+        }
+
+        .world-header {
+            position: relative;
+            padding: 10px;
+            border-bottom: 1px solid dodgerblue;
+        }
+
+        .world-header-bg {
+            position: absolute;
+            inset: 0;
+            background: url("img/texture/machine-dark.png");
+            z-index: 0;
+        }
+
+        .world-title {
+            position: relative;
+            font-family: "Silkscreen";
+            color: var(--lime-green);
+            font-size: 2em;
+            margin: 0 auto;
+            width: fit-content;
+            z-index: 1;
+        }
+
+
+        .world-projects {
+            position: relative;
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .resume-frame {
+            width: 100%;
+            height: 80vh;
+            border: 1px solid deepskyblue;
+            background: black;
+        }
+
+        .resume-download {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+            .resume-download a {
+                color: cornflowerblue;
+                font-family: Consolas, monospace;
+                text-decoration: none;
+                border: 1px solid cornflowerblue;
+                padding: 6px 12px;
+            }
+
+                .resume-download a:hover {
+                    background: deepskyblue;
+                    color: black;
+                }
+
+        .world-footer {
+            border-top: 1px solid dodgerblue;
+            background: black;
+        }
+
+        .world-description {
+            color: var(--lime-green);
+            margin: 12px;
+            font-family: Consolas, monospace;
+            text-align: center;
+        }
+
+        @media screen and (max-width: 700px) {
+            .resume-frame {
+                height: 60vh;
+            }
+        }
+    </style>
+</head>
+
+<body class="rm-pause">
+    <div class="grid-background rm-pause" id="grid-primary"></div>
+    <tool-bar altlinks="/sitemap.html"></tool-bar>
+
+    <div id="container">
+        <div class="world-container rm-pause">
+            <div class="world-header">
+                <div class="world-header-bg"></div>
+                <h1 class="world-title">PUBLIC RESUME</h1>
+            </div>
+
+            <div class="world-projects">
+                <iframe class="resume-frame"
+                        src="Resume.pdf"
+                        title="Resume PDF">
+                </iframe>
+
+                <div class="resume-download">
+                    <a href="Resume.pdf" target="_blank">
+                        Download Resume (PDF)
+                    </a>
+                </div>
+            </div>
+
+            <div class="world-footer">
+                <p class="world-description">
+                    Updated Dec 2025
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/reduced-motion.js"></script>
+</body>
+</html>

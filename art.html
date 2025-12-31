@@ -1,0 +1,310 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=contain"
+          name="viewport" />
+
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="style.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/site-util.js"></script>
+    <script src="js/component/toolbar.js"></script>
+
+    <title>▷ [ ART ]</title>
+
+    <style>
+        /* ===============================
+           BACKGROUND (Resume-style)
+        =============================== */
+
+        @keyframes animated-grid {
+            from {
+                background-position: 0 0;
+            }
+
+            to {
+                background-position: 250px 250px;
+            }
+        }
+
+        body {
+            margin: 0;
+            padding-top: 60px; /* visual offset only */
+            background: black;
+        }
+
+        .grid-background {
+            position: fixed;
+            inset: 0;
+            background-image: url("img/asset/grid-icons.png");
+            background-size: 250px;
+            z-index: 0;
+        }
+
+        #grid-primary {
+            animation: animated-grid 40s linear infinite;
+        }
+
+        tool-bar,
+        #art-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ===============================
+           LAYOUT
+        =============================== */
+
+        #art-container {
+            max-width: 1100px;
+            margin: 0 auto; /* no vertical margin */
+            padding: 0 20px;
+        }
+
+        /* ===============================
+           TABS
+        =============================== */
+
+        #art-tabs {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+        }
+
+        .art-tab {
+            flex: 1;
+            background: black;
+            color: rgb(120, 120, 120);
+            border: 1px solid rgb(120, 120, 120);
+            border-bottom: none;
+            border-radius: 30px 30px 0 0;
+            padding: 10px;
+            font-family: "Silkscreen";
+            font-size:2em;
+            cursor: pointer;
+            transition: 0.15s;
+        }
+
+            .art-tab:hover {
+                color: deepskyblue;
+                background: rgb(5, 20, 60);
+            }
+
+            .art-tab.active {
+                background: deepskyblue;
+                color: black;
+                border-color: deepskyblue;
+            }
+
+        /* ===============================
+           ART WINDOW
+        =============================== */
+
+        #art-window {
+            border: 1px solid deepskyblue;
+            background-color: black;
+            background-image: url("img/texture/machine-dark.png");
+            background-size: 300px;
+            background-repeat: repeat;
+            padding: 30px;
+        }
+
+        /* ===============================
+           GALLERY GRID
+        =============================== */
+
+        .art-panel {
+            display: none;
+        }
+
+            .art-panel.active {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 20px;
+            }
+
+            .art-panel img {
+                width: 100%;
+                height: 200px;
+                object-fit: cover;
+                border: 1px solid cornflowerblue;
+                background: black;
+                image-rendering: pixelated;
+                cursor: zoom-in;
+            }
+
+        #art-footer {
+            max-width: 1000px;
+            margin: 12px auto 0;
+            padding: 10px 20px;
+            background: black;
+            border: 1px solid deepskyblue;
+            color: rgb(160, 160, 160);
+            font-family: Consolas, monospace;
+            font-size: 0.85em;
+            text-align: center;
+            position: relative;
+            z-index:3;
+        }
+
+
+        /* ===============================
+           RESPONSIVE
+        =============================== */
+
+        @media screen and (max-width: 900px) {
+            .art-panel.active {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 500px) {
+            .art-panel.active {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===============================
+           IMAGE MODAL
+        =============================== */
+
+        #image-modal {
+            overflow: hidden;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            cursor: zoom-out;
+        }
+            #image-modal img {
+                /* FORCE a large box */
+                width: 90vw;
+                height: 90vh;
+                /* Preserve aspect ratio */
+                object-fit: contain;
+                border: 1px solid deepskyblue;
+                background-image: url("img/texture/machine-dark.png");
+                image-rendering: pixelated;
+                animation: pop 0.15s ease-out;
+            }
+
+
+        @keyframes pop {
+            from {
+                transform: scale(0.96);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="rm-pause">
+
+    <!-- Animated background -->
+    <div class="grid-background rm-pause" id="grid-primary"></div>
+
+    <tool-bar altlinks="/sitemap.html"></tool-bar>
+
+    <div id="art-container">
+
+        <!-- TABS -->
+        <div id="art-tabs">
+            <button class="art-tab active" data-tab="pixel">PIXEL</button>
+            <button class="art-tab" data-tab="threeD">3D</button>
+            <button class="art-tab" data-tab="extra">EXTRA</button>
+        </div>
+
+        <!-- ART WINDOW -->
+        <div id="art-window">
+
+            <div class="art-panel active" id="pixel">
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+            </div>
+
+            <div class="art-panel" id="threeD">
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+            </div>
+
+            <div class="art-panel" id="extra">
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+                <img src="img/asset/minus-small.png" />
+            </div>
+
+        </div>
+    </div>
+
+    <div id="art-footer">
+        All art here made by me. Placeholder profile art made by Yo-Hokki
+    </div>
+    <br />
+
+    <!-- IMAGE MODAL -->
+    <div id="image-modal">
+        <img id="image-modal-img" />
+    </div>
+
+    <script src="js/reduced-motion.js"></script>
+
+    <script>
+        /* TAB SWITCHING */
+        const tabs = document.querySelectorAll(".art-tab");
+        const panels = document.querySelectorAll(".art-panel");
+
+        tabs.forEach(tab => {
+            tab.addEventListener("click", () => {
+                tabs.forEach(t => t.classList.remove("active"));
+                panels.forEach(p => p.classList.remove("active"));
+
+                tab.classList.add("active");
+                document.getElementById(tab.dataset.tab).classList.add("active");
+            });
+        });
+
+        /* IMAGE MODAL */
+        const modal = document.getElementById("image-modal");
+        const modalImg = document.getElementById("image-modal-img");
+
+        document.querySelectorAll("#art-window img").forEach(img => {
+            img.addEventListener("click", () => {
+                modalImg.src = img.src;
+                modal.style.display = "flex";
+            });
+        });
+
+        modal.addEventListener("click", () => {
+            modal.style.display = "none";
+            modalImg.src = "";
+        });
+    </script>
+</body>
+</html>

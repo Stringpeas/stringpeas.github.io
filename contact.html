@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="en">
+	
+<head>
+		<meta
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=contain"
+			name="viewport"
+		/>
+
+		<link href="favicon.ico" rel="icon" type="image/x-icon" />
+		<meta charset="utf-8" />
+		<title>[ CONTACT ]</title>
+		<link href="style.css" media="all" rel="stylesheet" type="text/css" />
+
+		<script
+			defer=""
+			src="js/component/contact-portal.js"
+			type="text/javascript"
+		></script>
+
+		<script src="js/site-util.js"></script>
+		<script src="js/component/toolbar.js" type="text/javascript"></script>
+		<style>
+			@keyframes animated-bg {
+				from {
+					background-position: 0 0;
+				}
+				to {
+					background-position: 350px 350px;
+				}
+			}
+
+			@keyframes contact-hover {
+				from {
+					transform: translateY(-5px);
+				}
+				to {
+					transform: translateY(-10px);
+				}
+			}
+			@keyframes shake {
+				0% {
+					transform: translate(-50%, -50%) rotateZ(-10deg);
+				}
+				50% {
+					transform: translate(-50%, -50%) rotateZ(10deg);
+				}
+				100% {
+					transform: translate(-50%, -50%) rotateZ(0deg);
+				}
+			}
+
+			body {
+				background: black;
+				user-select: none;
+				margin: 0%;
+				overflow-x: hidden;
+			}
+
+			.layer-primary {
+				background-image: url("img/texture/contactbg1.png");
+				background-size: 350px;
+				animation: animated-bg 60s linear infinite;
+				width: 100%;
+				height: 100%;
+				position: fixed;
+			}
+			.layer-secondary {
+				background-image: url("img/texture/machine-dark.png");
+				width: 100%;
+				height: 100%;
+				mix-blend-mode: overlay;
+				position: fixed;
+			}
+
+			/* GRID */
+			.contact-wrapper {
+				display: flex;
+				height: 100vh;
+				width: 100%;
+				justify-content: safe center;
+				align-items: safe center;
+			}
+			.contact-grid {
+				width: calc(100% - 100px);
+				max-width: 1000px;
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+				grid-gap: 30px;
+				padding-top: 60px;
+				padding-bottom: 60px;
+			}
+
+			/* contact CELL */
+			.contact-cell {
+				height: 100%;
+				width: 100%;
+				position: relative;
+			}
+			.contact-cell:hover {
+				animation: contact-hover 0.5s ease-in-out infinite alternate;
+			}
+			.contact-cell p {
+				font-family: "Silkscreen";
+				margin: 0;
+				width: 100%;
+				font-size: 1.1em;
+				margin-top: 5px;
+				text-shadow: 1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black,
+					-1px 1px 0 black, -2px 2px 0 black;
+			}
+			.contact-cell img:not(.lock) {
+				width: 100%;
+				aspect-ratio: 1;
+				object-fit: contain;
+				image-rendering: pixelated;
+				filter: drop-shadow(5px 5px 0px rgb(0, 150, 255, 0.40))
+					drop-shadow(-5px -5px 0px rgba(0, 150, 255, 0.4))
+					drop-shadow(5px -5px 0px rgba(0, 150, 255, 0.4))
+					drop-shadow(-5px 5px 0px rgba(0, 150, 255, 0.4));
+			}
+			.locked img:not(.lock) {
+				filter: brightness(0.4) drop-shadow(5px 5px 0px rgba(0, 150, 255, 0.4))
+					drop-shadow(-5px -5px 0px rgba(0, 150, 255, 0.4))
+					drop-shadow(5px -5px 0px rgba(0, 150, 255, 0.4))
+					drop-shadow(-5px 5px 0px rgba(0, 150, 255, 0.4));
+			}
+			.locked:hover {
+				animation: none;
+			}
+			.lock {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				image-rendering: pixelated;
+			}
+			.shake {
+				animation: shake 0.5s ease-in-out;
+			}
+
+			@media screen and (max-width: 650px) {
+				.contact-grid {
+					grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+					padding-top: 60px;
+					padding-bottom: 30px;
+				}
+				.contact-cell img {
+					max-width: 150px;
+				}
+				.contact-cell p {
+					font-size: 0.9em;
+				}
+			}
+		</style>
+	</head>
+	<body class="rm-pause">
+		<tool-bar altlinks="/sitemap.html"></tool-bar>
+		<div class="layer-primary rm-pause"></div>
+		<div class="layer-secondary"></div>
+		<div class="contact-wrapper">
+			<div class="contact-grid">
+				<!-- EYECRYPT -->
+				<a class="contact-cell" href="contact.html">
+					<img src="img/asset/iconitchio.png" />
+					<p>ITCH.IO</p>
+				</a>
+				<!-- CARPET SNAKE -->
+				<a class="contact-cell" href="contact.html">
+					<img src="img/asset/iconemail.png" />
+					<p>EMAIL</p>
+				</a>
+				<!-- IZZY -->
+				<a class="contact-cell" href="contact.html">
+					<img src="img/asset/iconlinkedin.png" />
+					<p>LINKEDIN</p>
+				</a>
+				<!-- BIT -->
+				<a class="contact-cell" href="contact.html">
+					<img src="img/asset/icongithub.png" />
+					<p>GITHUB</p>
+				</a>
+				<!-- CINDERALLA -->
+				<a class="contact-cell" href="contact.html">
+					<img src="img/asset/iconsteam.png" />
+					<p>STEAM</p>
+				</a>
+				<!-- HYPNOSPACE -->
+				<a class="contact-cell" href="contact.html">
+					<img src="img/asset/iconinstagram.png" />
+					<p>INSTAGRAM</p>
+				</a>
+				<!-- GARDEN -->
+				<a class="contact-cell" href="contact.html">
+					<img src="img/asset/icondiscord.png" />
+					<p>DISCORD</p>
+				</a>
+				<!-- QUOTEBOOK -->
+				<a class="contact-cell" href="contact.html">
+					<img src="img/asset/iconyoutube.png" />
+					<p>YOUTUBE</p>
+				</a>
+				<!-- QUOTEBOOK -->
+				<a class="contact-cell" href="contact.html">
+					<img src="img/asset/icontwitter.png" />
+					<p>TWITTER</p>
+				</a>
+				<!-- QUOTEBOOK -->
+				<a class="contact-cell" href="contact.html">
+					<img src="img/asset/icontiktok.png" />
+					<p>TIKTOK</p>
+				</a>
+				<!-- QUOTEBOOK -->
+				<a class="contact-cell" href="contact.html">
+					<img src="img/asset/icontwitch.png" />
+					<p>TWITCH</p>
+				</a>
+				<!-- COTTON -->
+				<a class="contact-cell locked" href="javascript: shakeLock('cotton-lock');">
+					<img src="img/asset/iconpikmin.png" />
+					<img class="lock" id="cotton-lock" src="img/asset/lock.png" />
+					<p>PIKMIN</p>
+				</a>
+				<!-- HYPNOS -->
+				<a class="contact-cell locked" href="javascript: shakeLock('hypnos-lock');">
+					<img src="img/asset/iconterraria.png" />
+					<img class="lock" id="hypnos-lock" src="img/asset/lock.png" />
+					<p>TERRARIA</p>
+				</a>
+				<!-- POND WORLDS -->
+				<a class="contact-cell locked" href="javascript: shakeLock('pond-lock');">
+					<img src="img/asset/iconskype.png" />
+					<img class="lock" id="pond-lock" src="img/asset/lock.png" />
+					<p>SKYPE</p>
+				</a>
+				<!-- FRACTAL BLOCK WORLD -->
+				<a class="contact-cell locked" href="javascript: shakeLock('fbw-lock');">
+					<img src="img/asset/iconwinrar.png" />
+					<img class="lock" id="fbw-lock" src="img/asset/lock.png" />
+					<p>SECRET FILES</p>
+				</a>
+			</div>
+		</div>
+		<script src="js/reduced-motion.js"></script>
+		<script>
+			function shakeLock(id) {
+				let element = document.getElementById(id);
+				element.classList.remove("shake");
+				void element.offsetWidth;
+				element.classList.add("shake");
+			}
+		</script>
+	</body>
+
+</html>

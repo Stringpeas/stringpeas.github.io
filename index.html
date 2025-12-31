@@ -1,63 +1,1180 @@
 <!DOCTYPE html>
 
-<html>
-	<head>
-		<title>Catalogue of Regrets</title>
-        <link rel="stylesheet" href="style.css">
+<html lang="en">
+	
+<head>
+		<script src="js/site-util.js" type="text/javascript"></script>
+		<meta
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=contain"
+			name="viewport"
+		/>
+		<link href="favicon.ico" rel="icon" type="image/x-icon" />
+		<meta charset="utf-8" />
+		<title>Stringpeas</title>
+		<link href="style.css" media="all" rel="stylesheet" type="text/css" />
+		<style>
+			:root {
+				/* SCALE */
+				--scale: 1;
+
+				/* COLORS */
+				--inspect-color: rgb(0, 73, 255);
+				--inspect-color-subtle: rgb(0, 151, 255, 0.50);
+
+				/* astro */
+				--astro-top-offset: calc(30px * var(--scale));
+				--astro-image-width: 527px;
+
+				/* Z-INDEX */
+				--astro-z: 10;
+				--email-z: 999;
+				--enter-z: 100;
+				--inspect-z: 13;
+				--warning-z: 9;
+				--fixed-z: 100;
+
+				/* SMALL SCREEN VARIABLES */
+				--sm-brain-width: 100px;
+				--sm-margin: 20px;
+			}
+
+			/** ANIMATION */
+			@keyframes vertical-planets {
+				0% {
+					background-position: 0px 0px;
+				}
+				100% {
+					background-position: 0px 550px;
+				}
+			}
+
+			@keyframes floating {
+				0% {
+					transform: translate(0px, 0px);
+				}
+				100% {
+					transform: translate(0px, 5px);
+				}
+			}
+			@keyframes planets-glow {
+                0% {
+                    opacity: 1;
+                }
+                100% {
+                    opacity: 0.5;
+                }
+			}
+
+			/** BODY */
+			html {
+				scroll-behavior: smooth;
+				background: transparent;
+			}
+            body {
+                background-color: black;
+                margin: 0;
+                height: 100dvh;
+                overflow: hidden;
+                position: relative;
+            }
+            body::before {
+                content: "";
+                position: fixed;
+                inset: 0;
+                background-image: url("img/asset/garden2.gif");
+                background-repeat: repeat; /* X + Y */
+                background-size: auto;
+                background-position: 0 0;
+                opacity: 0.4;
+                pointer-events: none;
+                z-index: -1;
+            }
+            body::after {
+                content: "";
+                position: fixed;
+                inset: 0;
+                background:
+                /* soft center falloff */
+                radial-gradient( ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.25) 60%, rgba(0,0,0,0.6) 80%, rgba(0,0,0,0.9) 100% ),
+                /* top + bottom cinematic fade */
+                linear-gradient( to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 25%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.15) 75%, rgba(0,0,0,0.65) 100% );
+                pointer-events: none;
+                z-index: 0;
+            }
+
+			.top-left {
+				top: 0%;
+				left: 0%;
+			}
+			.bottom-right {
+				bottom: 0%;
+				right: 0%;
+				transform: rotate(-180deg);
+			}
+			.top-right {
+				top: 0%;
+				right: 0%;
+			}
+			.small-screen-only {
+				display: none;
+			}
+			.link {
+				cursor: url("img/cursor-point.png"), default !important;
+			}
+
+			/* WINDOWS */
+            #windows-container {
+                position: absolute;
+                overflow: hidden;
+                margin: auto;
+                display: grid;
+                grid: repeat(4, 1fr) / repeat(4, 1fr);
+                justify-items: center;
+                height: calc(500px * var(--scale));
+                width: 100%;
+                top: 50%;
+                transform: translate(0%, -50%);
+
+            }
+
+			/** FULL CONTAINER */
+			#full-container {
+				height: 100vh;
+				width: 100%;
+				margin: auto;
+				position: relative;
+				display: flex;
+				justify-content: center;
+			}
+
+			/** MAIN CONTAINER */
+			#main-container {
+				height: 100dvh;
+				width: 100vw;
+				position: relative;
+				max-width: 1100px;
+				display: flex;
+				justify-content: center;
+			}
+
+			/** planets */
+			.planets-container {
+				width: 300px;
+				margin: 0px 10px;
+				position: relative;
+			}
+			.planets-container.left {
+				transform: scaleX(-1);
+				margin-left: 0;
+			}
+			.planets-container.right {
+				margin-right: 0;
+			}
+			.planets-glow {
+				position: absolute;
+				left: 50%;
+				transform: translate(-50%, 0%);
+
+				width: 100px;
+				height: 100%;
+
+				box-shadow: 0px 0px 150px rgb(47, 142, 242);
+				animation: planets-glow 1s ease-in-out alternate infinite;
+				overflow: hidden;
+			}
+			.planets {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				filter: brightness(95%);
+				opacity:0.95;
+				background-image: url("img/asset/planets.png");
+				animation: vertical-planets 60s linear infinite;
+			}
+
+			/** LOGO */
+			.logo-container {
+				position: absolute;
+				padding: 0px 10px;
+				z-index: 15;
+			}
+			.logo-image {
+				image-rendering: pixelated;
+				margin-top: 20px;
+				filter: sepia(50%) saturate(1880%) hue-rotate(100deg) brightness(102%)
+					contrast(106%);
+			}
+            .logo-text {
+                width: fit-content;
+                margin: 0;
+                /*color: var(--inspect-color);*/
+				color:red;
+                text-shadow: rgb(90, 170, 255) 1px 0 10px;
+                font-family: "Consolas", monospace;
+                letter-spacing: 4px;
+                font-size: 1em;
+            }
+
+			/** RATING */
+			.rating-container {
+				position: absolute;
+				top: 5px;
+				right: 5px;
+				z-index: 15;
+			}
+
+			/** astro */
+			#astro {
+				position: relative;
+				margin-top: var(--astro-top-offset);
+				margin-bottom: var(--astro-top-offset);
+
+				image-rendering: pixelated;
+				user-select: none;
+				z-index: var(--astro-z);
+
+				width: 527px;
+				aspect-ratio: 527/894;
+			}
+			#astro-container {
+				height: fit-content;
+				width: fit-content;
+				position: relative;
+				margin: auto;
+			}
+            #astro-glow {
+                position: absolute;
+                top: calc(290px * var(--scale) + var(--astro-top-offset));
+                left: calc(263px * var(--scale));
+                width: calc(180px * var(--scale));
+                height: calc(190px * var(--scale));
+                transform: translate(-50%, -50%);
+                box-shadow: 0 0 500px rgba(90, 170, 255, 0.85), 0 0 700px rgba(90, 170, 255, 0.4);
+                border-radius: 100%;
+            }
+
+			/** EMAIL */
+			#email-container {
+				position: absolute;
+				padding: calc(30px * var(--scale)) calc(10px * var(--scale));
+				top: calc(70px * var(--scale) + var(--astro-top-offset));
+				right: calc(-100px * var(--scale));
+
+				font-family: "Consolas", monospace;
+				font-size: calc(0.9em * var(--scale));
+				letter-spacing: 1px;
+
+				border-style: solid;
+				border-width: 1px;
+
+				border-radius: 100%;
+				box-sizing: border-box;
+				z-index: var(--email-z) !important;
+			}
+            #email {
+                width: fit-content;
+                margin: 0 auto;
+                padding: 10px 14px;
+                color: dodgerblue;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+                text-shadow: 0 0 6px rgba(30, 144, 255, 0.8), 0 0 12px rgba(30, 144, 255, 0.5), 0 0 20px rgba(30, 144, 255, 0.25);
+            }
+
+            /** ENTER */
+            #enter-container {
+                position: absolute;
+                top: calc(((312px + 37px)* var(--scale)) + var(--astro-top-offset));
+                left: calc((263px + 57px)* var(--scale));
+                transform: translate(-50%, -50%);
+                color: black;
+                background-color: white;
+                border-color: rgb(255, 68, 68);
+                border-style: solid;
+                border-width: 1px;
+                border-radius: 6px;
+                width: calc(130px * var(--scale));
+                height: calc(45px * var(--scale));
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: box-shadow 0.5s ease, background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+                z-index: var(--enter-z);
+            }
+
+                #enter-container:hover {
+                    box-shadow: 0px 0px 20px rgb(255, 68, 68);
+                    /*box-shadow: 0px 0px 20px rgb(83, 255, 68);*/
+                    border-color: blue;
+                    background-color: black;
+                    color: white;
+                }
+
+            /** ENTER TEXT */
+            #top-enter-text,
+            #bottom-enter-text {
+                font-family: "Bodoni Ornaments ITC", monospace;
+                font-size: calc(0.55em * var(--scale));
+                margin: 0;
+                letter-spacing: 2px;
+                line-height: 1;
+                opacity: 0.8;
+            }
+
+            #enter-text {
+                font-family: "Silkscreen", monospace;
+                font-size: calc(1.3em * var(--scale));
+                margin: calc(3px * var(--scale)) 0;
+                letter-spacing: 3px;
+                line-height: 1;
+            }
+
+
+			/** LINKS */
+			.link {
+				background-color: black;
+				padding: calc(5px * var(--scale)) calc(7px * var(--scale));
+				margin: 0;
+
+				font-size: calc(1em * var(--scale));
+				font-family: "Consolas", monospace;
+
+				display: flex;
+				gap: calc(8px * var(--scale));
+				align-items: center;
+
+				transition: background-color 0.2s, color 0.2s !important;
+				border-bottom-style: none;
+			}
+            .link-icon {
+                height: calc(1em * var(--scale));
+                width: calc(15px * var(--scale));
+                image-rendering: pixelated;
+                filter: brightness(0) saturate(100%) invert(14%) sepia(98%) saturate(7400%) hue-rotate(0deg) brightness(105%) contrast(120%);
+            }
+			.link-name {
+				margin: 0;
+				font-size: calc(1em * var(--scale));
+			}
+			.link:hover {
+				background-color: var(--inspect-color);
+				color: black;
+				transition: none !important;
+			}
+			.link:hover .link-icon {
+				filter: none;
+			}
+
+			/** LINKS PRIMARY */
+			#links-primary-container {
+				position: absolute;
+				top: calc(80px * var(--scale) + var(--astro-top-offset));
+				left: calc(-85px * var(--scale));
+			}
+			#links-primary-line {
+				width: calc(250px * var(--scale));
+				top: calc(200px * var(--scale));
+				left: calc(265px * var(--scale));
+				transform: rotate(220deg);
+			}
+
+			/** LINKS SECONDARY */
+			#links-secondary-container {
+				position: absolute;
+				top: calc(240px * var(--scale) + var(--astro-top-offset));
+				left: calc(-85px * var(--scale));
+			}
+			#links-secondary-line {
+				width: calc(250px * var(--scale));
+				top: calc(105px * var(--scale));
+				left: calc(255px * var(--scale));
+				transform: rotate(200deg);
+			}
+
+			/** LINKS TERTIARY */
+			#links-tertiary-container {
+				position: absolute;
+				top: calc(320px * var(--scale) + var(--astro-top-offset));
+				left: calc(-85px * var(--scale));
+			}
+			#links-tertiary-line {
+				width: calc(180px * var(--scale));
+				top: calc(120px * var(--scale));
+				left: calc(160px * var(--scale));
+				transform: rotate(210deg);
+			}
+
+			/* SUPPORT LINKS */
+			#support-links-container {
+				position: absolute;
+				top: calc(270px * var(--scale) + var(--astro-top-offset));
+				right: calc(-110px * var(--scale));
+				transform: translate(-50%, -50%);
+			}
+			#support-links-line {
+				width: calc(180px * var(--scale));
+				top: calc(100px * var(--scale));
+				right: calc(40px * var(--scale));
+				transform: rotate(-22deg);
+			}
+			.inspect-title {
+				background: url("img/texture/mountain-gray.png");
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+			}
+
+			/* INTERNAL LINKS */
+			#internal-links-container {
+				position: absolute;
+				top: calc(370px * var(--scale) + var(--astro-top-offset));
+				right: calc(-80px * var(--scale));
+				transform: translate(-50%, -50%);
+			}
+			#internal-links-line {
+				width: calc(140px * var(--scale));
+				top: calc(110px * var(--scale));
+				right: calc(-15px * var(--scale));
+				transform: rotate(-30deg);
+			}
+
+
+			/* REDUCED MOTION */
+			#reducedmotion-wrapper {
+				position: absolute;
+				top: 0%;
+				right: 0%;
+				color: blue;
+				z-index: 100;
+				padding: 5px;
+				padding-top: 10px;
+			}
+			#reducedmotion-wrapper a:hover {
+				opacity: 0.5;
+			}
+			#reducedmotion-wrapper img {
+				width: 20px;
+				height: 20px;
+				filter: invert(94%) sepia(40%) saturate(1480%) hue-rotate(2deg)
+					brightness(102%) contrast(106%);
+			}
+
+			/* WARNING */
+			#warning-container {
+				position: absolute;
+				font-family: "Consolas", monospace;
+				left: calc(-220px * var(--scale));
+				bottom: calc(215px * var(--scale) - var(--astro-top-offset));
+				background-color: black;
+				border-width: 1px;
+				border-style: solid;
+				border-color: var(--inspect-color);
+				border-radius: 90px;
+
+				width: calc(290px * var(--scale));
+				height: calc(250px * var(--scale));
+				padding: calc(40px * var(--scale));
+
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				font-style: italic;
+				box-sizing: border-box;
+
+				z-index: var(--warning-z);
+				gap: 10px;
+			}
+			#warning {
+				margin: 0 auto;
+				color:lightblue;
+				font-size: calc(0.8em * var(--scale));
+			}
+			#warning-icon {
+				filter: invert(94%) sepia(40%) saturate(1480%) hue-rotate(2deg)
+					brightness(102%) contrast(106%);
+				height: 30px;
+			}
+			.warning-symbol {
+				display: none;
+			}
+			#w-short {
+				display: none;
+			}
+
+			/** INSPECT STYLING */
+			.inspect-container {
+				z-index: var(--inspect-z);
+			}
+			.inspect-row {
+				color: var(--inspect-color);
+				background-color: black;
+
+				border-color: var(--inspect-color-subtle);
+				border-style: solid;
+				border-width: 1px;
+				border-bottom-style: none;
+
+				box-sizing: border-box;
+				position: relative;
+
+				z-index: var(--inspect-z);
+			}
+			.row-text {
+				font-family: "Consolas", monospace;
+				font-size: calc(1em * var(--scale));
+
+				width: fit-content;
+				margin: auto;
+				padding: calc(5px * var(--scale));
+			}
+
+            .circle-container {
+                background-image: url("img/texture/mountain-gray.png");
+                color: var(--inspect-color);
+                animation: circle-animation 0s linear infinite, floating 0s ease-in-out alternate infinite;
+                transition: box-shadow 0.1s ease;
+                box-shadow: 0px 5px 10px rgba(90, 170, 255, 0.5);
+                box-sizing: border-box;
+            }
+			.circle-container:hover {
+				box-shadow: 0px 5px 10px rgba(90, 170, 255, 1);
+			}
+
+			.line {
+				position: absolute;
+				transform-origin: 0% 0%;
+				height: 1px;
+
+				border-top-style: solid;
+				border-width: 1px;
+				border-color: var(--inspect-color);
+			}
+			.line-endpoint {
+				position: relative;
+				background-color: rgb(0, 0, 0);
+				width: calc(20px * var(--scale));
+				height: calc(20px * var(--scale));
+
+				border-color: var(--inspect-color);
+				border-style: solid;
+				border-width: 1px;
+				border-radius: 100%;
+
+				transform: translate(0%, -50%);
+				transition: box-shadow 0.1s linear, background-color 0.1s linear;
+			}
+			.inspect-container:hover .line-endpoint {
+				background-color: var(--inspect-color);
+				box-shadow: 0px 0px 5px var(--inspect-color);
+				transition: none !important;
+			}
+			.line:hover .line-endpoint {
+				background-color: black;
+				box-shadow: none;
+			}
+
+			#site-container {
+				display: block;
+				position: absolute;
+				height: 100dvh !important;
+				width: 100dvw !important;
+				z-index: 9999;
+				background-color: #ff0000;
+				display: none;
+			}
+
+			/* SMALL SCREEN ADJUSTMENTS */
+			@media screen and (max-width: 1600px) {
+				.planets-glow {
+					transform: translate(0%, 0%);
+				}
+			}
+			@media screen and (max-width: 1300px) {
+				.planets-glow {
+					display: none;
+				}
+				#reducedmotion-wrapper {
+					padding-top: 5px;
+				}
+			}
+			@media screen and (max-width: 1200px) {
+				#main-container {
+					position: static;
+				}
+				.logo-container {
+					background: linear-gradient(
+						150deg,
+						rgba(0, 0, 0, 1) 0%,
+						rgba(255, 255, 255, 0) 50%,
+						rgba(255, 255, 255, 0) 100%
+					);
+				}
+			}
+			@media screen and (max-width: 1000px) {
+				#warning-container {
+					border-radius: 5%;
+					border-top-right-radius: 25%;
+					padding: calc(10px * var(--scale));
+					width: calc(160px * var(--scale));
+					height: calc(270px * var(--scale));
+					left: calc(-145px * var(--scale));
+					bottom: calc(205px * var(--scale) - var(--astro-top-offset));
+				}
+				#warning {
+					text-align: center;
+					margin: 0;
+				}
+				#refresh-button {
+					top: 98%;
+					left: 98%;
+					transform: translate(-100%, -100%);
+				}
+
+			}
+			/** Not likely a situation that would ever occur naturally, but handling it soothes my wretched mind. */
+			@media screen and (max-height: 800px) {
+				.logo-container.bottom-right {
+					display: none;
+				}
+				#warning-container {
+					position: fixed;
+					left: 0%;
+					bottom: 0%;
+
+					height: 60px;
+					width: 100%;
+					padding: 10px;
+
+					border-radius: 0%;
+					animation: none;
+					z-index: var(--fixed-z);
+				}
+				#warning-icon {
+					display: none;
+				}
+				#refresh-button {
+					top: auto;
+					bottom: 5px;
+				}
+
+			}
+			@media screen and (max-width: 900px) {
+				/** BODY */
+				body {
+					overflow: auto;
+					height: fit-content;
+					position: relative;
+					background-attachment: fixed;
+				}
+				.small-screen-only {
+					display: block;
+				}
+
+				/** INSPECT STYLING */
+				.inspect-row {
+					width: 80%;
+					margin: auto;
+					padding-left: 5px;
+					border-bottom-style: solid !important;
+				}
+				.inspect-title {
+					padding-top: 10px;
+					width: 50%;
+					border-style: none !important;
+					background: transparent;
+				}
+				.inspect-title .row-text {
+					font-size: 1.2em;
+					text-transform: uppercase;
+				}
+				.line,
+				.line-endpoint {
+					display: none;
+				}
+
+				/** ORDER */
+				#links-primary-container {
+					order: 1;
+				}
+				#links-secondary-container {
+					order: 2;
+				}
+				#links-tertiary-container {
+					order: 3;
+				}
+				#support-links-container {
+					order: 4;
+				}
+				#internal-links-container {
+					order: 5;
+				}
+				#email-container {
+					order: 6;
+				}
+
+
+				/** CONTAINERS */
+				#full-container {
+					height: fit-content;
+				}
+				#main-container {
+					width: 100%;
+					height: fit-content;
+				}
+				#windows-container {
+					display: none;
+				}
+				#links-primary-container,
+				#links-secondary-container,
+				#links-tertiary-container,
+				#support-links-container,
+				#internal-links-container,
+				#warning-container {
+					position: relative;
+					transform: none;
+					box-sizing: border-box;
+					width: 100%;
+
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+				}
+
+				/** planets */
+				.planets-container {
+					position: absolute;
+					width: var(--sm-brain-width);
+					height: 100%;
+					z-index: -1;
+				}
+				.planets-container.left {
+					left: 0%;
+				}
+				.planets-container.right {
+					right: 0%;
+				}
+
+				/** astro */
+				#astro-container {
+					margin: 0px auto;
+					width: calc(100%);
+
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+				}
+				#astro {
+					position: relative;
+					max-height: none;
+					width: var(--astro-image-width);
+					max-width: calc(100% - var(--sm-margin));
+					margin: calc(20px * var(--scale)) auto;
+					image-rendering: pixelated;
+				}
+				#astro-glow {
+					left: 50%;
+				}
+				#enter-container {
+					top: calc((250px + 74px) * var(--scale) + calc(22px * var(--scale)));
+					left: 60%;
+					transform: translateX(-50%);
+					width: calc(132px * var(--scale));
+					height: calc(47px * var(--scale));
+				}
+				#enter-text {
+					font-size: calc(1.7em * var(--scale));
+				}
+
+				/** LINKS */
+				.link-icon {
+					height: 20px;
+					width: 20px;
+				}
+				.link-name {
+					font-size: 1.5em;
+				}
+				.link {
+					display: inline-flex;
+					gap: 12px;
+					width: 60%;
+					padding: 10px 10px;
+					margin: 5px auto;
+					border-radius: 10px;
+				}
+				#links {
+					position: relative;
+				}
+				#links-overlay {
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					background-color: rgb(66, 84, 169);
+					mix-blend-mode: hard-light;
+				}
+				#links-primary-container {
+					margin-top: 20px;
+				}
+				#internal-links-container {
+					margin-bottom: 20px;
+				}
+
+				/** EMAIL */
+				#email-container {
+					border-radius: 0%;
+					box-shadow: none;
+					border-color: rgb(0, 71, 139);
+					font-size: 1em;
+					animation: none;
+					position: relative;
+					width: 100%;
+					margin: 0;
+					transform: none;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					height: fit-content;
+					padding: 0;
+				}
+
+
+				/** WARNING */
+				#warning-container {
+					position: sticky;
+					top: unset;
+					bottom: 40px;
+					z-index: 20;
+					width: 100%;
+					height: fit-content;
+					padding: 10px 5px 15px 5px;
+
+					border-radius: 0%;
+					box-shadow: none;
+					animation: none;
+					flex-direction: row;
+					border: none;
+					justify-content: center;
+					align-items: center;
+					background: linear-gradient(
+						0deg,
+						rgba(0, 0, 0, 0.8) 0%,
+						rgba(0, 0, 0, 0.7) 50%,
+						rgba(0, 0, 0, 0.5) 80%,
+						rgba(0, 0, 0, 0) 100%
+					);
+					border-bottom: 1px solid rgb(109, 109, 0);
+					gap: 2px;
+				}
+				#warning {
+					font-size: 0.8rem;
+					text-align: center;
+					margin: auto 0;
+					text-shadow: 1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black,
+						-1px 1px 0 black, -2px 2px 0 black;
+				}
+				#warning-icon {
+					display: none;
+				}
+				#w-long {
+					display: none;
+				}
+				#w-short {
+					display: inline;
+				}
+
+				/** LOGO */
+				.logo-container.top-left {
+					background: none;
+					transform-origin: 0% 0%;
+					transform: translateX(5px) translateY(calc(300%)) rotate(-90deg);
+					padding: 0;
+				}
+				.logo-container.bottom-right {
+					display: none;
+				}
+				.logo-image {
+					margin: 0;
+					width: calc(250px * var(--scale));
+				}
+				.logo-text {
+					margin-left: auto;
+					font-size: calc(1em * var(--scale));
+				}
+
+				/** SCROLL PROMPT */
+				#scroll-prompt {
+					z-index: 999;
+					position: sticky;
+					bottom: 0%;
+					max-height: 44px;
+
+					background-color: black;
+					color: var(--inspect-color);
+					border-style: solid;
+					border-width: 1px;
+
+					font-size: calc(1.5em * var(--scale));
+					font-family: "Consolas", monospace;
+				}
+				#scroll-prompt p {
+					color: var(--inspect-color);
+					padding: 10px 0px;
+					margin: 0;
+				}
+			}
+		</style>
 	</head>
+	<body>
+		<!-- WINDOWS -->
+		<div id="windows-container">
+			<div class="mini-window"></div>
+			<div class="mini-window" style="animation-delay: 0.5s"></div>
+			<div class="mini-window" style="animation-delay: 1s"></div>
+			<div class="mini-window" style="animation-delay: 1.5s"></div>
+			<div class="mini-window"></div>
+			<div class="mini-window" style="animation-delay: 0.5s"></div>
+			<div class="mini-window" style="animation-delay: 1s"></div>
+			<div class="mini-window" style="animation-delay: 1.5s"></div>
+		</div>
+		<div id="full-container">
+			<div class="planets-container left">
+				<div class="planets-glow"></div>
+				<div class="planets rm-pause"></div>
+			</div>
+			<div id="main-container">
+				<!-- LOGO -->
+				<div class="logo-container top-left">
+					<img
+						alt="stringpeas"
+						class="logo-image"
+						src="img/asset/nameplate.png"
+					/>
+					<p class="logo-text">MIGUEL DOMINGUES</p>
+				</div>
+				<div class="logo-container bottom-right">
+					<img
+						alt="stringpeas"
+						class="logo-image"
+						src="img/asset/nameplate.png"
+					/>
+					<p class="logo-text">MIGUEL DOMINGUES</p>
+				</div>
+				<!-- RATING -->
+				<div class="rating-container top-right"></div>
+				<div id="astro-container">
+					<!-- ASTRO GLOW -->
+					<!--<div id="astro-glow"></div>-->
+					<!-- ASTRO AND ENTRANCE -->
+					<img alt="astro" id="astro" src="img/asset/astro-nauts.png" />
+					<a href="home.html">
+						<div id="enter-container">
+							<!--<p id="top-enter-text">string</p>-->
+							<p id="enter-text">ENTER</p>
+							<!--<p id="bottom-enter-text">peas</p>-->
+						</div>
+					</a>
+					<!-- EMAIL -->
+					<div class="circle-container rm-pause"
+						 id="email-container"
+						 style="z-index: 5">
+						<p id="email">tempmail@gmail.com</p>
+					</div>
+					<!-- WARNING -->
+					<div class="circle-container rm-pause" id="warning-container">
+						<img alt=""
+							 id="warning-icon"
+							 src="svg/warning.svg" />
 
-	<body>	
+						<p id="warning">
+							<span id="w-long">
+								This site contains frequent use of visual movement & javascript!<br /><br />
+							</span>
 
-        <p id = "theText">
-            If I could wish upon a shooting star<br>
-            and I had the power to be anything,<br>
-            anything at all<br>
-            contrary to popular belief I would not choose<br>
-            to be an engineer.<br>
-            <br>
-            I would not choose to be<br>
-            a father<br>
-            a teacher<br>
-            a leader<br>
-            a life breather<br>
-            a peaceful sunday morning<br>
-            <br>
-            no,<br>
-            <br>
-            If I could wish upon a shooting star<br>
-            and I had the power to be anything in the world,<br>
-            on the seemingly surprising contrary, I would not choose<br>
-            to be your lover.<br>
-            <br>
-            I would not choose to be the lips you find with yours<br>
-            or the fingertips that touch after a lewd glance at the shore<br>
-            <br> 
-            no,<br>
-            <br>
-            If I had the power to be anything,<br>
-            anything at all<br>
-            I would choose to be your friend.<br>
-            <br>
-            The voice on the other end of the phone,<br>
-            The arms that seem to always bring you comfort<br>
-            and the silence that just makes you feel safe.<br>
-            <br>
-            But if I had all the power in the world,<br>
-            this would be much easier as I would<br>
-            have the strength to look at you and not feel my heart throb<br>
-            as it begs to escape it's caged bars.<br>
-            <br>
-            But there is no shooting star<br>
-            and you make me stumble<br>
-            so for now I'll curse my lack of strength and we'll stay strangers.<br>
-        </p>
+							<span id="w-short">
+								Contains frequent use of visual movement & javascript!
+							</span>
+						</p>
+					</div>
 
-        <h1>I love you</h1>
-        <h1>You are loved</h1>
-        
-        <button class="button-30" role="button" onclick = "next()">Next</button>
 
-        <script src="script.js"></script>
+
+
+					<!-- LINKS -->
+					<div class="small-screen-only" id="scroll-prompt">
+						<a href="#links">
+							<p>▼ LINKS ▼</p>
+						</a>
+					</div>
+					<div id="links">
+						<div class="small-screen-only" id="links-overlay"></div>
+						<div class="inspect-container" id="links-primary-container">
+							<div class="inspect-row inspect-title">
+								<p class="row-text">The Hub</p>
+							</div>
+							<a href="https://google.ca">
+								<div class="inspect-row link">
+									<img alt="" class="link-icon" src="svg/logo/aboutme.svg" />
+									<p class="link-name">About Me</p>
+								</div>
+							</a>
+							<a href="https://google.ca">
+								<div class="inspect-row link">
+									<img alt=""
+										 class="link-icon"
+										 src="svg/logo/projects.svg" />
+									<p class="link-name">Projects</p>
+								</div>
+							</a>
+							<a href="https://google.ca">
+								<div class="inspect-row link">
+									<img alt=""
+										 class="link-icon"
+										 src="svg/logo/resume.svg" />
+									<p class="link-name">Resume</p>
+								</div>
+							</a>
+							<a href="https://www.discord.com/">
+								<div class="inspect-row link"
+									 style="border-bottom-style: solid">
+									<img alt="" class="link-icon" src="svg/logo/contact.svg" />
+									<p class="link-name">Contact</p>
+								</div>
+							</a>
+							<div class="line" id="links-primary-line">
+								<div class="line-endpoint"></div>
+							</div>
+						</div>
+						<div class="inspect-container" id="links-secondary-container">
+							<a href="https://stringpeas.itch.io/">
+								<div class="inspect-row link">
+									<img alt="" class="link-icon" src="svg/logo/itch-io.svg" />
+									<p class="link-name">Itch.io</p>
+								</div>
+							</a>
+							<a href="https://github.com">
+								<div class="inspect-row link"
+									 style="border-bottom-style: solid">
+									<img alt="" class="link-icon" src="svg/logo/github.svg" />
+									<p class="link-name">Github</p>
+								</div>
+							</a>
+							<div class="line" id="links-secondary-line">
+								<div class="line-endpoint"></div>
+							</div>
+						</div>
+						<div class="inspect-container" id="links-tertiary-container">
+							<div class="inspect-row inspect-title">
+								<p class="row-text">Socials</p>
+							</div>
+							<a href="https://google.ca/">
+								<div class="inspect-row link">
+									<img alt="" class="link-icon" src="svg/logo/linkedin.svg" />
+									<p class="link-name">Linkedin</p>
+								</div>
+							</a>
+							<a href="https://google.ca/">
+								<div class="inspect-row link">
+									<img alt="" class="link-icon" src="svg/logo/instagram.svg" />
+									<p class="link-name">Instagram</p>
+								</div>
+							</a>
+							<a href="https://google.ca/">
+								<div class="inspect-row link"
+									 style="border-bottom-style: solid">
+									<img alt="" class="link-icon" src="svg/logo/youtube.svg" />
+									<p class="link-name">Youtube</p>
+								</div>
+							</a>
+							<div class="line" id="links-tertiary-line">
+								<div class="line-endpoint"></div>
+							</div>
+						</div>
+						<!-- SUPPORT LINKS -->
+						<div class="inspect-container" id="support-links-container">
+							<div class="inspect-row inspect-title">
+								<p class="row-text">Wishlist</p>
+							</div>
+							<a href="https://google.ca">
+								<div class="inspect-row link">
+									<img alt="" class="link-icon" src="svg/logo/steam.svg" />
+									<p class="link-name">Game 1</p>
+								</div>
+							</a>
+							<a href="https://google.ca">
+								<div class="inspect-row link"
+									 style="border-bottom-style: solid">
+									<img alt="" class="link-icon" src="svg/logo/steam.svg" />
+									<p class="link-name">Game2</p>
+								</div>
+							</a>
+							<div class="line" id="support-links-line">
+								<div class="line-endpoint"></div>
+							</div>
+						</div>
+						<!-- INTERNAL LINKS -->
+						<div class="inspect-container" id="internal-links-container">
+							<div class="inspect-row inspect-title small-screen-only">
+								<p class="row-text">updates</p>
+							</div>
+							<a href="log.html">
+								<div class="inspect-row link">
+									<img alt="" class="link-icon" src="svg/book-open.svg" />
+									<p class="link-name">Dev Logs</p>
+								</div>
+							</a>
+							<a href="feed.xml">
+								<div class="inspect-row link"
+									 style="border-bottom-style: solid">
+									<img alt="" class="link-icon" src="svg/play.svg" />
+									<p class="link-name">Gameplay</p>
+								</div>
+							</a>
+							<div class="line" id="internal-links-line">
+								<div class="line-endpoint"></div>
+							</div>
+						</div>
+
+
+
+					</div>
+				</div>
+			</div>
+			<div class="planets-container right">
+				<div class="planets-glow"></div>
+				<div class="planets rm-pause" style="animation-direction: reverse"></div>
+			</div>
+			<div id="site-container"></div>
+		</div>
+
+		<!-- SCALING SCRIPT -->
+		<script>
+			const rootTheme = document.querySelector(":root");
+			const astro = document.getElementById("astro");
+
+			const maxWidth = 527;
+			const maxHeight = 894;
+			const maxScale = 1;
+
+			var img = new Image();
+			img.onload = function () {
+				setScale();
+			};
+			img.src = "img/asset/astro-nauts.png";
+
+			addEventListener("resize", (event) => {
+				setScale();
+			});
+
+			function setScale() {
+				const newWidthScale = Math.min(
+					1 * (astro.clientWidth / maxWidth),
+					maxScale
+				);
+				rootTheme.style.setProperty("--scale", newWidthScale);
+			}
+		</script>
 
 	</body>
 

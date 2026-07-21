@@ -39,10 +39,10 @@
 			--top-height: 40px;
 			--bottom-height: 50px;
 			--green-primary: rgb(19, 101, 242);
-			--blue-primary: rgb(255, 67, 67);
+			--blue-primary: #FF0047;
 			--crosshair-size: 100px;
 			--crosshair-secondary-size: 150px;
-			--portal-scale: 1;
+			--portal-scale: 1.2;
 		}
 
 		/** ORDER */
@@ -100,15 +100,16 @@
 			width: 100%;
 			max-width: 100%;
 			overflow: hidden;
-			border: 1px solid var(--green-primary);
+			border: 2px double var(--green-primary);
 			color: var(--green-primary);
 			margin: auto;
 			box-sizing: border-box;
 			display: flex;
 			flex-direction: column;
 			font-size: 0.9em;
-			background-image: url("img/texture/machine-dark.png");
+			background-image: url("img/texture/motherboard-dark-bg.png");
 			background-size: 270px;
+			box-shadow: 0 0 8px rgba(19, 101, 242, 0.25), inset 0 0 30px rgba(0,0,0,0.6);
 		}
 
 			.base-window h1 {
@@ -125,7 +126,8 @@
 		}
 
         .window-title {
-            background: linear-gradient( 180deg, lightskyblue 0%, deepskyblue 55%, cornflowerblue 100% );
+            background: linear-gradient( 180deg, rgb(20,40,100) 0%, rgb(10,20,70) 100% );
+            border-bottom: 1px solid rgba(19, 101, 242, 0.6);
             display: flex;
             align-items: center;
             padding: 2px 6px;
@@ -134,8 +136,9 @@
 
 			.window-title h1 {
 				flex-grow: 1;
-				color: black;
-				text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
+				color: deepskyblue;
+				text-shadow: 0 0 6px rgba(0,191,255,0.5);
+				letter-spacing: 2px;
 			}
 
 			.window-title img,
@@ -144,7 +147,7 @@
 			}
 
 			.window-title img {
-				filter: drop-shadow(1px 1px 0px rgba(0, 0, 0, 0.5));
+				filter: invert(19%) sepia(99%) saturate(7469%) hue-rotate(327deg) brightness(102%) contrast(112%);
 			}
 
 		#windows-bottom {
@@ -179,7 +182,7 @@
 			flex-grow: 1;
 			border: 7px solid transparent;
 			border-image: url("img/texture/teal-border.png") 60 / 30px round;
-			background-image: url("img/texture/brains-blue.png");
+			background-image: url("img/texture/pipes-bg.png");
 			background-size: 300px;
 			position: relative;
 		}
@@ -314,7 +317,7 @@
 		}
 
 		.top-nav-img {
-			filter: brightness(0) saturate(100%) invert(14%) sepia(98%) saturate(7400%) hue-rotate(0deg) brightness(105%) contrast(120%);
+			filter: invert(19%) sepia(99%) saturate(7469%) hue-rotate(327deg) brightness(102%) contrast(112%);
 			height: 23px;
 			width: 23px;
 			margin: auto;
@@ -341,7 +344,7 @@
 		}
 
 			#navigation-title img {
-				filter: brightness(0) saturate(100%) invert(14%) sepia(98%) saturate(7400%) hue-rotate(0deg) brightness(105%) contrast(120%);
+				filter: invert(19%) sepia(99%) saturate(7469%) hue-rotate(327deg) brightness(102%) contrast(112%);
 				height: 18px;
 				width: 18px;
 			}
@@ -357,7 +360,7 @@
 
 		#portals-window {
 			width: 100%;
-			height: 100%;
+			flex-grow: 1;
 			position: relative;
 			background: black;
 			background-attachment: scroll;
@@ -383,21 +386,24 @@
 		}
 
 		.portal-name {
-			color: var(--green-primary);
-			border-width: 1px;
+			color: lightskyblue;
+			border-width: 2px;
 			border-style: solid;
+			border-color: var(--green-primary);
 			width: fit-content;
-			padding: 4px;
+			padding: 4px 10px;
 			position: absolute;
 			margin: 0;
 			background-color: black;
 			z-index: 100;
 			box-sizing: border-box;
+			font-size: 1.7em;
+			padding: 2px 7px;
 		}
 
 		.portal-line {
 			color: var(--green-primary);
-			border-width: 1px;
+			border-width: 3px;
 			width: 200%;
 			border-top-style: solid;
 			transform-origin: 0% 0%;
@@ -421,7 +427,7 @@
 		.portal-node {
 			border-radius: 100%;
 			image-rendering: pixelated;
-			border-width: 1px;
+			border-width: 2px;
 			border-style: solid;
 			border-color: var(--green-primary);
 			padding: 4px;
@@ -500,6 +506,51 @@
 			background-color: rgb(0, 5, 87);
 		}
 
+		#about .portal-indicator {
+			width: 50%;
+		}
+		#about .portal-name {
+			transform: translate(12px, -12px);
+		}
+
+		#collection .portal-name {
+			transform: translate(-12px, -6px);
+		}
+
+		#itchs .portal-name {
+			transform: translate(8px, -12px);
+		}
+
+		#projects .portal-name {
+			transform: translate(0px, -5px);
+		}
+
+		#characters .portal-indicator {
+			float: right;
+		}
+
+		#characters .portal-line {
+			transform-origin: 100% 0%;
+			right: 0%;
+			transform: rotate(-45deg);
+		}
+
+		#characters .portal-name {
+			right: 0%;
+			transform: translate(20px, -20px);
+		}
+
+		#contact .portal-name {
+			transform: translate(8px, -18px);
+		}
+
+		#error1 .portal-name,
+		#error2 .portal-name {
+			padding: 2px 4px;
+			font-size: 0.75em;
+			font-weight: normal;
+		}
+
 		.portal-locked {
 			filter: grayscale();
 		}
@@ -509,6 +560,195 @@
 				font-size: 1em;
 			}
 
+
+		/* ── SCANLINES ── */
+		#portals-window::after {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: repeating-linear-gradient(
+				to bottom,
+				transparent 0px,
+				transparent 3px,
+				rgba(0,0,0,0.18) 3px,
+				rgba(0,0,0,0.18) 4px
+			);
+			pointer-events: none;
+			z-index: 1000;
+		}
+
+		/* ── TWINKLING STARS ── */
+		@keyframes twinkle {
+			0%, 100% { opacity: 0.1; }
+			50%       { opacity: 0.7; }
+		}
+
+		.star {
+			position: absolute;
+			color: white;
+			font-size: 8px;
+			pointer-events: none;
+			animation: twinkle linear infinite;
+			z-index: 1;
+			user-select: none;
+		}
+
+		/* ── CLOCK (top bar) ── */
+		#nav-clock {
+			font-family: "Silkscreen";
+			font-size: 1em;
+			color: lightskyblue;
+			letter-spacing: 2px;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+
+		/* ── NAVIGATION BOTTOM ── */
+		#navigation-bottom {
+			display: flex;
+			align-items: center;
+			height: var(--top-height);
+			border-style: solid;
+			border-width: 1px;
+			border-color: var(--green-primary);
+			border-top-style: solid;
+			border-bottom-style: none;
+			position: relative;
+			background: linear-gradient( 0deg, rgb(0, 0, 0) 0%, rgb(5, 13, 73) 100% );
+			box-sizing: border-box;
+			padding: 0 10px;
+			justify-content: space-between;
+		}
+
+		#nav-datetime {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+			font-family: "Silkscreen";
+			font-size: 1em;
+			letter-spacing: 2px;
+			position: absolute;
+			left: 50%;
+			transform: translateX(-50%);
+		}
+
+		#nav-date {
+			color: #FF0047;
+		}
+
+		#nav-time-bottom {
+			color: deepskyblue;
+		}
+
+		#nav-datetime::before {
+			content: '◈';
+			color: #FF0047;
+			font-size: 0.9em;
+		}
+
+		#nav-datetime::after {
+			content: '◈';
+			color: #FF0047;
+			font-size: 0.9em;
+		}
+
+		/* ── DEEP SPACE FM ── */
+		#player-window {
+			background-image: url("img/texture/motherboard-dark-bg.png");
+			background-color: rgba(0, 0, 0, 0.85);
+		}
+
+		#player-window .window-content {
+			padding: 8px 10px;
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+		}
+
+		#player-track {
+			font-family: "Silkscreen";
+			font-size: 0.85em;
+			color: deepskyblue;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			letter-spacing: 1px;
+			margin: 0;
+			text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 2px 2px 0 black, -2px -2px 0 black;
+		}
+
+		#player-artist {
+			font-family: "Consolas";
+			font-size: 0.8em;
+			color: rgba(255, 255, 255, 0.55);
+			margin: 0;
+		}
+
+		#player-progress-bar {
+			width: 100%;
+			height: 6px;
+			background: black;
+			border: 1px solid rgba(255, 0, 71, 0.5);
+			cursor: pointer;
+			position: relative;
+		}
+
+		#player-progress-fill {
+			height: 100%;
+			width: 0%;
+			background: rgba(255, 0, 71, 0.85);
+			transition: width 0.5s linear;
+		}
+
+		#player-time {
+			font-family: "Consolas";
+			font-size: 0.65em;
+			color: lightskyblue;
+			text-align: right;
+			margin: 0;
+			text-shadow: 1px 1px 0 black, -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 2px 2px 0 black, -2px -2px 0 black;
+		}
+
+		#player-controls {
+			display: flex;
+			gap: 6px;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.player-btn {
+			background: rgb(18, 18, 20);
+			border: 2px solid rgba(19, 101, 242, 0.5);
+			color: deepskyblue;
+			font-family: "Silkscreen";
+			font-size: 0.7em;
+			padding: 4px 10px;
+			cursor: pointer;
+			letter-spacing: 1px;
+			transition: background 0.15s, color 0.15s;
+		}
+
+		.player-btn:hover {
+			background: #FF0047;
+			border-color: #FF0047;
+			color: white;
+		}
+
+		#player-btn-play {
+			background: rgb(18, 18, 20);
+			border: 2px solid deepskyblue;
+			color: deepskyblue;
+			padding: 4px 14px;
+		}
+
+		#player-btn-play:hover {
+			background: deepskyblue;
+			border-color: deepskyblue;
+			color: black;
+		}
 
 		/** BUTTON */
 
@@ -526,26 +766,26 @@
 			right: 0%;
 			display: flex;
 			gap: 8px;
-			margin: 5px 5px;
+			margin: 5px;
 		}
 
 		.misc-nav-img {
 			height: 13px;
 			transform: translateY(2px);
 			margin-right: 5px;
-			filter: invert(28%) sepia(100%) saturate(1597%) hue-rotate(199deg) brightness(102%) contrast(115%);
+			filter: invert(19%) sepia(99%) saturate(7469%) hue-rotate(327deg) brightness(102%) contrast(112%);
 		}
 
 		.misc-nav-link {
-			color: var(--blue-primary);
+			color: var(--green-primary);
 			background-color: black;
-			border: 2px solid var(--blue-primary);
+			border: 2px solid var(--green-primary);
 			border-radius: 20px;
 			padding: 4px 10px;
 		}
 
 			.misc-nav-link:hover {
-				background-color: var(--blue-primary);
+				background-color: var(--green-primary);
 				color: black;
 			}
 
@@ -568,10 +808,11 @@
             font-size: 1.25em;
             line-height: 1.3em;
             white-space: pre;
+            text-shadow: 1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 2px 2px 0 black, -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 3px 3px 0 black, -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black;
         }
 		#fun-window .window-content p:first-child{
 			margin-left: 0;
-			color: yellow;
+			color: #FF0047;
 			font-weight: bold;
 			letter-spacing: 1px;
 		}
@@ -590,9 +831,10 @@
 		#learn-window ul li {
 			margin-bottom: 7px;
 			color: cornflowerblue;
+			text-shadow: 1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black, -1px 1px 0 black, 2px 2px 0 black, -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 3px 3px 0 black, -3px -3px 0 black, 3px -3px 0 black, -3px 3px 0 black;
 		}
         #learn-window ul li::marker {
-            color: yellow;
+            color: #FF0047;
         }
 		/** badges */
 		#badges-window .window-content {
@@ -631,6 +873,11 @@
         }
 
 
+
+		#fun-window       { margin-top: 5px; }
+		#left-dial-window { margin-bottom: 10px; }
+		#right-dial-window { margin-top: 5px; }
+		#badges-window    { margin-bottom: 10px; }
 
 		/** DIALS */
 		.dial-large-container {
@@ -860,6 +1107,10 @@
 
 		/** SMALLER SCREEN ADJUSTMENTS */
 		@media screen and (max-width: 850px) {
+			#nav-clock { display: none; }
+			#nav-datetime { font-size: 0.55em; letter-spacing: 1px; position: relative; left: auto; transform: none; }
+			#navigation-bottom { height: auto; padding: 6px 10px; justify-content: center; }
+
 			.windows-container {
 				display: flex;
 				flex-direction: column;
@@ -933,6 +1184,14 @@
 				top: calc(50%) !important;
 				transform: translate(-50%, -50%);
 				font-size: 1.5em;
+			}
+			#about .portal-name,
+			#collection .portal-name,
+			#itchs .portal-name,
+			#contact .portal-name,
+			#characters .portal-name,
+			#projects .portal-name {
+				transform: translate(-50%, -50%);
 			}
 
 			.portal-crosshair,
@@ -1023,18 +1282,18 @@
 							<img alt="" src="svg/world.svg" />
 							<h1>404:Stringpeas Console</h1>
 						</div>
+						<span id="nav-clock"></span>
 						<div id="top-nav">
 							<div id="reducedmotion-wrapper">
 								<a aria-label="play"
 								   class="top-nav-link"
-								   href="javascript: localStorage.setItem('reducedmotion', 'false'); setCurrentReducedMotion();"
+								   href="javascript: Settings.setReducedMotionSetting(false);"
 								   id="home-play">
 									<img alt="" class="top-nav-img" src="svg/play-hollow.svg" />
 								</a>
 								<a aria-label="pause"
 								   class="top-nav-link"
-								   href="javascript: localStorage.setItem('reducedmotion', 'true');
-								setCurrentReducedMotion();"
+								   href="javascript: Settings.setReducedMotionSetting(true);"
 								   id="home-pause">
 									<img alt="" class="top-nav-img" src="svg/pause-hollow.svg" />
 								</a>
@@ -1133,7 +1392,7 @@
 								img="img/asset/planet-char.gif"
 								link="resume.html"
 								name="Resume"
-								right="calc(50% + (200px * var(--portal-scale)))"
+								right="calc(50% + (185px * var(--portal-scale)))"
 								size="calc(200px * var(--portal-scale))"
 								top="calc(50% - (200px * var(--portal-scale)))"
 							></home-portal>
@@ -1155,7 +1414,7 @@
 								locked="true"
 								name="|||||||"
 								node-align="portal-node-right"
-								right="calc(50% + (120px * var(--portal-scale)))"
+								right="calc(50% + (85px * var(--portal-scale)))"
 								size="calc(70px * var(--portal-scale))"
 								top="calc(50% - (250px * var(--portal-scale)))"
 							></home-portal>
@@ -1175,30 +1434,25 @@
 						<div class="misc-nav">
 							<a href="index.html#links" id="links">
 								<div class="misc-nav-link">
-									<img alt="" class="misc-nav-img" src="svg/link.svg" /><span
-										>LINKS</span
-									>
-								</div></a
-							>
+									<img alt="" class="misc-nav-img" src="svg/link.svg" /><span>LINKS</span>
+								</div></a>
 							<a href="contact.html" id="info">
 								<div class="misc-nav-link">
-									<img alt="" class="misc-nav-img" src="svg/info.svg" /><span
-										>INFO</span
-									>
-								</div></a
-							>
-							<a href="about.html#fun" id="credits"
-								><div class="misc-nav-link">
-									<img
-										alt=""
-										class="misc-nav-img"
-										src="svg/smile.svg"
-									/><span>FUN</span>
-								</div></a
-							>
+									<img alt="" class="misc-nav-img" src="svg/info.svg" /><span>INFO</span>
+								</div></a>
+							<a href="about.html#fun" id="credits">
+								<div class="misc-nav-link">
+									<img alt="" class="misc-nav-img" src="svg/smile.svg" /><span>FUN</span>
+								</div></a>
 						</div>
+						</div>
+				<!-- NAVIGATION BOTTOM -->
+				<div id="navigation-bottom">
+					<div id="nav-datetime">
+						<span id="nav-date"></span>
 					</div>
 				</div>
+			</div>
 				<!-- WINDOWS RIGHT -->
 				<div class="windows-column" id="windows-right">
 					<div class="dial-container right rm-pause">
@@ -1223,7 +1477,7 @@
 							</div>
 							<a href="learn.html">
 								<div class="view-all">
-									<p>VIEW ALL</p>
+									<p>$ ls -a ./learn</p>
 								</div>
 							</a>
 						</div>
@@ -1238,7 +1492,7 @@
 							</div>
 							<a href="badges.html">
 								<div class="view-all">
-									<p>VIEW ALL</p>
+									<p>$ ls -a ./badges</p>
 								</div>
 							</a>
 						</div>
@@ -1259,13 +1513,34 @@
 							</div>
 							<a href="fun.html">
 								<div class="view-all">
-									<p>VIEW ALL</p>
+									<p>$ ls -a ./terminal</p>
 								</div>
 							</a>
 						</div>
+						<!-- DEEP SPACE FM -->
+						<div class="base-window" id="player-window">
+							<div class="window-title">
+								<h1>DEEP SPACE FM</h1>
+								<img alt="" src="svg/planet.svg" />
+							</div>
+							<div class="window-content">
+								<p id="player-track">── NO SIGNAL ──</p>
+								<p id="player-artist"></p>
+								<div id="player-progress-bar">
+									<div id="player-progress-fill"></div>
+								</div>
+								<p id="player-time">00:00 / 00:00</p>
+								<div id="player-controls">
+									<button class="player-btn" id="player-btn-prev">◀◀</button>
+									<button class="player-btn" id="player-btn-play">▶ PLAY</button>
+									<button class="player-btn" id="player-btn-next">▶▶</button>
+								</div>
+							</div>
+						</div>
+
 						<!-- DIAL -->
 						<div class="base-window dial-window" id="left-dial-window">
-							<img src="img/asset/dials-half.gif" />
+							<img alt="" src="img/asset/dials-half.gif" />
 						</div>
 					</div>
 				</div>
@@ -1275,6 +1550,95 @@
 		<!-- SCRIPTS -->
 
 		<script src="js/reduced-motion.js"></script>
+
+		<script>
+			// Deep Space FM
+			const fmAudio     = SpaceFM.audio;
+			const btnPlay     = document.getElementById('player-btn-play');
+			const btnPrev     = document.getElementById('player-btn-prev');
+			const btnNext     = document.getElementById('player-btn-next');
+			const timeLine    = document.getElementById('player-time');
+			const progressBar = document.getElementById('player-progress-bar');
+			const progressFill= document.getElementById('player-progress-fill');
+
+			function syncBtn() {
+				btnPlay.textContent = Settings.getMusicPlaying() ? '❚❚ PAUSE' : '▶ PLAY';
+			}
+			syncBtn();
+			if (Settings.getMusicPlaying()) fmAudio.play().catch(function(){});
+
+			function formatTime(s) {
+				if (isNaN(s)) return '00:00';
+				const m = Math.floor(s / 60);
+				return `${String(m).padStart(2,'0')}:${String(Math.floor(s % 60)).padStart(2,'0')}`;
+			}
+
+			btnPlay.addEventListener('click', () => {
+				Settings.setMusicPlaying(!Settings.getMusicPlaying());
+				syncBtn();
+			});
+
+			btnPrev.addEventListener('click', () => {
+				fmAudio.currentTime = Math.max(0, fmAudio.currentTime - 10);
+			});
+
+			btnNext.addEventListener('click', () => {
+				fmAudio.currentTime = Math.min(fmAudio.duration || 0, fmAudio.currentTime + 10);
+			});
+
+			// Keep button in sync if toggled from settings panel
+			document.addEventListener('settingchanged', (e) => {
+				if (e.detail.name === SettingType.MUSIC_PLAYING) syncBtn();
+			});
+
+			fmAudio.addEventListener('timeupdate', () => {
+				if (!fmAudio.duration) return;
+				const pct = (fmAudio.currentTime / fmAudio.duration) * 100;
+				progressFill.style.width = pct + '%';
+				timeLine.textContent = `${formatTime(fmAudio.currentTime)} / ${formatTime(fmAudio.duration)}`;
+			});
+
+			progressBar.addEventListener('click', (e) => {
+				if (!fmAudio.duration) return;
+				const rect = progressBar.getBoundingClientRect();
+				fmAudio.currentTime = ((e.clientX - rect.left) / rect.width) * fmAudio.duration;
+			});
+
+			// Clock + Date
+			const navClock       = document.getElementById('nav-clock');
+			const navDate        = document.getElementById('nav-date');
+			const navTimeBottom  = document.getElementById('nav-time-bottom');
+			const days   = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+			const months = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+
+			function updateClock() {
+				const now = new Date();
+				const h = String(now.getHours()).padStart(2,'0');
+				const m = String(now.getMinutes()).padStart(2,'0');
+				const s = String(now.getSeconds()).padStart(2,'0');
+				const timeStr = `${h}:${m}:${s}`;
+				if (navClock) navClock.textContent = timeStr;
+				if (navTimeBottom) navTimeBottom.textContent = timeStr;
+				if (navDate) navDate.textContent = `${days[now.getDay()]} · ${String(now.getDate()).padStart(2,'0')} ${months[now.getMonth()]} ${now.getFullYear()}`;
+			}
+			updateClock();
+			setInterval(updateClock, 1000);
+
+			// Twinkling stars
+			const starsContainer = document.getElementById('portals-window');
+			const starChars = ['·', '+', '✦', '·', '·', '+'];
+			for (let i = 0; i < 28; i++) {
+				const star = document.createElement('span');
+				star.className = 'star';
+				star.textContent = starChars[Math.floor(Math.random() * starChars.length)];
+				star.style.left = `${Math.random() * 98}%`;
+				star.style.top  = `${Math.random() * 98}%`;
+				star.style.animationDuration = `${2 + Math.random() * 5}s`;
+				star.style.animationDelay    = `${Math.random() * 5}s`;
+				star.style.opacity = '0.1';
+				starsContainer.appendChild(star);
+			}
+		</script>
 
 		<!-- BLOCK VARIABLES -->
 		<script>
@@ -1287,6 +1651,7 @@
 			const funWindow = document.getElementById("fun-window");
 			const badgesWindow = document.getElementById("badges-window");
 			const learnWindow = document.getElementById("learn-window");
+			const playerWindow = document.getElementById("player-window");
 
 			const windowsLeftContent = document.getElementById(
 				"windows-left-content"
@@ -1311,11 +1676,13 @@
 				if (window.innerWidth <= smallScreenWidth && !smallScreenWindows) {
 					windowsBottom.appendChild(learnWindow);
 					windowsBottom.appendChild(funWindow);
+					windowsBottom.appendChild(playerWindow);
 					windowsBottom.appendChild(badgesWindow);
 					smallScreenWindows = true;
 					refreshReducedMotion();
 				} else if (window.innerWidth > smallScreenWidth && smallScreenWindows) {
 					windowsLeftContent.appendChild(funWindow);
+					windowsLeftContent.appendChild(playerWindow);
 					windowsRightContent.appendChild(learnWindow);
 					windowsRightContent.appendChild(badgesWindow);
 					smallScreenWindows = false;
@@ -1410,7 +1777,7 @@
 		<script>
 			const maxWidth = 900;
 			const maxHeight = 954;
-			const maxScale = 1.2;
+			const maxScale = 1.4;
 
 			setPortalScale();
 
@@ -1419,30 +1786,34 @@
 			});
 
 			function setPortalScale() {
-				const newWidthScale = Math.min(
-					1 * (portalsWindow.clientWidth / maxWidth),
-					maxScale
-				);
+				const isTablet = window.innerWidth <= 1500;
+				// In tablet mode the portals-window spans full browser width, so the
+				// formula over-scales. Use 70% of clientWidth so planets still
+				// respond to resizing but stay smaller at narrow widths.
+				const effectiveWidth = isTablet ? portalsWindow.clientWidth * 0.7 : portalsWindow.clientWidth;
+				const scaleCap = isTablet ? 1.1 : maxScale;
+				const newWidthScale = Math.min(1.2 * (effectiveWidth / maxWidth), scaleCap);
 				rootTheme.style.setProperty("--portal-scale", newWidthScale);
 			}
 		</script>
 		<!-- REDUCED MOTION SCRIPT -->
 		<script>
 			function setCurrentReducedMotion() {
-				const currentSetting =
-					localStorage.getItem("reducedmotion") === "true" ? true : false;
+				const currentSetting = Settings.getReducedMotionSetting();
 				const indexPlay = document.getElementById("home-play");
 				const indexPause = document.getElementById("home-pause");
 				if (currentSetting) {
 					indexPlay.style.display = "";
 					indexPause.style.display = "none";
-					enableReducedMotion();
 				} else {
 					indexPause.style.display = "";
 					indexPlay.style.display = "none";
-					disableReducedMotion();
 				}
 			}
+
+			document.addEventListener("settingchanged", (e) => {
+				if (e.detail.name === SettingType.REDUCED_MOTION) setCurrentReducedMotion();
+			});
 
 			setCurrentReducedMotion();
 		</script>

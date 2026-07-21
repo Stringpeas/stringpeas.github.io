@@ -23,17 +23,17 @@ class Toolbar extends HTMLElement {
         // On-site pages that link to log posts
         const fromLogBacklinks = ["/log.html", "/info.html", "/webmaster/how.html"]; 
 
-        if ((referrer.startsWith("http://127.0.0.1") || referrer.startsWith("https://espy.world/"))) {
+        if (referrer.startsWith(window.location.origin)) {
             if (altlinks) {
                 if (currLink.includes("/log/")) {
                     altlinks = [...altlinks, ...fromLogBacklinks];
                 }
-                altlinks.forEach((altlink) => {
+                for (const altlink of altlinks) {
                     if (referrer.endsWith(altlink) || referrer.endsWith(altlink.replace(".html", ""))) {
                         href = altlink;
-                        return;
+                        break;
                     }
-                });
+                }
             }
             // Special case for logs (do not continue if both current link and backlink are log entries)
             if (!(currLink.includes("/log/") && referrer.includes("/log/"))) {
@@ -70,11 +70,16 @@ class Toolbar extends HTMLElement {
             <img src="svg/back-arrow.svg" />
         </a>
 
-        <div id='settings' class="rm-pause"}>
+        <div id='settings' class="rm-pause">
 
             <div class='setting check'>
                 <input type="checkbox" id="reducedmotion" name="reducedmotion" ${Settings.getReducedMotionSetting() ? "checked" : ""} />
                 <label for="reducedmotion">REDUCED MOTION</label>
+            </div>
+
+            <div class='setting check'>
+                <input type="checkbox" id="musicplaying" name="musicplaying" ${Settings.getMusicPlaying() ? "checked" : ""} />
+                <label for="musicplaying">MUSIC</label>
             </div>
 
             <div class='audio-settings'>
@@ -137,10 +142,20 @@ class Toolbar extends HTMLElement {
             }
         });
 
-        // Update reduced motion checkbox value on change
         const reducedMotionCheckEl = document.getElementById("reducedmotion");
         reducedMotionCheckEl?.addEventListener("click", () => {
             Settings.setReducedMotionSetting(reducedMotionCheckEl.checked);
+        });
+
+        const musicPlayingCheckEl = document.getElementById("musicplaying");
+        musicPlayingCheckEl?.addEventListener("click", () => {
+            Settings.setMusicPlaying(musicPlayingCheckEl.checked);
+        });
+
+        document.addEventListener("settingchanged", (e) => {
+            if (e.detail.name === SettingType.MUSIC_PLAYING && musicPlayingCheckEl) {
+                musicPlayingCheckEl.checked = e.detail.value;
+            }
         });
     }
 
@@ -154,7 +169,7 @@ class Toolbar extends HTMLElement {
         const settingsImgEl = document.getElementById("settingsimg");
         const settingsLinkEl = document.getElementById("settingslink");
 
-        if (!settingsLinkEl) return;
+        if (!settingsLinkEl || !settingsEl || !settingsImgEl) return;
 
         if (settingsLinkEl.classList.contains("s-active")) {
             settingsEl.style.right = '-340px';
@@ -166,7 +181,7 @@ class Toolbar extends HTMLElement {
             settingsLinkEl.classList.add("s-active");
         }
     }
-  }
+}
 
-  customElements.define('tool-bar', Toolbar);
+customElements.define('tool-bar', Toolbar);
   

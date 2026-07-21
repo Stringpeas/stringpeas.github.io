@@ -1,4 +1,3 @@
-
 /**
  * KEY
  * rm-freeze :: freezes animated images (includes backgrounds)
@@ -12,32 +11,6 @@ var documentsToProcess = [document];
 /* Enable reduced motion. */
 function enableReducedMotion() {
     for (let doc of documentsToProcess) {
-        // Freeze animated images and backgrounds
-        //const imageElements = doc.querySelectorAll('img[src$=".gif"]');
-        //for (let element of imageElements) {
-        //    if (element.classList.contains("rm-ignore")) continue;
-        //    basePath = new URL(element.src).pathname
-        //    if (!basePath.startsWith("/static")) {
-        //        element.src = "/static"+basePath;
-        //    }
-        //}
-        const bgElements = doc.getElementsByClassName("rm-freeze");
-
-        for (let element of bgElements) {
-            if (element.classList.contains("rm-ignore")) continue;
-
-            const bg = getComputedStyle(element).backgroundImage;
-            if (!bg || bg === "none") continue;
-
-            // Store original once
-            if (!element.dataset.bgOriginal) {
-                element.dataset.bgOriginal = bg;
-            }
-
-            // OPTIONAL: only replace if you *actually* have static versions
-            // Otherwise just keep the same image
-        }
-
         // Pause animations
         const animatedElements = doc.getElementsByClassName("rm-pause");
         for (let element of animatedElements) {
@@ -57,17 +30,6 @@ function enableReducedMotion() {
 /* Disable reduced motion. */
 function disableReducedMotion() {
     for (let doc of documentsToProcess) {
-        // Unfreeze animated images
-
-        const bgElements = doc.getElementsByClassName("rm-freeze");
-
-        for (let element of bgElements) {
-            if (element.dataset.bgOriginal) {
-                element.style.backgroundImage = element.dataset.bgOriginal;
-                delete element.dataset.bgOriginal;
-            }
-        }
-
         // Play animations
         const animatedElements = doc.getElementsByClassName("rm-pause");
         for (let element of animatedElements) {

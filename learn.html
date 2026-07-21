@@ -26,7 +26,7 @@
 			background-color: rgba(0, 0, 0, 0.581);
 			z-index: 10;
 			border-style: double;
-			border-color: var(--dark-green);
+			border-color: var(--dark-blue);
 		}
 
 		hr {
@@ -52,7 +52,7 @@
 			list-style: square;
 			text-align: left;
 			margin-bottom: 25px;
-			color: yellow;
+			color: #FF0047;
 		}
 
 		li {
@@ -63,7 +63,7 @@
 		}
 
 			li::marker {
-				color: yellow; /* bullet */
+				color: #FF0047;
 			}
 
 		.qquote {
@@ -75,7 +75,7 @@
 
 		@media screen and (max-width: 600px) {
 			body {
-				background: url("img/texture/machine-dark.png");
+				background: url("img/texture/motherboard-dark-bg.png");
 				background-size: 300px;
 				margin: 0px;
 			}
@@ -96,6 +96,157 @@
 			<p class="qquote">"If you are a dreamer, a wisher, a liar, a hope-er, a magic bean buyer... come in!"</p>
 		</div>
 		<br />
+	<script>
+		var colours=["#000000","#1a0008","#330011","#4d0019","#660022","#99003a","#cc0047","#ff0047"];
+		var border="#ff0047";
+		var speed=80, worm=24, size=20;
+		var blox=[], bloy=[], bloc=[], blok=[], blot=[], dx, dy, x, y, c=0;
+		var swide, shigh, boddie;
+		var pete = speed*worm/colours.length;
+
+		window.addEventListener('load', function() {
+			var i, d, s;
+			boddie = document.createElement("div");
+			boddie.style.cssText = "position:fixed;top:0;left:0;width:1px;height:1px;overflow:visible;background:transparent;pointer-events:none;z-index:9999;";
+			document.body.appendChild(boddie);
+			size += 4;
+			set_width();
+			x = 4+size*Math.floor(swide/(size*2));
+			y = 4+size*Math.floor(shigh/(size*2));
+			for (i=0; i<worm; i++) {
+				d = document.createElement("div");
+				s = d.style;
+				s.width  = (size-4)+"px";
+				s.height = (size-4)+"px";
+				s.overflow  = "hidden";
+				s.position  = "absolute";
+				s.border    = "1px solid "+border;
+				blok[i] = s;
+				boddie.appendChild(d);
+				bloc[i] = -1; blox[i] = x; bloy[i] = y; blot[i] = false;
+			}
+			set_dir(true);
+			setInterval(mainblock, speed);
+		});
+
+		window.addEventListener('resize', set_width);
+
+		function set_width() {
+			swide = (window.innerWidth  || document.documentElement.clientWidth  || 800) - size;
+			shigh = (window.innerHeight || document.documentElement.clientHeight || 600) - size;
+		}
+
+		function set_dir(hardth) {
+			if (hardth) {
+				dx = size*(Math.floor(3*Math.random())-1);
+				dy = size*(Math.floor(3*Math.random())-1);
+			} else {
+				if (dx && dy) { if (Math.random()<0.5) dx=0; else dy=0; }
+				else if (!dy) dy = (Math.random()<0.5) ? size : -size;
+				else dx = (Math.random()<0.5) ? size : -size;
+			}
+		}
+
+		function mainblock() {
+			var t=false;
+			if (x>swide || y>shigh) {
+				if (x>swide) dx=-size;
+				if (y>shigh) dy=-size;
+			} else {
+				while (x+dx>swide || x+dx<0 || y+dy>shigh || y+dy<0 || Math.random()<.1 || (t=in_array(x+dx,y+dy,c))) set_dir(t);
+			}
+			blok[c].left = (blox[c]=(x+=dx))+"px";
+			blok[c].top  = (bloy[c]=(y+=dy))+"px";
+			bloc[c] = colours.length;
+			if (blot[c]) clearTimeout(blot[c]);
+			subblock(c);
+			c = ++c % worm;
+		}
+
+		function in_array(xtest, ytest, pos) {
+			for (var i=pos-3; i<pos; i++) {
+				var j = (i<0) ? i+worm : i;
+				if (blox[j]==xtest && bloy[j]==ytest) return true;
+			}
+			return false;
+		}
+
+		function subblock(r) {
+			if (--bloc[r] > -1) {
+				blok[r].backgroundColor = colours[bloc[r]];
+				blot[r] = setTimeout(function(){ subblock(r); }, pete);
+			} else blot[r] = false;
+		}
+	</script>
+	<script>
+		var airSpeed=35, airCount=200;
+		var airSpans=[], ax=[], ay=[], frame=airCount;
+		var swide=800, shigh=600;
+
+		function getPageLeft(el) { var x=0; do { x+=el.offsetLeft; } while((el=el.offsetParent)!=null); return x; }
+		function getPageTop(el)  { var y=0; do { y+=el.offsetTop;  } while((el=el.offsetParent)!=null); return y; }
+
+		function collectText(el) {
+			if (el.nodeType===3 && el.nodeValue.trim()) return [el];
+			if (/^(SCRIPT|STYLE|NOSCRIPT)$/.test(el.nodeName)) return [];
+			var r=[];
+			for (var i=0; i<el.childNodes.length; i++) r=r.concat(collectText(el.childNodes[i]));
+			return r;
+		}
+
+		window.addEventListener('load', function() {
+			swide = window.innerWidth || 800;
+			shigh = window.innerHeight || 600;
+
+			var nodes = collectText(document.body);
+			var idx = 0;
+			nodes.forEach(function(node) {
+				var txt = node.nodeValue;
+				var parent = node.parentNode;
+				var frag = document.createDocumentFragment();
+				for (var i=0; i<txt.length; i++) {
+					var span = document.createElement('span');
+					span.id = 'airb'+idx;
+					span.style.position = 'relative';
+					span.appendChild(document.createTextNode(txt.charAt(i)));
+					frag.appendChild(span);
+					idx++;
+				}
+				parent.replaceChild(frag, node);
+			});
+
+			airSpans = idx;
+			for (var i=0; i<idx; i++) {
+				var el = document.getElementById('airb'+i);
+				ax[i] = getPageLeft(el);
+				ay[i] = getPageTop(el);
+			}
+			for (var i=0; i<idx; i++) {
+				var el = document.getElementById('airb'+i);
+				if (Math.random()<0.5) {
+					ax[i] = ((Math.random()<0.5)?0:swide) - ax[i];
+					ay[i] = Math.floor(Math.random()*shigh) - ay[i];
+				} else {
+					ay[i] = ((Math.random()<0.5)?0:shigh) - ay[i];
+					ax[i] = Math.floor(Math.random()*swide) - ax[i];
+				}
+				el.style.left = ax[i]+'px';
+				el.style.top  = ay[i]+'px';
+			}
+			fly_me();
+		});
+
+		function fly_me() {
+			for (var i=0; i<airSpans; i++) {
+				ax[i] -= swide * ax[i] * Math.random() / (frame*(airCount-1));
+				ay[i] -= shigh * ay[i] * Math.random() / (frame*(airCount-1));
+				var el = document.getElementById('airb'+i);
+				el.style.left = Math.round(ax[i])+'px';
+				el.style.top  = Math.round(ay[i])+'px';
+			}
+			if (--frame) setTimeout(fly_me, airSpeed);
+		}
+	</script>
 	</body>
 
 </html>

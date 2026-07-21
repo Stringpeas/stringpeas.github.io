@@ -17,8 +17,8 @@ class ContactPortal extends HTMLElement {
     }
 
     let link = "/#";
-    if (this.hasAttribute("link")) {
-        link = this.getAttribute("link");
+    if (this.hasAttribute("dest")) {
+        link = this.getAttribute("dest");
     }
 
     this.innerHTML = `
@@ -27,7 +27,7 @@ class ContactPortal extends HTMLElement {
             <div class="box-border">
             <p class="box-title">${title}</p>
                 <div class="box">
-                    <img src="${img}"; style="image-rendering: pixelated; max-width: 100%; max-height: 100%; margin: auto;" />
+                    <img src="${img}" style="image-rendering: pixelated; max-width: 100%; max-height: 100%; margin: auto;" />
                     ${this.innerHTML}
                 </div>
             </div>
@@ -36,7 +36,6 @@ class ContactPortal extends HTMLElement {
     `;
     }
 
-  }
+}
 
-  customElements.define('contact-portal', ContactPortal);
-  
+customElements.define('contact-portal', ContactPortal);

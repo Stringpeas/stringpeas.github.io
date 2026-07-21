@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <title>[ SUBMIT A COMPLAINT ]</title>
+    <link href="favicon.ico" rel="icon" type="image/x-icon" />
+    <link href="style.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="js/site-util.js"></script>
+    <script src="js/component/toolbar.js"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            width: 100vw;
+            height: 100dvh;
+            overflow: hidden;
+            font-family: "Silkscreen", monospace;
+            background: #000;
+            transition: background-color 0.2s;
+        }
+
+        tool-bar { position: relative; z-index: 9000; }
+
+        /* ── GATE ── */
+        #gate {
+            position: fixed;
+            inset: 0;
+            z-index: 8000;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+            transition: opacity 0.5s ease;
+        }
+        #gate.hidden { opacity: 0; pointer-events: none; }
+
+        #gate h1 {
+            font-family: "Silkscreen", monospace;
+            font-size: clamp(1em, 4vw, 2em);
+            color: #FF0047;
+            letter-spacing: 4px;
+            text-align: center;
+            text-shadow: 0 0 18px #FF0047;
+            line-height: 1.6;
+        }
+
+        #gate p {
+            font-family: "Silkscreen", monospace;
+            font-size: clamp(0.55em, 2vw, 0.8em);
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 2px;
+        }
+
+        #gate-btn {
+            font-family: "Silkscreen", monospace;
+            font-size: clamp(0.7em, 2.5vw, 1em);
+            letter-spacing: 3px;
+            color: #00BFFF;
+            background: transparent;
+            border: 3px double #00BFFF;
+            padding: 14px 40px;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+        #gate-btn:hover { background: #00BFFF; color: #000; }
+
+        /* ── CINEMATIC INTRO ── */
+        #cinematic {
+            position: fixed;
+            inset: 0;
+            z-index: 7500;
+            background: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        #cinematic.visible { opacity: 1; }
+        #cinematic.hidden  { opacity: 0; pointer-events: none; }
+
+        #cin-narrator {
+            font-family: "Silkscreen", monospace;
+            font-size: clamp(0.6em, 2vw, 1em);
+            color: rgba(255,255,255,0.85);
+            letter-spacing: 2px;
+            text-align: center;
+            max-width: 70%;
+            line-height: 1.8;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        #cin-small {
+            font-family: "Silkscreen", monospace;
+            font-size: clamp(0.7em, 2.5vw, 1.2em);
+            color: white;
+            letter-spacing: 4px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #cin-word {
+            font-family: "Silkscreen", monospace;
+            font-size: clamp(3em, 14vw, 10em);
+            color: white;
+            letter-spacing: 6px;
+            text-align: center;
+            opacity: 0;
+            line-height: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        /* ── MAIN STAGE ── */
+        #stage {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+        #stage.visible { opacity: 1; pointer-events: auto; }
+
+        #container {
+            position: relative;
+            width: 80vw;
+            height: 80dvh;
+            border-radius: 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            border: 6px double rgba(0,0,0,0.3);
+            transition: background-color 0.2s;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        #container h2 {
+            font-family: "Silkscreen", monospace;
+            font-size: clamp(0.8em, 3vw, 1.6em);
+            letter-spacing: 3px;
+            color: rgba(0,0,0,0.7);
+            text-align: center;
+            mix-blend-mode: multiply;
+            line-height: 1.6;
+        }
+        #representative-text {
+            font-family: "Silkscreen", monospace;
+            font-size: clamp(0.5em, 1.5vw, 0.9em);
+            color: rgba(0,0,0,0.6);
+            text-align: center;
+            mix-blend-mode: multiply;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        #center-gif {
+            width: clamp(150px, 30vw, 480px);
+            height: auto;
+            image-rendering: pixelated;
+            position: relative;
+            z-index: 2;
+        }
+
+        .floater {
+            position: fixed;
+            image-rendering: pixelated;
+            pointer-events: none;
+            z-index: 1;
+            will-change: transform;
+        }
+    </style>
+</head>
+<body>
+
+    <tool-bar href="about.html" altlinks="/about.html"></tool-bar>
+
+    <!-- GATE -->
+    <div id="gate">
+        <h1>COMPLAINT<br>DEPARTMENT</h1>
+        <p>ARE YOU SURE ABOUT THIS?</p>
+        <button id="gate-btn">FILE COMPLAINT</button>
+    </div>
+
+    <!-- CINEMATIC INTRO -->
+    <div id="cinematic">
+        <div id="cin-narrator"></div>
+        <div id="cin-small"></div>
+        <div id="cin-word"></div>
+    </div>
+
+    <!-- MAIN STAGE (end loop) -->
+    <div id="stage">
+        <div id="container">
+            <img id="center-gif" src="img/asset/dittodancing.gif" alt="ditto" />
+            <h2 id="wobble">YOUR COMPLAINT HAS BEEN NOTED</h2>
+            <p id="representative-text">Please wait while we connect you with a representative</p>
+        </div>
+    </div>
+
+    <script>
+        // ── TUNABLES ─────────────────────────────────────
+        var GIF_SRC     = 'img/asset/dittodancing.gif';
+        var CYCLE_MS    = 1250;
+        var FLOATER_MIN = 100;
+        var FLOATER_MAX = 180;
+        var SPEED_MIN   = 1.5;
+        var SPEED_MAX   = 5.5;
+        // ─────────────────────────────────────────────────
+
+        var gate       = document.getElementById('gate');
+        var cinematic  = document.getElementById('cinematic');
+        var cinWord    = document.getElementById('cin-word');
+        var cinSmall   = document.getElementById('cin-small');
+        var stage      = document.getElementById('stage');
+        var container  = document.getElementById('container');
+        var floaters   = [];
+        var chaosRunning = false;
+
+        // DJ MIX audio
+        var djAudio = new Audio('img/music/DJ MIX.mp3');
+        djAudio.loop = false;
+
+        var cinNarrator = document.getElementById('cin-narrator');
+
+        // ── WOBBLE on a DOM element ──
+        var wobCnt = 0;
+        var wobEls = [];
+        function applyWobble(el) {
+            var txt = el.textContent;
+            el.innerHTML = '';
+            wobEls = [];
+            for (var i = 0; i < txt.length; i++) {
+                var span = document.createElement('span');
+                span.style.position = 'relative';
+                span.style.display  = 'inline-block';
+                span.appendChild(document.createTextNode(txt.charAt(i)));
+                el.appendChild(span);
+                wobEls.push(span);
+            }
+        }
+        function wobbler() {
+            for (var i = 0; i < wobEls.length; i++) {
+                wobEls[i].style.top = Math.round(3 * Math.sin(i + wobCnt)) + 'px';
+            }
+            wobCnt++;
+        }
+        setInterval(wobbler, 80);
+
+        // Show a big word (with optional small label above it)
+        // color: css color string or null for white
+        // holdMs: how long it stays visible before fading
+        function showBig(txt, above, color, holdMs) {
+            cinNarrator.style.opacity = '0';
+            cinWord.style.color = color || 'white';
+            cinWord.textContent = txt;
+            cinSmall.textContent = above || '';
+            applyWobble(cinWord);
+            requestAnimationFrame(function() {
+                cinWord.style.opacity  = '1';
+                cinSmall.style.opacity = above ? '1' : '0';
+            });
+            setTimeout(function() {
+                cinWord.style.opacity  = '0';
+                cinSmall.style.opacity = '0';
+            }, holdMs);
+        }
+
+        // Show small narrator text (no wobble)
+        // holdMs: how long it stays visible before fading
+        function showNarrator(txt, holdMs) {
+            cinWord.style.opacity  = '0';
+            cinSmall.style.opacity = '0';
+            cinNarrator.textContent = txt;
+            requestAnimationFrame(function() {
+                cinNarrator.style.opacity = '1';
+            });
+            setTimeout(function() {
+                cinNarrator.style.opacity = '0';
+            }, holdMs);
+        }
+
+        // ── CHAOS (end loop) ──
+        function randColor() {
+            return 'hsl(' + Math.floor(Math.random() * 360) + ',100%,' + (40 + Math.floor(Math.random() * 30)) + '%)';
+        }
+
+        function cycleBg() {
+            stage.style.backgroundColor      = randColor();
+            container.style.backgroundColor  = randColor();
+        }
+
+        function spawnFloater() {
+            var el = document.createElement('img');
+            el.src = GIF_SRC;
+            el.className = 'floater';
+            var size    = FLOATER_MIN + Math.random() * (FLOATER_MAX - FLOATER_MIN);
+            var goRight = Math.random() < 0.5;
+            var startX  = goRight ? -size : window.innerWidth + size;
+            var speed   = SPEED_MIN + Math.random() * (SPEED_MAX - SPEED_MIN);
+            if (!goRight) speed = -speed;
+            el.style.width     = size + 'px';
+            el.style.opacity   = (0.1 + Math.random() * 0.9).toFixed(2);
+            el.style.top       = Math.random() * window.innerHeight + 'px';
+            el.style.left      = '0px';
+            el.style.transform = 'translateX(' + startX + 'px)';
+            stage.appendChild(el);
+            floaters.push({ el: el, x: startX, speed: speed, size: size });
+        }
+
+        function tick() {
+            if (!chaosRunning) return;
+            var vw = window.innerWidth;
+            for (var i = floaters.length - 1; i >= 0; i--) {
+                var f = floaters[i];
+                f.x += f.speed;
+                f.el.style.transform = 'translateX(' + f.x + 'px)';
+                if ((f.speed > 0 && f.x > vw + f.size) || (f.speed < 0 && f.x < -f.size * 2)) {
+                    f.el.remove();
+                    floaters.splice(i, 1);
+                }
+            }
+            requestAnimationFrame(tick);
+        }
+
+        function startChaos() {
+            chaosRunning = true;
+            // ~29s fade-in so chaos reaches full opacity at the 45s mark
+            stage.style.transition = 'opacity 29s linear';
+            stage.classList.add('visible');
+            cycleBg();
+            setInterval(function() { cycleBg(); spawnFloater(); }, CYCLE_MS);
+            requestAnimationFrame(tick);
+        }
+
+        // ── MAIN SEQUENCE (all times absolute from button press) ──
+        function startSequence() {
+            Settings.setMusicPlaying(false);
+            gate.classList.add('hidden');
+            cinematic.classList.add('visible');
+            djAudio.play().catch(function(){});
+
+            //  0s  SUGAR
+            showBig('SUGAR', '', null, 1200);
+
+            //  2s  SPICE
+            setTimeout(function() { showBig('SPICE', '', null, 1200); }, 2000);
+
+            //  4s  NICE + "and everything"
+            setTimeout(function() { showBig('NICE', 'and everything', null, 1500); }, 4000);
+
+            //  6s  narrator line 1  (hold 2.5s — half second longer than the others)
+            setTimeout(function() {
+                showNarrator('These were the ingredients chosen\nto create the perfect little girl...', 2500);
+            }, 6000);
+
+            //  9.5s  narrator line 2
+            setTimeout(function() {
+                showNarrator('But Professor Utonium accidentally added\nan extra ingredient to the concoction', 3500);
+            }, 9500);
+
+            // 14.5s  CHEMICAL X  (big, red, wobble)
+            setTimeout(function() { showBig('Chemical X', '', '#FF0000', 1800); }, 14500);
+
+            // 16.5s  cinematic fades out, chaos begins its 29s slow fade
+            setTimeout(function() {
+                cinematic.classList.remove('visible');
+                cinematic.classList.add('hidden');
+                startChaos();
+            }, 16500);
+        }
+
+        document.getElementById('gate-btn').addEventListener('click', startSequence);
+    </script>
+
+    <!-- WOBBLE on "YOUR COMPLAINT HAS BEEN NOTED" -->
+    <script>
+        var noteWobTxt, noteWobCnt = 0;
+        window.addEventListener('load', function() {
+            var el = document.getElementById('wobble');
+            if (!el) return;
+            noteWobTxt = el.firstChild.nodeValue;
+            while (el.childNodes.length) el.removeChild(el.childNodes[0]);
+            for (var i = 0; i < noteWobTxt.length; i++) {
+                var span = document.createElement('span');
+                span.id = 'nwobb' + i;
+                span.style.position = 'relative';
+                span.style.display  = 'inline-block';
+                span.appendChild(document.createTextNode(noteWobTxt.charAt(i)));
+                el.appendChild(span);
+            }
+            setInterval(function() {
+                for (var i = 0; i < noteWobTxt.length; i++) {
+                    var s = document.getElementById('nwobb' + i);
+                    if (s) s.style.top = Math.round(3 * Math.sin(i + noteWobCnt)) + 'px';
+                }
+                noteWobCnt++;
+            }, 100);
+        });
+    </script>
+</body>
+</html>

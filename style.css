@@ -2,21 +2,11 @@
 @import url("https://fonts.googleapis.com/css?family=Inconsolata");
 
 :root {
-	--dark-green: rgb(0, 0, 161);
 	--dark-blue: rgb(0, 0, 161);
 	--lime-green: rgb(0, 229, 255);
 
 	--cursor-default: url("img/cursor.png");
 	--cursor-point: url("img/cursor-point.png");
-}
-
-@keyframes animated-background {
-	from {
-		background-position: 0 0;
-	}
-	to {
-		background-position: 100% 100%;
-	}
 }
 
 @keyframes animated-machine {
@@ -25,33 +15,6 @@
 	}
 	to {
 		background-position: 200px 200px;
-	}
-}
-
-@keyframes spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
-}
-
-@keyframes color-shift {
-	0% {
-		filter: hue-rotate(0deg);
-	}
-	100% {
-		filter: hue-rotate(360deg);
-	}
-}
-
-@keyframes bg-color-shift {
-	0% {
-		backdrop-filter: hue-rotate(0deg);
-	}
-	100% {
-		backdrop-filter: hue-rotate(360deg);
 	}
 }
 
@@ -74,7 +37,7 @@ input {
 
 /** FILTERS */
 .filter-yellow {
-	filter: invert(100%) sepia(97%) saturate(3972%) hue-rotate(358deg) brightness(108%) contrast(103%);
+	filter: invert(19%) sepia(99%) saturate(7469%) hue-rotate(327deg) brightness(102%) contrast(112%);
 }
 .filter-darkgreen {
 	filter: invert(33%) sepia(88%) saturate(1175%) hue-rotate(89deg) brightness(99%) contrast(108%);
@@ -82,27 +45,17 @@ input {
 
 html {
 	background: black;
-	background-color: #000000;
 	min-height: 100dvh;
-	font-display: swap;
+
 }
 
 body {
 	background: black;
-	background-color: #000000;
 	color: #b9b9b9;
 	text-align: center;
 	font-family: "Consolas";
 	margin: 0;
 	min-height: 100dvh;
-}
-
-.vignette {
-	position: fixed;
-	height: 100dvh;
-	width: 100%;
-	box-shadow: inset 0px 0px 100px rgb(231, 31, 31);
-	mix-blend-mode: color-dodge;
 }
 
 @media (display-mode: standalone) {
@@ -112,10 +65,8 @@ body {
 }
 
 body.machine {
-	color: #b9b9b9;
-	text-align: center;
 	font-family: "Courier New";
-	background-image: url("img/texture/machine-dark.png");
+	background-image: url("img/texture/motherboard-dark-bg.png");
 	background-size: 200px;
 	animation: animated-machine 60s linear infinite;
 }
@@ -124,33 +75,19 @@ body.rainbow-bg {
 	background-color: black;
 	background: linear-gradient(
 			to left,
-			rgb(152, 38, 38),
+			rgb(180, 0, 40),
 			rgb(16, 74, 139),
 			rgb(19, 36, 145),
-			rgb(145, 27, 27)
+			rgb(160, 0, 35)
 		),
-		url("img/texture/machine.png");
+		url("img/texture/motherboard-bg.png");
 	background-blend-mode: multiply;
 	background-size: 300px;
 }
 
-.bg-color {
-	width: 100vw;
-	height: 100vh;
-	position: absolute;
-	z-index: -1;
-	mix-blend-mode: overlay;
-	top: 0%;
-	left: 0%;
-}
-
-.center-box {
-	display: flex;
-}
-
 ::selection {
 	color: rgb(134, 196, 255);
-	background: rgb(204, 54, 54);
+	background: rgb(204, 0, 55);
 }
 
 button {
@@ -163,19 +100,12 @@ img {
 
 a,
 a:link {
-	color: yellow;
+	color: #FF0047;
 	text-decoration: none;
 }
 
 .transparent {
 	background-color: transparent;
-}
-
-.center {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 }
 
 .small-screen-warning {
@@ -210,34 +140,12 @@ a:link {
 	}
 
 	body.rainbow-bg {
-		background: url("img/texture/machine-dark.png");
+		background: url("img/texture/motherboard-dark-bg.png");
 		background-size: 300px;
 		background-repeat: repeat;
 		background-position: top left;
 	}
 
-}
-
-/* VERTICAL TITLE */
-.v-title {
-	font-size: 60px;
-	letter-spacing: 20px;
-	font-family: "Georgia";
-	writing-mode: vertical-rl;
-	text-orientation: upright;
-	margin: 60px 30px;
-	user-select: none;
-	position: fixed;
-}
-.v-title.primary {
-	top: 0%;
-	left: 0%;
-}
-.v-title.secondary {
-	bottom: 0%;
-	right: 0%;
-	text-transform: lowercase;
-	font-family: 'Bodoni Ornaments ITC';
 }
 
 /* REDUCED MOTION */
@@ -376,12 +284,12 @@ a:link {
 	max-width: 300px;
 	z-index: 1040;
 	padding: 20px 10px 20px 20px;
-	accent-color: yellow;
+	accent-color: #FF0047;
 	font-family: 'Consolas', monospace;
-	color: yellow;
+	color: #FF0047;
 	transition: all 0.3s;
 
-	background: linear-gradient( 180deg, rgba(0, 0, 0, 1) 0px, rgb(2, 0, 53, 0.80) 100% );
+	background: linear-gradient( 180deg, rgba(0, 0, 0, 1) 0px, rgba(2, 0, 53, 0.80) 100% );
 	border: 1px solid rgb(0, 32, 112);
 	border-right: none;
 	border-bottom-left-radius: 10px;
@@ -451,7 +359,7 @@ a:link {
 }
 
 .slider {
-	background: linear-gradient( 90deg, rgba(255, 255, 0, 0) 0%, rgba(255, 255, 0, 0.8) 100% );
+	background: linear-gradient( 90deg, rgba(255, 0, 71, 0) 0%, rgba(255, 0, 71, 0.8) 100% );
 	border-radius: 10px;
 	height: 10px;
 }
@@ -461,7 +369,7 @@ a:link {
 	width: 15px;
 	height: 15px;
 	background: black;
-	border: 2px solid yellow;
+	border: 2px solid #FF0047;
 	border-radius: 100%;
 	box-sizing: border-box;
 }
@@ -495,16 +403,16 @@ a:link {
 	color: rgb(255, 255, 255);
 }
 .page-link.page-num {
-	background-color: yellow;
+	background-color: #FF0047;
 	color: black;
 	transition: 0.2s !important;
 }
 .page-link:link {
 	background: none;
-	color: rgb(0, 167, 255, 0.80);
+	color: rgba(0, 167, 255, 0.80);
 }
 .page-link.page-num:hover:link {
-	background-color: rgba(255, 255, 0, 0.8);
+	background-color: rgba(255, 0, 71, 0.8);
 	color: black;
 	transition: none !important;
 }
@@ -552,5 +460,5 @@ a:link {
 	text-transform: uppercase;
 }
 .sf-unselect:hover, .sf-reset:hover {
-	background: rgba(255, 255, 0, 0.3);
+	background: rgba(255, 0, 71, 0.3);
 }

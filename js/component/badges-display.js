@@ -15,20 +15,20 @@ class BadgesDisplay extends HTMLElement {
         if (type == "main") {
             this.innerHTML = `
                 <div class="blinkies-grid" > 
-                    <img src="img/asset/redblink.gif" alt="blinkie" /> 
-                    <img src="img/asset/redblink2.gif" alt="blinkie" /> 
-                    <img src="img/asset/orangeblink.gif" alt="blinkie" /> 
-                    <img src="img/asset/orangeblink2.gif" alt="blinkie" /> 
-                    <img src="img/asset/yellowblink.gif" alt="blinkie" /> 
-                    <img src="img/asset/yellowblink2.gif" alt="blinkie" /> 
-                    <img src="img/asset/greenblink.gif" alt="blinkie" /> 
-                    <img src="img/asset/greenblink2.gif" alt="blinkie" /> 
-                    <img src="img/asset/blueblink.gif" alt="blinkie" /> 
-                    <img src="img/asset/blueblink2.gif" alt="blinkie" /> 
-                    <img src="img/asset/blueblink3.gif" alt="blinkie" /> 
-                    <img src="img/asset/blueblink4.gif" alt="blinkie" /> 
-                    <img src="img/asset/purpleblink.gif" alt="blinkie" /> 
-                    <img src="img/asset/purpleblink2.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-red-1.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-red-2.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-orange-1.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-orange-2.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-yellow-1.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-yellow-2.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-green-1.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-green-2.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-blue-1.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-blue-2.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-blue-3.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-blue-4.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-purple-1.gif" alt="blinkie" /> 
+                    <img src="img/asset/blink-purple-2.gif" alt="blinkie" /> 
                 </div >
             `;
         } else if (type == "extra") {
@@ -61,14 +61,6 @@ class BadgesDisplay extends HTMLElement {
                     <img src="img/asset/stamp15.png" />
                     <img src="img/asset/stamp6.gif" />
                     <img src="img/asset/stamp5.gif" />
-
-                    <iframe
-                      src="https://incr.easrng.net/badge?key=stringpea"
-                      title="increment badge"
-                      width="99"
-                      height="56"
-                      frameborder="0">
-                    </iframe>
                 </div>
             `;
         }

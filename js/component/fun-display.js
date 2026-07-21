@@ -8,7 +8,7 @@ class FunDisplay extends HTMLElement {
         if (type == "learn") {
             this.innerHTML = `
 				<p>T :: MIGUEL DOMINGUES</p>
-                <p>> myemail@gmail.com</p>
+                <p>> ${ ['mdr','dom','ing'].join('') + '@' + 'gm'+'ail'+'.com' }</p>
 				<p>--------------------------------</p>
 				<p>> system clock synchronized</p>
 				<p>> environment variables loaded</p>

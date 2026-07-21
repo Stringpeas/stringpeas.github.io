@@ -16,7 +16,7 @@ class LearnDisplay extends HTMLElement {
             this.innerHTML = `
             <ul>
                 <li>Multiplayer / Networking</li>
-                <li>Shaders</</li>
+                <li>Shaders</li>
                 <li>Accessibility</li>
                 <li>Game Feel / Game Polish</li>
                 <li>Procedural Generation</li>
@@ -32,7 +32,6 @@ class LearnDisplay extends HTMLElement {
         }
     }
 
-  }
+}
 
-  customElements.define('learn-display', LearnDisplay);
-  
+customElements.define('learn-display', LearnDisplay);

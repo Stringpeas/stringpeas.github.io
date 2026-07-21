@@ -1,4 +1,3 @@
-
 class HomePortal extends HTMLElement {
     static observedAttributes = ["img", "name", "link", "top", "right", "id", "size", "node-align", "locked"];
 
@@ -67,7 +66,7 @@ class HomePortal extends HTMLElement {
         <a href='${link}' class="portal-link" id="${id}" draggable="false">
             <div class="portal ${lockedClass}" style="top: ${top}; right: ${right}; width: ${size}; height: ${size}">
                 <div class="portal-indicator ${indicatorAlign}">
-                    <div class="portal-line" ">
+                    <div class="portal-line">
                     </div>
                     <p class="portal-name">${name}</p>
                 </div>
@@ -82,7 +81,7 @@ class HomePortal extends HTMLElement {
         this.connectedCallback();
     }
 
-  }
+}
 
-  customElements.define('home-portal', HomePortal);
+customElements.define('home-portal', HomePortal);
   

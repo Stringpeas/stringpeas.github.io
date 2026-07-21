@@ -1,7 +1,3 @@
-/*
-*   Author: espimyte (https://espy.world)
-*/
-
 // The minimum width of the screen before it is determined to be a "small screen".
 const SMALL_SCREEN_WIDTH = 600;
 
@@ -98,6 +94,7 @@ function createEl(tag, {className, src, textContent, width, height, innerHTML, h
 const SettingType = {
     REDUCED_MOTION: "reducedmotion",
     COMIC_SCROLL: "comicscroll",
+    MUSIC_PLAYING: "musicplaying",
     MUSIC_VOLUME: "musicvolume",
     MUSIC_MUTED: "musicmuted",
     SOUND_VOLUME: "soundvolume",
@@ -107,73 +104,108 @@ const SettingType = {
 class Settings {
     static settingChangedEventKey = "settingchanged";
 
-    /** Gets the current reduced motion setting. */
     static getReducedMotionSetting() {
-        return localStorage.getItem(SettingType.REDUCED_MOTION) === "true" ? true : false;
+        return localStorage.getItem(SettingType.REDUCED_MOTION) === "true";
     }
 
-    /** Sets reduced motion setting. */
     static setReducedMotionSetting(enabled) {
         localStorage.setItem(SettingType.REDUCED_MOTION, enabled ? "true" : "false");
-        var changedEvent = new CustomEvent(this.settingChangedEventKey, {'detail': {name: SettingType.REDUCED_MOTION, value: enabled}});
-        document.dispatchEvent(changedEvent);
+        document.dispatchEvent(new CustomEvent(this.settingChangedEventKey, {detail: {name: SettingType.REDUCED_MOTION, value: enabled}}));
     }
 
-    /** Gets the current readstyle setting. */
     static getComicScrollSetting() {
-        return localStorage.getItem(SettingType.COMIC_SCROLL) === "true" ? true : false;
+        return localStorage.getItem(SettingType.COMIC_SCROLL) === "true";
     }
 
-    /** Sets readstyle setting. */
     static setComicScrollSetting(enabled) {
         localStorage.setItem(SettingType.COMIC_SCROLL, enabled ? "true" : "false");
     }
 
-    /** Gets current music volume. */
+    /** Music playing — defaults OFF */
+    static getMusicPlaying() {
+        return localStorage.getItem(SettingType.MUSIC_PLAYING) === "true";
+    }
+
+    static setMusicPlaying(playing) {
+        localStorage.setItem(SettingType.MUSIC_PLAYING, playing ? "true" : "false");
+        document.dispatchEvent(new CustomEvent(this.settingChangedEventKey, {detail: {name: SettingType.MUSIC_PLAYING, value: playing}}));
+    }
+
     static getMusicVolume() {
         return parseInt(localStorage.getItem(SettingType.MUSIC_VOLUME) ?? "50");
     }
 
-    /** Sets current music volume. */
     static setMusicVolume(volume) {
         localStorage.setItem(SettingType.MUSIC_VOLUME, `${volume}`);
-        var changedEvent = new CustomEvent(this.settingChangedEventKey, {'detail': {name: SettingType.MUSIC_VOLUME, value: volume}});
-        document.dispatchEvent(changedEvent);
+        document.dispatchEvent(new CustomEvent(this.settingChangedEventKey, {detail: {name: SettingType.MUSIC_VOLUME, value: volume}}));
     }
 
-    /** Gets music mute setting. */
     static getMusicMuted() {
         return localStorage.getItem(SettingType.MUSIC_MUTED) === "false" ? false : true;
     }
 
-    /** Sets music mute setting. */
     static setMusicMuted(muted) {
         localStorage.setItem(SettingType.MUSIC_MUTED, muted ? "true" : "false");
-        var changedEvent = new CustomEvent(this.settingChangedEventKey, {'detail': {name: SettingType.MUSIC_MUTED, value: muted}});
-        document.dispatchEvent(changedEvent);
+        document.dispatchEvent(new CustomEvent(this.settingChangedEventKey, {detail: {name: SettingType.MUSIC_MUTED, value: muted}}));
     }
 
-    /** Gets current sound volume. */
     static getSoundVolume() {
         return parseInt(localStorage.getItem(SettingType.SOUND_VOLUME) ?? "50");
     }
 
-    /** Sets current sound volume. */
     static setSoundVolume(volume) {
         localStorage.setItem(SettingType.SOUND_VOLUME, `${volume}`);
-        var changedEvent = new CustomEvent(this.settingChangedEventKey, {'detail': {name: SettingType.SOUND_VOLUME, value: volume}});
-        document.dispatchEvent(changedEvent);
+        document.dispatchEvent(new CustomEvent(this.settingChangedEventKey, {detail: {name: SettingType.SOUND_VOLUME, value: volume}}));
     }
 
-    /** Gets sound mute setting. */
     static getSoundMuted() {
         return localStorage.getItem(SettingType.SOUND_MUTED) === "false" ? false : true;
     }
 
-    /** Sets sound mute setting. */
     static setSoundMuted(muted) {
         localStorage.setItem(SettingType.SOUND_MUTED, muted ? "true" : "false");
-        var changedEvent = new CustomEvent(this.settingChangedEventKey, {'detail': {name: SettingType.SOUND_MUTED, value: muted}});
-        document.dispatchEvent(changedEvent);
+        document.dispatchEvent(new CustomEvent(this.settingChangedEventKey, {detail: {name: SettingType.SOUND_MUTED, value: muted}}));
     }
 }
+
+// ── DEEP SPACE FM ────────────────────────────────────────────────────────────
+var SpaceFM = (function() {
+    var SONG_SRC  = 'img/music/TheRahBand_MessagesFromTheStars.mp3';
+    var POS_KEY   = 'spacefm_pos';
+
+    var audio = new Audio(SONG_SRC);
+    audio.loop = true;
+
+    // Restore position so music continues where it left off across pages
+    var savedPos = parseFloat(localStorage.getItem(POS_KEY) || '0');
+    if (savedPos) {
+        audio.addEventListener('loadedmetadata', function() {
+            audio.currentTime = savedPos;
+        }, { once: true });
+    }
+
+    // Save position on navigation
+    window.addEventListener('beforeunload', function() {
+        localStorage.setItem(POS_KEY, audio.currentTime);
+    });
+
+    // React to MUSIC_PLAYING changes (from toolbar checkbox or home.html buttons)
+    document.addEventListener('settingchanged', function(e) {
+        if (e.detail.name !== SettingType.MUSIC_PLAYING) return;
+        if (e.detail.value) audio.play().catch(function() {});
+        else audio.pause();
+    });
+
+    // Auto-resume on non-home pages if music was playing when they left
+    document.addEventListener('DOMContentLoaded', function() {
+        var isHome = window.location.pathname.endsWith('home.html') || window.location.pathname === '/';
+        if (!isHome && Settings.getMusicPlaying()) {
+            audio.play().catch(function() {});
+        }
+    });
+
+    return {
+        audio: audio,
+        isPlaying: function() { return !audio.paused; }
+    };
+})();

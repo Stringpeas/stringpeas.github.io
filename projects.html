@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en">
 
@@ -12,42 +12,23 @@
 	<script src="js/site-util.js" type="text/javascript"></script>
 	<title>[ PROJECTS ]</title>
 	<style>
-		:root {
-			--cell-border-radius: 10px;
-		}
-
-		@keyframes animated-default-bg {
-			from {
-				background-position: 0 0;
-			}
-
-			to {
-				background-position: 300px 300px;
-			}
-		}
-
 		@keyframes animated-grid-primary {
-			from {
-				background-position: 0 0;
-			}
-
-			to {
-				background-position: 250px 250px;
-			}
+			from { background-position: 0 0; }
+			to   { background-position: 250px 250px; }
 		}
 
-
-  
-		body {
-			margin: 0;
+		@keyframes shimmer {
+			0%   { text-shadow: 0 0 6px deepskyblue, 0 0 14px deepskyblue; }
+			50%  { text-shadow: 0 0 14px deepskyblue, 0 0 30px deepskyblue, 0 0 50px rgba(0,191,255,0.4); }
+			100% { text-shadow: 0 0 6px deepskyblue, 0 0 14px deepskyblue; }
 		}
+
+		body { margin: 0; }
 
 		.grid-background {
 			position: fixed;
-			left: 0%;
-			top: 0%;
-			width: 100%;
-			height: 100dvh;
+			left: 0; top: 0;
+			width: 100%; height: 100dvh;
 			background-size: 400px;
 			background-image: url("img/asset/grid-icons.png");
 		}
@@ -57,213 +38,122 @@
 			background-size: 250px;
 		}
 
-
-		#container {
-			margin: auto;
-			display: flex;
-			flex-wrap: wrap;
-			gap: 1em;
-			justify-content: center;
-			margin-top: 40px;
-		}
-
-
-        .world-container {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: calc(50% - 20px);
-            max-width: 700px;
-            background: black;
-            background-image: url("img/texture/coral.png");
-            background-size: 300px;
-            border-style: double;
-            border-color: dodgerblue;
-            border-width: 3px;
-            box-sizing: border-box;
-            animation-name: animated-default-bg;
-            animation-timing-function: linear;
-            animation-duration: 60s;
-            animation-iteration-count: infinite;
-        }
-        #world-2026 {
-            background-image: url("img/asset/2026bg.png");
-        }
-        #world-2025 {
-            background-image: url("img/asset/2025bg.png");
-        }
-        #world-2024 {
-            background-image: url("img/asset/2024bg.png");
-        }
-
-        .world-header {
-            position: relative;
-            padding: 10px;
-            border-bottom-style: solid;
-            border-width: 1px;
-            border-color: dodgerblue;
-        }
-
-		.world-footer {
-			border-top-style: solid;
-			border-width: 1px;
-			border-color: dodgerblue;
-			background-color: black;
-		}
-
-		.world-description {
-			color: var(--lime-green);
-			margin: 20px;
-		}
-
-		.world-header-bg {
-			position: absolute;
-			width: 100%;
-			height: 100%;
-			top: 0%;
-			left: 0%;
-			background: url("img/texture/machine-dark.png");
-			z-index: 0;
-		}
-
-		.world-title {
+		#page {
 			position: relative;
-			font-family: "Silkscreen";
-			color: var(--lime-green);
-			font-size: 2em;
+			max-width: 1000px;
 			margin: 0 auto;
-			width: fit-content;
-			z-index: 10;
+			padding: 60px 24px 80px;
 		}
 
-		.world-projects {
-			position: relative;
-			flex-grow: 1;
-			justify-content: center;
-			align-content: center;
+		/* â”€â”€ YEAR DIVIDER â”€â”€ */
+		.year-section { margin-bottom: 60px; }
+
+		.year-divider {
 			display: flex;
-			flex-direction: column;
-			gap: 1em;
-			padding: 20px;
+			align-items: center;
+			gap: 16px;
+			margin-bottom: 24px;
 		}
 
-		.world-vignette {
-			top: 0%;
-			left: 0%;
-			position: absolute;
-			height: 100%;
-			width: 100%;
-			box-shadow: inset 0px 0px 50px rgb(231, 31, 205);
-			mix-blend-mode: multiply;
-			z-index: 0;
+		.year-label {
+			font-family: "Silkscreen";
+			font-size: 2.2em;
+			color: deepskyblue;
+			white-space: nowrap;
+			flex-shrink: 0;
+			position: relative;
+			display: inline-block;
 		}
 
-      
-		.projects-grid {
+		.year-num {
+			position: relative;
+			display: inline-block;
+			animation: shimmer 3s ease-in-out infinite;
+		}
+
+		.year-word {
+			position: relative;
+			display: inline-block;
+		}
+
+		.year-line {
+			flex-grow: 1;
+			height: 0;
+			border: none;
+			border-top: 3px double dodgerblue;
+			opacity: 0.5;
+		}
+
+		/* â”€â”€ PROJECT CARDS ROW â”€â”€ */
+		.projects-row {
 			display: flex;
 			flex-wrap: wrap;
-			justify-content: center;
-			gap: 1em;
-			z-index: 1;
+			gap: 16px;
 		}
 
-		.character-cell-wrapper {
-			box-sizing: border-box;
-			background-color: rgb(22, 25, 85);
-			border-radius: var(--cell-border-radius);
+		.project-link {
+			text-decoration: none;
+			flex: 1 1 260px;
+			min-width: 200px;
+			max-width: 380px;
 		}
 
-		.character-cell {
-			display: flex;
-			flex-direction: column;
-			box-sizing: border-box;
-			width: fit-content;
-			height: fit-content;
-			border-style: solid;
-			border-width: 1px;
-			border-color: deepskyblue;
-			border-radius: var(--cell-border-radius);
-			transition: 0.2s !important;
+		.project-card {
+			border: 3px double dodgerblue;
+			background: rgba(0, 0, 0, 0.85);
 			position: relative;
-			image-rendering: auto;
+			overflow: hidden;
+			transition: border-color 0.15s, transform 0.15s;
 		}
 
-		.character-icon {
-			width: calc(700px / 5);
-			height: calc(1000px / 5);
-			object-position: 0px -10px;
-			object-fit: cover;
-			border-radius: var(--cell-border-radius);
+		.project-card:hover {
+			border-color: #FF0047;
+			transform: translateY(-4px);
 		}
 
-		.character-label {
-			position: absolute;
-			bottom: 0%;
+		.project-card img {
 			width: 100%;
-			font-family: "Consolas";
-			font-size: 0.8em;
-			text-transform: uppercase;
-			background-color: rgb(0, 0, 0);
-			color: cornflowerblue;
+			height: 280px;
+			object-fit: cover;
+			object-position: center center;
+			display: block;
+		}
+
+		.project-name {
+			font-family: "Silkscreen";
+			font-size: 1.2em;
+			color: #FF0047;
+			background: black;
+			border-top: 1px solid dodgerblue;
 			margin: 0;
-			padding: 5px 0px;
-			transition: 0.2s !important;
-			border-top-style: solid;
-			border-width: 1px;
-			border-color: var(--lime-green);
-			border-bottom-left-radius: var(--cell-border-radius);
-			border-bottom-right-radius: var(--cell-border-radius);
+			padding: 10px 10px;
+			text-transform: uppercase;
+			letter-spacing: 2px;
+			transition: background 0.15s, color 0.15s;
+			text-shadow: 1px 1px 0 black, 1px -1px 0 black, -1px -1px 0 black, -1px 1px 0 black, -2px 2px 0 black;
 		}
 
-		.character-cell-wrapper:hover .character-cell {
-			transform: translateY(-5px) rotateZ(2deg);
-			transition: none !important;
-		}
-
-		.character-cell-wrapper:hover .character-label {
-			background-color: deepskyblue;
+		.project-card:hover .project-name {
+			background: #FF0047;
 			color: black;
-			transition: none !important;
+			text-shadow: none;
 		}
 
-		.character-cell-wrapper:hover .character-icon {
-			filter: hue-rotate(180deg);
+		/* â”€â”€ COMING SOON BADGE â”€â”€ */
+		.badge-soon {
+			position: absolute;
+			top: 8px; right: 8px;
+			font-family: "Silkscreen";
+			font-size: 0.6em;
+			background: #FF0047;
+			color: white;
+			padding: 3px 7px;
+			letter-spacing: 1px;
 		}
 
-		.projects-secondary .character-icon {
-			width: calc(700px / 6);
-			height: calc(1000px / 6);
-		}
-
-
-
-		@media screen and (max-width: 1000px) {
-			body {
-				margin: 0;
-			}
-
-			#container {
-				flex-direction: column;
-				margin: 0 20px;
-				align-items: center;
-				margin-top: 40px;
-			}
-
-			.world-container {
-				width: 100%;
-			}
-		}
-
-		@media screen and (max-width: 600px) {
-			#container {
-				margin: 0px;
-				margin-top: 40px;
-			}
-
-			.world-container {
-				width: 100%;
-			}
+		@media screen and (max-width: 700px) {
+			.project-link { max-width: 100%; }
+			.year-label { font-size: 1.6em; }
 		}
 	</style>
 </head>
@@ -271,160 +161,180 @@
 	<div class="grid-background rm-pause" id="grid-primary"></div>
 	<tool-bar altlinks="/sitemap.html"></tool-bar>
 
-	<div id="container">
+	<div id="page">
 
-		<!--PROJECTS 2026-->
-		<div class="world-container rm-pause" id="world-2026">
-			<div class="world-header">
-				<div class="world-header-bg"></div>
-				<h1 class="world-title">2026</h1>
+		<!-- 2026 -->
+		<div class="year-section">
+			<div class="year-divider">
+				<span class="year-label"><span class="year-num">2026</span> <span class="year-word">PROJECTS</span></span>
+				<div class="year-line"></div>
 			</div>
+			<div class="projects-row">
 
-			<div class="world-projects">
-				<div class="projects-grid">
-
-					<div class="character-cell-wrapper">
-						<div class="character-cell">
-							<img class="character-icon"
-								 src="img/projects/placeholder1.png"
-								 alt="Project 1" />
-							<p class="character-label">COMING SOON</p>
-						</div>
+				<a href="javascript:void(0);" class="project-link">
+					<div class="project-card">
+						<img src="img/projects/placeholder1.png" alt="Void Signal" />
+						<div class="badge-soon">SOON</div>
+						<p class="project-name">Void Signal</p>
 					</div>
+				</a>
 
-
-					<div class="character-cell-wrapper">
-						<div class="character-cell">
-							<img class="character-icon"
-								 src="img/projects/placeholder2.png"
-								 alt="Project 1" />
-							<p class="character-label">COMING SOON</p>
-						</div>
+				<a href="javascript:void(0);" class="project-link">
+					<div class="project-card">
+						<img src="img/projects/placeholder2.png" alt="Thornfield" />
+						<div class="badge-soon">SOON</div>
+						<p class="project-name">Thornfield</p>
 					</div>
+				</a>
 
-
-					<div class="character-cell-wrapper">
-						<div class="character-cell">
-							<img class="character-icon"
-								 src="img/projects/placeholder3.png"
-								 alt="Project 1" />
-							<p class="character-label">COMING SOON</p>
-						</div>
+				<a href="javascript:void(0);" class="project-link">
+					<div class="project-card">
+						<img src="img/projects/placeholder3.png" alt="Chromadrift" />
+						<div class="badge-soon">SOON</div>
+						<p class="project-name">Chromadrift</p>
 					</div>
+				</a>
 
-				</div>
-
-				<div class="world-vignette"></div>
-			</div>
-
-			<div class="world-footer">
-				<p class="world-description">
-					Projects created in 2026.
-				</p>
 			</div>
 		</div>
 
-		<!--PROJECTS 2025-->
-		<div class="world-container rm-pause" id="world-2025">
-			<div class="world-header">
-				<div class="world-header-bg"></div>
-				<h1 class="world-title">2025</h1>
+		<!-- 2025 -->
+		<div class="year-section">
+			<div class="year-divider">
+				<span class="year-label"><span class="year-num">2025</span> <span class="year-word">PROJECTS</span></span>
+				<div class="year-line"></div>
 			</div>
+			<div class="projects-row">
 
-			<div class="world-projects">
-				<div class="projects-grid">
+				<a href="keybloom.html" class="project-link">
+					<div class="project-card">
+						<img src="img/projects/keybloompic.png" alt="Keybloom" />
+						<p class="project-name">Keybloom</p>
+					</div>
+				</a>
 
-					<a href="keybloom.html" class="project-link">
-						<div class="character-cell-wrapper">
-							<div class="character-cell">
-								<img class="character-icon"
-									 src="img/projects/keybloompic.png"
-									 alt="Project 1" />
-								<p class="character-label">Keybloom</p>
-							</div>
-						</div>
-					</a>
-					<a href="keybloom.html" class="project-link">
-						<div class="character-cell-wrapper">
-							<div class="character-cell">
-								<img class="character-icon"
-									 src="img/projects/gnomedepotpic.png"
-									 alt="Project 2" />
-								<p class="character-label">Gnome Depot</p>
-							</div>
-						</div>
-					</a>
-					<a href="keybloom.html" class="project-link">
-						<div class="character-cell-wrapper">
-							<div class="character-cell">
-								<img class="character-icon"
-									 src="img/projects/simulationspic.png"
-									 alt="Project 3" />
-								<p class="character-label">Simulations</p>
-							</div>
-						</div>
-					</a>
+				<a href="gnomedepot.html" class="project-link">
+					<div class="project-card">
+						<img src="img/projects/gnomedepotpic.png" alt="Gnome Depot" />
+						<p class="project-name">Gnome Depot</p>
+					</div>
+				</a>
 
-				</div>
+				<a href="simulations.html" class="project-link">
+					<div class="project-card">
+						<img src="img/projects/simulationspic.png" alt="Simulations" />
+						<p class="project-name">Simulations</p>
+					</div>
+				</a>
 
-				<div class="world-vignette"></div>
-			</div>
-
-			<div class="world-footer">
-				<p class="world-description">
-					Projects created in 2025.
-				</p>
 			</div>
 		</div>
-		<!--PROJECTS 2024-->
-		<div class="world-container rm-pause" id="world-2024">
-			<div class="world-header">
-				<div class="world-header-bg"></div>
-				<h1 class="world-title">2024</h1>
+
+		<!-- 2024 -->
+		<div class="year-section">
+			<div class="year-divider">
+				<span class="year-label"><span class="year-num">2024</span> <span class="year-word">PROJECTS</span></span>
+				<div class="year-line"></div>
 			</div>
+			<div class="projects-row">
 
-			<div class="world-projects">
-				<div class="projects-grid">
+				<a href="https://stringpeas.itch.io/starrysoar" class="project-link" target="_blank">
+					<div class="project-card">
+						<img src="img/projects/starrysoarpic.png" alt="Starry Soar" />
+						<p class="project-name">Starry Soar</p>
+					</div>
+				</a>
 
-					<a href="https://stringpeas.itch.io/starrysoar" class="project-link" target="_blank">
-						<div class="character-cell-wrapper">
-							<div class="character-cell">
-								<img class="character-icon"
-									src="img/projects/starrysoarpic.png"
-									alt="Starry Soar" />
-								<p class="character-label">Starry Soar</p>
-							</div>
-						</div>
-					</a>
+				<a href="https://stringpeas.itch.io/weather-wizard" class="project-link" target="_blank">
+					<div class="project-card">
+						<img src="img/projects/weatherwizardpic.png" alt="Weather Wizard" />
+						<p class="project-name">Weather Wizard</p>
+					</div>
+				</a>
 
-
-					<a href="https://stringpeas.itch.io/weather-wizard" class="project-link" target="_blank">
-						<div class="character-cell-wrapper">
-							<div class="character-cell">
-								<img class="character-icon"
-									src="img/projects/weatherwizardpic.png"
-									alt="Weather Wizard" />
-								<p class="character-label">Weather Wizard</p>
-							</div>
-						</div>
-					</a>
-
-
-				</div>
-
-				<div class="world-vignette"></div>
-			</div>
-
-			<div class="world-footer">
-				<p class="world-description">
-					Projects created in 2024.
-				</p>
 			</div>
 		</div>
+
 	</div>
+
+	<script>
+		function getElWidth(el) {
+			return el.offsetWidth || el.clientWidth || 0;
+		}
+
+		function initShuffle(el, speed) {
+			var txt = el.firstChild ? el.firstChild.nodeValue : null;
+			if (!txt) return;
+			while (el.childNodes.length) el.removeChild(el.childNodes[0]);
+
+			for (var i = 0; i < txt.length; i++) {
+				var span = document.createElement('span');
+				span.id = el.id + '_shuf' + i;
+				span.style.position = 'relative';
+				span.appendChild(document.createTextNode(txt.charAt(i)));
+				el.appendChild(span);
+			}
+
+			var sorpos = [];
+			for (var i = 0; i < txt.length; i++) {
+				sorpos[i] = (sorpos[i - 1] || 0) + getElWidth(document.getElementById(el.id + '_shuf' + i));
+			}
+
+			var shfpos = [];
+			for (var i = 0; i < txt.length; i++) shfpos[i] = i;
+			for (var i = 0; i < txt.length; i++) {
+				var j = Math.floor(Math.random() * txt.length);
+				var tmp = shfpos[i]; shfpos[i] = shfpos[j]; shfpos[j] = tmp;
+			}
+
+			var left = 0;
+			for (var i = 0; i < txt.length; i++) {
+				var span = document.getElementById(el.id + '_shuf' + shfpos[i]);
+				span.style.left = (left - (sorpos[shfpos[i] - 1] || 0)) + 'px';
+				left += getElWidth(span);
+			}
+
+			unshuffle(el.id, txt, shfpos, speed);
+		}
+
+		function unshuffle(elId, txt, shfpos, speed) {
+			var go = 0;
+			for (var i = 0; i < txt.length; i++) if (shfpos[i] !== i) go++;
+			if (!go) return;
+
+			var rpos;
+			do { rpos = Math.floor(Math.random() * (txt.length - 1)); }
+			while (shfpos[rpos] < shfpos[rpos + 1]);
+
+			var s1 = shfpos[rpos], s2 = shfpos[rpos + 1];
+			shfpos[rpos] = s2; shfpos[rpos + 1] = s1;
+
+			var c1 = document.getElementById(elId + '_shuf' + s1);
+			var c2 = document.getElementById(elId + '_shuf' + s2);
+			var w1 = getElWidth(c1), w2 = getElWidth(c2);
+
+			for (var i = 0; i < w2; i++) (function(i) {
+				setTimeout(function() { c1.style.left = (parseInt(c1.style.left) + 1) + 'px'; }, speed / w2 * i);
+			})(i);
+			for (var i = 0; i < w1; i++) (function(i) {
+				setTimeout(function() { c2.style.left = (parseInt(c2.style.left) - 1) + 'px'; }, speed / w1 * i);
+			})(i);
+
+			setTimeout(function() { unshuffle(elId, txt, shfpos, speed); }, speed);
+		}
+
+		window.addEventListener('load', function() {
+			document.querySelectorAll('.year-num').forEach(function(el, idx) {
+				el.id = 'ynum_' + idx;
+				initShuffle(el, 450);
+			});
+			document.querySelectorAll('.year-word').forEach(function(el, idx) {
+				el.id = 'yword_' + idx;
+				initShuffle(el, 500);
+			});
+		});
+	</script>
 	<script src="js/reduced-motion.js"></script>
-
 </body>
-
 
 </html>

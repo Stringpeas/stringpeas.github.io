@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en">
 	
@@ -48,6 +48,12 @@
 				}
 			}
 
+			@keyframes enter-glow {
+				0% { box-shadow: 0 0 2px #FF0047, 0 0 4px #FF0047; }
+				50% { box-shadow: 0 0 20px #FF0047, 0 0 40px #FF0047, 0 0 60px #FF0047; }
+				100% { box-shadow: 0 0 2px #FF0047, 0 0 4px #FF0047; }
+			}
+
 			@keyframes floating {
 				0% {
 					transform: translate(0px, 0px);
@@ -81,7 +87,7 @@
                 content: "";
                 position: fixed;
                 inset: 0;
-                background-image: url("img/asset/garden2.gif");
+                background-image: url("img/texture/star-bg-6.gif");
                 background-repeat: repeat; /* X + Y */
                 background-size: auto;
                 background-position: 0 0;
@@ -207,8 +213,7 @@
             .logo-text {
                 width: fit-content;
                 margin: 0;
-                /*color: var(--inspect-color);*/
-				color:red;
+				color: #FF0047;
                 text-shadow: rgb(90, 170, 255) 1px 0 10px;
                 font-family: "Consolas", monospace;
                 letter-spacing: 4px;
@@ -280,6 +285,7 @@
                 letter-spacing: 0.5px;
                 text-shadow: 0 0 6px rgba(30, 144, 255, 0.8), 0 0 12px rgba(30, 144, 255, 0.5), 0 0 20px rgba(30, 144, 255, 0.25);
             }
+            #email .ejunk { display: none; }
 
             /** ENTER */
             #enter-container {
@@ -289,7 +295,7 @@
                 transform: translate(-50%, -50%);
                 color: black;
                 background-color: white;
-                border-color: rgb(255, 68, 68);
+                border-color: #FF0047;
                 border-style: solid;
                 border-width: 1px;
                 border-radius: 6px;
@@ -301,12 +307,12 @@
                 justify-content: center;
                 align-items: center;
                 transition: box-shadow 0.5s ease, background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+                animation: enter-glow 2s ease-in-out infinite;
                 z-index: var(--enter-z);
             }
 
                 #enter-container:hover {
-                    box-shadow: 0px 0px 20px rgb(255, 68, 68);
-                    /*box-shadow: 0px 0px 20px rgb(83, 255, 68);*/
+                    box-shadow: 0px 0px 20px #FF0047;
                     border-color: blue;
                     background-color: black;
                     color: white;
@@ -349,14 +355,14 @@
 				border-bottom-style: none;
 			}
             .link-icon {
-                height: calc(1em * var(--scale));
-                width: calc(15px * var(--scale));
+                height: calc(1.5em * var(--scale));
+                width: calc(20px * var(--scale));
                 image-rendering: pixelated;
-                filter: brightness(0) saturate(100%) invert(14%) sepia(98%) saturate(7400%) hue-rotate(0deg) brightness(105%) contrast(120%);
+                filter: invert(19%) sepia(99%) saturate(7469%) hue-rotate(327deg) brightness(102%) contrast(112%);
             }
 			.link-name {
 				margin: 0;
-				font-size: calc(1em * var(--scale));
+				font-size: calc(1.5em * var(--scale));
 			}
 			.link:hover {
 				background-color: var(--inspect-color);
@@ -371,24 +377,24 @@
 			#links-primary-container {
 				position: absolute;
 				top: calc(80px * var(--scale) + var(--astro-top-offset));
-				left: calc(-85px * var(--scale));
+				left: calc(-190px * var(--scale));
 			}
 			#links-primary-line {
 				width: calc(250px * var(--scale));
-				top: calc(200px * var(--scale));
-				left: calc(265px * var(--scale));
-				transform: rotate(220deg);
+				top: calc(115px * var(--scale));
+				left: calc(340px * var(--scale));
+				transform: rotate(190deg);
 			}
 
 			/** LINKS SECONDARY */
 			#links-secondary-container {
 				position: absolute;
-				top: calc(240px * var(--scale) + var(--astro-top-offset));
-				left: calc(-85px * var(--scale));
+				top: calc(285px * var(--scale) + var(--astro-top-offset));
+				left: calc(-190px * var(--scale));
 			}
 			#links-secondary-line {
 				width: calc(250px * var(--scale));
-				top: calc(105px * var(--scale));
+				top: calc(85px * var(--scale));
 				left: calc(255px * var(--scale));
 				transform: rotate(200deg);
 			}
@@ -396,13 +402,13 @@
 			/** LINKS TERTIARY */
 			#links-tertiary-container {
 				position: absolute;
-				top: calc(320px * var(--scale) + var(--astro-top-offset));
-				left: calc(-85px * var(--scale));
+				top: calc(380px * var(--scale) + var(--astro-top-offset));
+				left: calc(-190px * var(--scale));
 			}
 			#links-tertiary-line {
-				width: calc(180px * var(--scale));
-				top: calc(120px * var(--scale));
-				left: calc(160px * var(--scale));
+				width: calc(170px * var(--scale));
+				top: calc(150px * var(--scale));
+				left: calc(280px * var(--scale));
 				transform: rotate(210deg);
 			}
 
@@ -410,13 +416,13 @@
 			#support-links-container {
 				position: absolute;
 				top: calc(270px * var(--scale) + var(--astro-top-offset));
-				right: calc(-110px * var(--scale));
+				right: calc(-215px * var(--scale));
 				transform: translate(-50%, -50%);
 			}
 			#support-links-line {
-				width: calc(180px * var(--scale));
+				width: calc(230px * var(--scale));
 				top: calc(100px * var(--scale));
-				right: calc(40px * var(--scale));
+				right: calc(65px * var(--scale));
 				transform: rotate(-22deg);
 			}
 			.inspect-title {
@@ -428,14 +434,14 @@
 			/* INTERNAL LINKS */
 			#internal-links-container {
 				position: absolute;
-				top: calc(370px * var(--scale) + var(--astro-top-offset));
-				right: calc(-80px * var(--scale));
+				top: calc(420px * var(--scale) + var(--astro-top-offset));
+				right: calc(-228px * var(--scale));
 				transform: translate(-50%, -50%);
 			}
 			#internal-links-line {
-				width: calc(140px * var(--scale));
-				top: calc(110px * var(--scale));
-				right: calc(-15px * var(--scale));
+				width: calc(100px * var(--scale));
+				top: calc(75px * var(--scale));
+				right: calc(120px * var(--scale));
 				transform: rotate(-30deg);
 			}
 
@@ -470,11 +476,14 @@
 				border-width: 1px;
 				border-style: solid;
 				border-color: var(--inspect-color);
-				border-radius: 90px;
+				border-radius: 55px;
 
-				width: calc(290px * var(--scale));
-				height: calc(250px * var(--scale));
-				padding: calc(40px * var(--scale));
+				width: calc(230px * var(--scale));
+				min-width: 180px;
+				height: calc(190px * var(--scale));
+				max-height: 190px;
+				overflow: hidden;
+				padding: calc(25px * var(--scale));
 
 				display: flex;
 				flex-direction: column;
@@ -507,12 +516,12 @@
 				z-index: var(--inspect-z);
 			}
 			.inspect-row {
-				color: var(--inspect-color);
+				color: deepskyblue;
 				background-color: black;
 
 				border-color: var(--inspect-color-subtle);
 				border-style: solid;
-				border-width: 1px;
+				border-width: 2px;
 				border-bottom-style: none;
 
 				box-sizing: border-box;
@@ -523,10 +532,11 @@
 			.row-text {
 				font-family: "Consolas", monospace;
 				font-size: calc(1em * var(--scale));
-				color:deepskyblue;
+				color: dodgerblue;
 				width: fit-content;
 				margin: auto;
 				padding: calc(5px * var(--scale));
+				text-shadow: 0 0 6px rgba(30, 144, 255, 0.8), 0 0 12px rgba(30, 144, 255, 0.5), 0 0 20px rgba(30, 144, 255, 0.25);
 			}
 
             .circle-container {
@@ -544,10 +554,10 @@
 			.line {
 				position: absolute;
 				transform-origin: 0% 0%;
-				height: 1px;
+				height: 3px;
 
 				border-top-style: solid;
-				border-width: 1px;
+				border-width: 3px;
 				border-color: var(--inspect-color);
 			}
 			.line-endpoint {
@@ -558,7 +568,7 @@
 
 				border-color: var(--inspect-color);
 				border-style: solid;
-				border-width: 1px;
+				border-width: 2px;
 				border-radius: 100%;
 
 				transform: translate(0%, -50%);
@@ -580,7 +590,7 @@
 				height: 100dvh !important;
 				width: 100dvw !important;
 				z-index: 9999;
-				background-color: #ff0000;
+				background-color: #FF0047;
 				display: none;
 			}
 
@@ -963,22 +973,18 @@
 				<!-- RATING -->
 				<div class="rating-container top-right"></div>
 				<div id="astro-container">
-					<!-- ASTRO GLOW -->
-					<!--<div id="astro-glow"></div>-->
 					<!-- ASTRO AND ENTRANCE -->
 					<img alt="astro" id="astro" src="img/asset/astro-nauts.png" />
 					<a href="home.html">
 						<div id="enter-container">
-							<!--<p id="top-enter-text">string</p>-->
 							<p id="enter-text">ENTER</p>
-							<!--<p id="bottom-enter-text">peas</p>-->
 						</div>
 					</a>
 					<!-- EMAIL -->
 					<div class="circle-container rm-pause"
 						 id="email-container"
 						 style="z-index: 5">
-						<p id="email">tempmail@gmail.com</p>
+						<p id="email"></p>
 					</div>
 					<!-- WARNING -->
 					<div class="circle-container rm-pause" id="warning-container">
@@ -1003,22 +1009,22 @@
 					<!-- LINKS -->
 					<div class="small-screen-only" id="scroll-prompt">
 						<a href="#links">
-							<p>▼ LINKS ▼</p>
+							<p>â–¼ LINKS â–¼</p>
 						</a>
 					</div>
 					<div id="links">
 						<div class="small-screen-only" id="links-overlay"></div>
 						<div class="inspect-container" id="links-primary-container">
 							<div class="inspect-row inspect-title">
-								<p class="row-text">The Hub</p>
+								<p class="row-text">FAST TRAVEL</p>
 							</div>
-							<a href="https://google.ca">
+							<a href="about.html">
 								<div class="inspect-row link">
 									<img alt="" class="link-icon" src="svg/logo/aboutme.svg" />
 									<p class="link-name">About Me</p>
 								</div>
 							</a>
-							<a href="https://google.ca">
+							<a href="projects.html">
 								<div class="inspect-row link">
 									<img alt=""
 										 class="link-icon"
@@ -1026,7 +1032,7 @@
 									<p class="link-name">Projects</p>
 								</div>
 							</a>
-							<a href="https://google.ca">
+							<a href="javascript:void(0);">
 								<div class="inspect-row link">
 									<img alt=""
 										 class="link-icon"
@@ -1034,7 +1040,7 @@
 									<p class="link-name">Resume</p>
 								</div>
 							</a>
-							<a href="https://www.discord.com/">
+							<a href="contact.html">
 								<div class="inspect-row link"
 									 style="border-bottom-style: solid">
 									<img alt="" class="link-icon" src="svg/logo/contact.svg" />
@@ -1046,13 +1052,13 @@
 							</div>
 						</div>
 						<div class="inspect-container" id="links-secondary-container">
-							<a href="https://stringpeas.itch.io/">
+							<a href="https://stringpeas.itch.io/" target="_blank">
 								<div class="inspect-row link">
 									<img alt="" class="link-icon" src="svg/logo/itch-io.svg" />
 									<p class="link-name">Itch.io</p>
 								</div>
 							</a>
-							<a href="https://github.com">
+							<a href="https://github.com/Stringpeas" target="_blank">
 								<div class="inspect-row link"
 									 style="border-bottom-style: solid">
 									<img alt="" class="link-icon" src="svg/logo/github.svg" />
@@ -1065,21 +1071,21 @@
 						</div>
 						<div class="inspect-container" id="links-tertiary-container">
 							<div class="inspect-row inspect-title">
-								<p class="row-text">Socials</p>
+								<p class="row-text">SOCIAL</p>
 							</div>
-							<a href="https://google.ca/">
+							<a href="https://www.linkedin.com/in/mdrdoming/" target="_blank">
 								<div class="inspect-row link">
 									<img alt="" class="link-icon" src="svg/logo/linkedin.svg" />
 									<p class="link-name">Linkedin</p>
 								</div>
 							</a>
-							<a href="https://google.ca/">
+							<a href="https://www.instagram.com/" target="_blank">
 								<div class="inspect-row link">
 									<img alt="" class="link-icon" src="svg/logo/instagram.svg" />
 									<p class="link-name">Instagram</p>
 								</div>
 							</a>
-							<a href="https://google.ca/">
+							<a href="https://www.youtube.com/" target="_blank">
 								<div class="inspect-row link"
 									 style="border-bottom-style: solid">
 									<img alt="" class="link-icon" src="svg/logo/youtube.svg" />
@@ -1093,15 +1099,15 @@
 						<!-- SUPPORT LINKS -->
 						<div class="inspect-container" id="support-links-container">
 							<div class="inspect-row inspect-title">
-								<p class="row-text">Wishlist</p>
+								<p class="row-text">GAMES</p>
 							</div>
-							<a href="https://google.ca">
+							<a href="javascript:void(0);">
 								<div class="inspect-row link">
 									<img alt="" class="link-icon" src="svg/logo/steam.svg" />
 									<p class="link-name">Game 1</p>
 								</div>
 							</a>
-							<a href="https://google.ca">
+							<a href="javascript:void(0);">
 								<div class="inspect-row link"
 									 style="border-bottom-style: solid">
 									<img alt="" class="link-icon" src="svg/logo/steam.svg" />
@@ -1117,13 +1123,13 @@
 							<div class="inspect-row inspect-title small-screen-only">
 								<p class="row-text">updates</p>
 							</div>
-							<a href="log.html">
+							<a href="javascript:void(0);">
 								<div class="inspect-row link">
 									<img alt="" class="link-icon" src="svg/book-open.svg" />
 									<p class="link-name">Dev Logs</p>
 								</div>
 							</a>
-							<a href="feed.xml">
+							<a href="javascript:void(0);">
 								<div class="inspect-row link"
 									 style="border-bottom-style: solid">
 									<img alt="" class="link-icon" src="svg/play.svg" />
@@ -1146,6 +1152,16 @@
 			</div>
 			<div id="site-container"></div>
 		</div>
+
+		<script>
+			(function() {
+				var j = '<span class="ejunk">';
+				var k = '</span>';
+				var u = 'mdr' + j+'x8k2p931'+k + 'dom' + j+'q4r7n105'+k + 'ing';
+				var d = '@gm' + j+'v3s6w582'+k + 'ail.com';
+				document.getElementById('email').innerHTML = u + d;
+			})();
+		</script>
 
 		<!-- SCALING SCRIPT -->
 		<script>

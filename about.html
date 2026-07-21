@@ -40,7 +40,7 @@
 
 			body {
 				image-rendering: pixelated;
-				background-image: url("img/texture/wiggly.gif");
+				background-image: url("img/texture/star-bg-2.gif");
 				background-size: 500px 500px;
 			}
 			#aboutme-container {
@@ -268,7 +268,7 @@
 			#qna {
 				width: 100%;
 				padding: 0px;
-				background-image: url("img/asset/question.gif");
+				background-image: url("img/texture/questions-bg.gif");
 				background-size: 100px;
 				background-attachment: fixed;
 			}
@@ -334,7 +334,7 @@
 						rgba(0, 0, 0, 0) 0%,
 						rgba(0, 0, 0, 1) 400px
 					),
-					url("img/asset/interests-bg.png");
+					url("img/texture/interests-bg.png");
 				transform: scaleY(-1);
 				background-repeat: repeat-x;
 				z-index: 0;
@@ -592,7 +592,7 @@
 			/* FUN */
 			#fun {
 				width: 100%;
-				background: url("img/asset/yugioh-friendship-bg.png");
+				background: url("img/texture/fun-bg.png");
 				background-attachment: fixed;
 			}
 			#fun-content {
@@ -767,7 +767,7 @@
 		</style>
 	</head>
 	<body class="rm-freeze">
-		<tool-bar id="backlink" altlinks="/sitemap.html"></tool-bar>
+		<tool-bar altlinks="/sitemap.html"></tool-bar>
 		<div id="aboutme-wrapper">
 			<div id="aboutme-container">
 				<div id="aboutme-primary">
@@ -834,8 +834,7 @@
 									<p>I am also a firm believer that small, thoughtful, personal games are just as amazing
 									<b>(often more so)</b> than big polished ones!</p>
 
-									<p>With that said, I hope you enjoy looking around and learning a little more about me
-									and what I’m working on!</p>
+									<p>If you enjoyed this website, my name is Miguel Domingues. If you didn’t enjoy this website, you can <a href="submitacomplaint.html" style="color:#FF0047;">submit a complaint here</a>.</p>
 									<br />
 
 									<div class="quote-wrapper">
@@ -869,8 +868,9 @@
 									<div class="question">
 										<h3>Game Engines</h3>
 										<p>
-											Most of the games I've made so far have been built using Unity, but I'm actively learning Unreal Engine. I hope
-											to update this in the future when im 100% confident in both!
+											I absolutely adore both Unity and Unreal! Most of what I've shipped so far has been in Unity, but I've been
+											spending a lot of time in Unreal too. I'm also actively trying to build my own game engine from scratch, which
+											which is going... great! (o_o)
 										</p>
 									</div>
 									<div class="question">
@@ -1075,10 +1075,10 @@
 			// Set tab
 			let tabAnchor = getAnchor();
 			if (isSmallScreen()) {
-				if (!tabAnchor) closeWindow();
+				if (!tabAnchor || !tabs[tabAnchor]) closeWindow();
 				else switchTab(tabAnchor, tabs[tabAnchor]);
 			} else {
-				tabAnchor = tabAnchor ?? DEFAULT_TAB;
+				tabAnchor = (tabAnchor && tabs[tabAnchor]) ? tabAnchor : DEFAULT_TAB;
 				switchTab(tabAnchor, tabs[tabAnchor], tabAnchor != DEFAULT_TAB);
 			}
 
@@ -1094,7 +1094,8 @@
 					backlink.setAttribute("href", "home.html");
 					backlink.setAttribute("target", "_self");
 
-					let anchor = getAnchor() ?? DEFAULT_TAB;
+					const rawAnchor = getAnchor();
+					let anchor = (rawAnchor && tabs[rawAnchor]) ? rawAnchor : DEFAULT_TAB;
 					tabs[anchor].button.disabled = true;
 				}
 			});

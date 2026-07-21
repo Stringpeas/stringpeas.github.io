@@ -43,7 +43,7 @@
         .static-background {
             position: fixed;
             inset: 0;
-            background-image: url("img/texture/artbg1.png");
+            background-image: url("img/texture/art-bg.png");
             background-size: 450px 450px;
             background-repeat: repeat;
             z-index: 1;
@@ -108,7 +108,7 @@
         #art-window {
             border: 1px solid deepskyblue;
             background-color: black;
-            background-image: url("img/texture/machine-dark.png");
+            background-image: url("img/texture/motherboard-dark-bg.png");
             background-size: 300px;
             background-repeat: repeat;
             padding: 30px;
@@ -183,7 +183,7 @@
                 /* Preserve aspect ratio */
                 object-fit: contain;
                 border: 1px solid deepskyblue;
-                background-image: url("img/texture/machine-dark.png");
+                background-image: url("img/texture/motherboard-dark-bg.png");
                 image-rendering: pixelated;
                 animation: pop 0.15s ease-out;
             }
@@ -216,15 +216,15 @@
 
         <!-- TABS -->
         <div id="art-tabs">
-            <button class="art-tab active" data-tab="pixel">PIXEL</button>
-            <button class="art-tab" data-tab="threeD">3D</button>
+            <button class="art-tab" data-tab="pixel">PIXEL</button>
+            <button class="art-tab active" data-tab="threeD">3D</button>
             <button class="art-tab" data-tab="extra">EXTRA</button>
         </div>
 
         <!-- ART WINDOW -->
         <div id="art-window">
 
-            <div class="art-panel active" id="pixel">
+            <div class="art-panel" id="pixel">
                 <img src="img/asset/minus-small.png" />
                 <img src="img/asset/minus.png" />
                 <img src="img/asset/minus-small.png" />
@@ -235,15 +235,11 @@
                 <img src="img/asset/minus-small.png" />
                 <img src="img/asset/minus-small.png" />
                 <img src="img/asset/minus-small.png" />
-                <img src="img/asset/minus-small.png" />
                 <img src="img/asset/minus.png" />
-                <img src="img/asset/minus-small.png" />
-                <img src="img/asset/minus-small.png" />
                 <img src="img/asset/minus-small.png" />
             </div>
 
-            <div class="art-panel" id="threeD">
-                <img src="img/asset/minus-small.png" />
+            <div class="art-panel active" id="threeD">
                 <img src="img/asset/minus-small.png" />
                 <img src="img/asset/minus-small.png" />
                 <img src="img/asset/minus-small.png" />
@@ -251,7 +247,6 @@
             </div>
 
             <div class="art-panel" id="extra">
-                <img src="img/asset/minus-small.png" />
                 <img src="img/asset/minus-small.png" />
                 <img src="img/asset/minus-small.png" />
                 <img src="img/asset/minus-small.png" />

@@ -10,12 +10,12 @@ class Toolbar extends HTMLElement {
     }
 
     connectedCallback() {
-        let href = this.getAttribute("href") ?? "home.html";
+        let href = this.getAttribute("href") ?? "index.html";
         let target = this.getAttribute("target");
 
         // Alternate backlinks
         let altlinks = this.getAttribute("altlinks")?.split(" ") ?? [];
-        if (window.location.href.includes("/log/")) altlinks.push("/home.html");
+        if (window.location.href.includes("/log/")) altlinks.push("/index.html");
 
         const referrer = document.referrer;
         const currLink = window.location.href;
@@ -58,7 +58,7 @@ class Toolbar extends HTMLElement {
         let soundMuted = Settings.getSoundMuted();
     
         this.innerHTML = `
-        <a id="homelink" class="t-link" href=${toindex ? "/" : "/home.html"} style="${hidehome ? 'display: none' : ''}">
+        <a id="homelink" class="t-link" href="/" style="${hidehome ? 'display: none' : ''}">
             <img src="${toindex ? "/svg/eject.svg" : "svg/home.svg"}"/>
         </a>
 

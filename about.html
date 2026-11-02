@@ -1091,7 +1091,7 @@
 				} else if (!isSmallScreen()) {
 					aboutmePrimary.style.display = "flex";
 					contentContainer.style.display = "block";
-					backlink.setAttribute("href", "home.html");
+					backlink.setAttribute("href", "index.html");
 					backlink.setAttribute("target", "_self");
 
 					const rawAnchor = getAnchor();
@@ -1106,7 +1106,7 @@
 				clearAddress();
 				contentContainer.style.display = "none";
 				aboutmePrimary.style.display = "flex";
-				backlink.setAttribute("href", "home.html");
+				backlink.setAttribute("href", "index.html");
 				backlink.setAttribute("target", "_self");
 
 				for (const [name, tab] of Object.entries(tabs)) {

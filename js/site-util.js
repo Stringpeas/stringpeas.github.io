@@ -189,7 +189,7 @@ var SpaceFM = (function() {
         localStorage.setItem(POS_KEY, audio.currentTime);
     });
 
-    // React to MUSIC_PLAYING changes (from toolbar checkbox or home.html buttons)
+    // React to MUSIC_PLAYING changes (from toolbar checkbox or index.html buttons)
     document.addEventListener('settingchanged', function(e) {
         if (e.detail.name !== SettingType.MUSIC_PLAYING) return;
         if (e.detail.value) audio.play().catch(function() {});
@@ -198,7 +198,7 @@ var SpaceFM = (function() {
 
     // Auto-resume on non-home pages if music was playing when they left
     document.addEventListener('DOMContentLoaded', function() {
-        var isHome = window.location.pathname.endsWith('home.html') || window.location.pathname === '/';
+        var isHome = window.location.pathname.endsWith('index.html') || window.location.pathname === '/';
         if (!isHome && Settings.getMusicPlaying()) {
             audio.play().catch(function() {});
         }

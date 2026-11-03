@@ -386,24 +386,27 @@
 		}
 
 		.portal-name {
-			color: lightskyblue;
+			color: #e6f6ff;
 			border-width: 2px;
 			border-style: solid;
-			border-color: var(--green-primary);
+			border-color: deepskyblue;
 			width: fit-content;
 			padding: 4px 10px;
 			position: absolute;
 			margin: 0;
-			background-color: black;
+			background: linear-gradient( 180deg, rgb(20,40,100) 0%, rgb(10,20,70) 100% );
+			box-shadow: 0 0 10px rgba(0,191,255,0.6), inset 0 0 6px rgba(0,191,255,0.3);
+			text-shadow: 0 0 6px rgba(0,191,255,0.8);
 			z-index: 100;
 			box-sizing: border-box;
-			font-size: 1.7em;
+			font-size: 1.87em;
 			padding: 2px 7px;
 		}
 
 		.portal-line {
-			color: var(--green-primary);
-			border-width: 3px;
+			color: deepskyblue;
+			border-width: 4px;
+			filter: drop-shadow(0 0 4px rgba(0,191,255,0.8));
 			width: 200%;
 			border-top-style: solid;
 			transform-origin: 0% 0%;
@@ -429,7 +432,7 @@
 			image-rendering: pixelated;
 			border-width: 2px;
 			border-style: solid;
-			border-color: var(--green-primary);
+			border-color: deepskyblue;
 			padding: 4px;
 			background-color: black;
 			z-index: 99;
@@ -461,8 +464,9 @@
 
 		.portal-link:hover .portal-name {
 			border-color: cornflowerblue;
-			background-color: cornflowerblue;
+			background: cornflowerblue;
 			color: rgb(0, 0, 0);
+			text-shadow: none;
 		}
 
 		.portal-link:hover .portal-node {
@@ -514,7 +518,7 @@
 		}
 
 		#collection .portal-name {
-			transform: translate(-12px, -6px);
+			transform: translate(-22px, -6px);
 		}
 
 		#itchs .portal-name {
@@ -522,7 +526,7 @@
 		}
 
 		#projects .portal-name {
-			transform: translate(0px, -5px);
+			transform: translate(-3px, -6px);
 		}
 
 		#characters .portal-indicator {
@@ -541,11 +545,46 @@
 		}
 
 		#contact .portal-name {
-			transform: translate(8px, -18px);
+			transform: translate(23px, -18px);
+		}
+
+		#error1 .portal-name {
+			transform: translate(-2px, -2px);
+		}
+
+		#error2 .portal-name {
+			transform: translate(3px, -1px);
+		}
+
+		/* dp3's label hangs down-left instead of up-left. */
+		#error3 .portal-node {
+			bottom: auto;
+			top: 0%;
+		}
+
+		#error3 .portal-indicator {
+			top: 50%;
+		}
+
+		#error3 .portal-line {
+			top: auto;
+			bottom: 0%;
+			transform-origin: 0% 100%;
+			transform: rotate(-45deg);
+		}
+
+		#error3 .portal-name {
+			bottom: 0%;
+			transform: translate(-8px, 3px);
+		}
+
+		#guestbook .portal-name {
+			transform: translate(-7px, -3px);
 		}
 
 		#error1 .portal-name,
-		#error2 .portal-name {
+		#error2 .portal-name,
+		#error3 .portal-name {
 			padding: 2px 4px;
 			font-size: 0.75em;
 			font-weight: normal;
@@ -554,6 +593,18 @@
 		.portal-locked {
 			filter: grayscale();
 		}
+
+			.portal-locked .portal-line {
+				filter: drop-shadow(0 0 4px rgba(0,191,255,0.8)) brightness(0.6);
+			}
+
+			.portal-locked .portal-name {
+				filter: brightness(0.6);
+			}
+
+			.portal-locked .portal-node {
+				border-color: rgb(0, 115, 153);
+			}
 
 			.portal-locked .portal-name {
 				font-family: "Consolas";
@@ -1104,6 +1155,7 @@
 		/** SMALLER SCREEN ADJUSTMENTS */
 		@media screen and (max-width: 850px) {
 			#nav-clock { display: none; }
+			#navigation-title h1 { font-size: 1em; }
 			#nav-datetime { font-size: 0.55em; letter-spacing: 1px; position: relative; left: auto; transform: none; }
 			#navigation-bottom { height: auto; padding: 6px 10px; justify-content: center; }
 
@@ -1186,6 +1238,7 @@
 			#itchs .portal-name,
 			#contact .portal-name,
 			#characters .portal-name,
+			#guestbook .portal-name,
 			#projects .portal-name {
 				transform: translate(-50%, -50%);
 			}
@@ -1276,7 +1329,7 @@
 					<div id="navigation-top">
 						<div id="navigation-title">
 							<img alt="" src="svg/world.svg" />
-							<h1>404:Stringpeas Console</h1>
+							<h1>CONSOLE::MIGUEL DOMINGUES</h1>
 						</div>
 						<span id="nav-clock"></span>
 						<div id="top-nav">
@@ -1341,9 +1394,9 @@
 								img="img/asset/planet-projects.gif"
 								link="projects.html"
 								name="Projects"
-								right="calc(50% - (100px * var(--portal-scale)))"
-								size="calc(250px * var(--portal-scale))"
-								top="calc(50% - (120px * var(--portal-scale)))"
+								right="calc(50% - (150px * var(--portal-scale)) + 18px)"
+								size="calc(300px * var(--portal-scale))"
+								top="calc(50% - (150px * var(--portal-scale)) - 18px)"
 							></home-portal>
 							<home-portal
 								id="itchs"
@@ -1351,9 +1404,9 @@
 								link="https://stringpeas.itch.io/"
 								name="Itch.io"
 								node-align="portal-node-left"
-								right="calc(50% - (220px * var(--portal-scale)))"
+								right="calc(50% - (275px * var(--portal-scale)) + 13px)"
 								size="calc(150px * var(--portal-scale))"
-								top="calc(47% - (200px * var(--portal-scale)))"
+								top="calc(47% - (185px * var(--portal-scale)) - 18px)"
 							></home-portal>
 							<home-portal
 								id="contact"
@@ -1361,36 +1414,36 @@
 								link="contact.html"
 								name="Contact"
 								node-align="portal-node-left"
-								right="calc(50% - (220px * var(--portal-scale)))"
-								size="calc(180px * var(--portal-scale))"
-								top="calc(50% + (10px * var(--portal-scale)))"
+								right="calc(50% - (257.5px * var(--portal-scale)) + 22px)"
+								size="calc(205px * var(--portal-scale))"
+								top="calc(50% + (32.5px * var(--portal-scale)) - 18px)"
 							></home-portal>
 							<home-portal
 								id="collection"
 								img="img/asset/planet-collect.gif"
 								link="https://www.github.com"
 								name="Github"
-								right="calc(50% + (120px * var(--portal-scale)))"
-								size="calc(130px * var(--portal-scale))"
-								top="calc(50% + (30px * var(--portal-scale)))"
+								right="calc(50% + (112.5px * var(--portal-scale)) + 18px)"
+								size="calc(155px * var(--portal-scale))"
+								top="calc(50% + (32.5px * var(--portal-scale)) - 18px)"
 							></home-portal>
 							<home-portal
 								id="guestbook"
 								img="img/asset/planet-gb.gif"
 								link="art.html"
 								name="Art"
-								right="calc(50% - (360px * var(--portal-scale)))"
+								right="calc(50% - (385px * var(--portal-scale)) + 18px)"
 								size="calc(130px * var(--portal-scale))"
-								top="calc(50% - (50px * var(--portal-scale)))"
+								top="calc(50% - (55px * var(--portal-scale)) - 18px)"
 							></home-portal>
 							<home-portal
 								id="characters"
 								img="img/asset/planet-char.gif"
 								link="resume.html"
 								name="Resume"
-								right="calc(50% + (185px * var(--portal-scale)))"
-								size="calc(200px * var(--portal-scale))"
-								top="calc(50% - (200px * var(--portal-scale)))"
+								right="calc(50% + (187.5px * var(--portal-scale)) + 18px)"
+								size="calc(205px * var(--portal-scale))"
+								top="calc(50% - (207.5px * var(--portal-scale)) - 18px)"
 							></home-portal>
 							<home-portal
 								id="about"
@@ -1398,9 +1451,9 @@
 								link="about.html"
 								name="About‎"
 								node-align="portal-node-left"
-								right="calc(50% + (-55px * var(--portal-scale)))"
+								right="calc(50% - (105px * var(--portal-scale)) + 18px)"
 								size="calc(100px * var(--portal-scale))"
-								top="calc(50% - (250px * var(--portal-scale)))"
+								top="calc(50% - (235px * var(--portal-scale)) - 18px)"
 							></home-portal>
 							<!-- LOCKED PORTAL(S) -->
 							<home-portal
@@ -1410,9 +1463,9 @@
 								locked="true"
 								name="|||||||"
 								node-align="portal-node-right"
-								right="calc(50% + (85px * var(--portal-scale)))"
+								right="calc(50% + (60px * var(--portal-scale)) + 18px)"
 								size="calc(70px * var(--portal-scale))"
-								top="calc(50% - (250px * var(--portal-scale)))"
+								top="calc(50% - (235px * var(--portal-scale)) - 21px)"
 							></home-portal>
 							<home-portal
 								id="error2"
@@ -1421,9 +1474,20 @@
 								locked="true"
 								name="|||||||"
 								node-align="portal-node-left"
-								right="calc(50% + (-310px * var(--portal-scale)))"
+								right="calc(50% - (355px * var(--portal-scale)) + 18px)"
 								size="calc(70px * var(--portal-scale))"
-								top="calc(50% - (160px * var(--portal-scale)))"
+								top="calc(50% - (165px * var(--portal-scale)) - 18px)"
+							></home-portal>
+							<home-portal
+								id="error3"
+								img="img/asset/planet-lock.gif"
+								link="error3.html"
+								locked="true"
+								name="|||||||"
+								node-align="portal-node-right"
+								right="calc(50% + (5px * var(--portal-scale)) + 18px)"
+								size="calc(70px * var(--portal-scale))"
+								top="calc(50% + (140px * var(--portal-scale)) + 12px)"
 							></home-portal>
 						</div>
 						<!-- MISC NAVIGATION -->
@@ -1771,9 +1835,13 @@
 
 		<!-- SCALING SCRIPT -->
 		<script>
-			const maxWidth = 900;
-			const maxHeight = 954;
-			const maxScale = 1.1;
+			// Size of the planet cluster (labels included) at a scale of 1. The
+			// cluster sits slightly above centre, so the height is twice its top half.
+			const clusterWidth = 745;
+			const clusterHeight = 520;
+			// How much of the portals-window the cluster may fill.
+			const fillRatio = 0.9;
+			const maxScale = 2;
 
 			setPortalScale();
 
@@ -1782,12 +1850,12 @@
 			});
 
 			function setPortalScale() {
-				// The portals-window spans the full browser width, so the formula
-				// over-scales. Use 70% of clientWidth so planets still respond to
-				// resizing but stay smaller at narrow widths.
-				const effectiveWidth = portalsWindow.clientWidth * 0.7;
-				const newWidthScale = Math.min(1.2 * (effectiveWidth / maxWidth), maxScale);
-				rootTheme.style.setProperty("--portal-scale", newWidthScale);
+				// Grow the planets until the cluster fills the window in
+				// whichever direction runs out of room first.
+				const widthScale = (portalsWindow.clientWidth * fillRatio) / clusterWidth;
+				const heightScale = (portalsWindow.clientHeight * fillRatio) / clusterHeight;
+				const newScale = Math.min(widthScale, heightScale, maxScale);
+				rootTheme.style.setProperty("--portal-scale", newScale);
 			}
 		</script>
 		<!-- REDUCED MOTION SCRIPT -->
